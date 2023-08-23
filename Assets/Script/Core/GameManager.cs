@@ -46,9 +46,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] playerTypePrefabs;
 
+    public System.Action onTypeChange;
+
+
     private void Start()
     {
         DontDestroyOnLoad(this);
+        onTypeChange = SetPlayerShape;
     }
 
     private void OnEnable()
@@ -93,27 +97,36 @@ public class GameManager : MonoBehaviour
 
     void SetShape(GameObject obj, PlayerBase player)
     {
+        Transform child = obj.transform.GetChild(0);
         switch(player.playerData.playerType)
         {
             case PlayerType.None:
-                break;
-            case PlayerType.Archor:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[0], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
-            case PlayerType.Archor_LongBow:
+            case PlayerType.Archor:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[1], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
-            case PlayerType.Gunner:
+            case PlayerType.Archor_LongBow:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[2], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
-            case PlayerType.Soldier_LongSword:
+            case PlayerType.Gunner:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[3], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
-            case PlayerType.Soldier_ShortSword:
+            case PlayerType.Soldier_LongSword:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[4], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
-            case PlayerType.Warrior_Hammer:
+            case PlayerType.Soldier_ShortSword:
+                Destroy(child.gameObject);
                 GameObject.Instantiate(playerTypePrefabs[5], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
+                break;
+            case PlayerType.Warrior_Hammer:
+                Destroy(child.gameObject);
+                GameObject.Instantiate(playerTypePrefabs[6], player.transform.position, Quaternion.identity).transform.parent = obj.transform;
                 break;
         }
     }

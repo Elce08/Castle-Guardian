@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBase : MonoBehaviour
+public class PlayerBase : PooledObject
 {
     [Serializable]
     public struct PlayerData
@@ -44,6 +44,34 @@ public class PlayerBase : MonoBehaviour
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        switch (playerData.playerType)
+        {
+            case PlayerType.None:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[0], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Archor:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[1], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Archor_LongBow:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[2], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Gunner:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[3], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Soldier_LongSword:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[4], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Soldier_ShortSword:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[5], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+            case PlayerType.Warrior_Hammer:
+                GameObject.Instantiate(gameManager.playerTypePrefabs[6], transform.position, Quaternion.identity).transform.parent = this.transform;
+                break;
+        }
     }
 
     public PlayerType PlayerType

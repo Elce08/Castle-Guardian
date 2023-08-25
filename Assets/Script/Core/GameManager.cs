@@ -25,8 +25,16 @@ public enum PlayerWeapon
     LongSword,
     ShortSword,
     Hammer,
-    Head,
-    Body,
+}
+
+public enum Head
+{
+    None,
+}
+
+public enum Body
+{
+    None,
 }
 
 public class GameManager : MonoBehaviour
@@ -42,12 +50,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] playerTypePrefabs;
 
-    public System.Action onTypeChange;
-
 
     private void Start()
     {
         DontDestroyOnLoad(this);
+        onPlayer1Change = Player1Data;
+        onPlayer2Change = Player2Data;
+        onPlayer3Change = Player3Data;
     }
 
     private void OnEnable()
@@ -63,5 +72,43 @@ public class GameManager : MonoBehaviour
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
     {
         
+    }
+
+    //플레이어 선택=============================================================
+
+    public System.Action<PlayerType,string> onPlayer1Change;
+    public System.Action<PlayerType,string> onPlayer2Change;
+    public System.Action<PlayerType,string> onPlayer3Change;
+
+    public string player1Name;
+    public string player2Name;
+    public string player3Name;
+
+    public PlayerType player1Type;
+    public PlayerType player2Type;
+    public PlayerType player3Type;
+
+    PlayerSelectUI playerSelectUI;
+
+    public void Player1Data(PlayerType selectedType, string selectedName)
+    {
+        player1Name = selectedName;
+        player1Type = selectedType;
+        playerSelectUI.type = 0;
+        Debug.Log(player1Name);
+    }
+    public void Player2Data(PlayerType selectedType, string selectedName)
+    {
+        player1Name = selectedName;
+        player1Type = selectedType;
+        playerSelectUI.type = 0;
+        Debug.Log(player1Name);
+    }
+    public void Player3Data(PlayerType selectedType, string selectedName)
+    {
+        player1Name = selectedName;
+        player1Type = selectedType;
+        playerSelectUI.type = 0;
+        Debug.Log(player1Name);
     }
 }

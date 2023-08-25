@@ -73,17 +73,4 @@ public class PlayerBase : PooledObject
                 break;
         }
     }
-
-    public PlayerType PlayerType
-    {
-        get => playerData.playerType;
-        set
-        {
-            if(playerData.playerType != value)
-            {
-                playerData.playerType = value;
-                gameManager.onTypeChange?.Invoke();
-            }
-        }
-    }
 }

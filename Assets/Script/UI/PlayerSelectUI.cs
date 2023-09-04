@@ -9,7 +9,7 @@ public class PlayerSelectUI : MonoBehaviour
     GameManager gameManager;
     Image image;
     TextMeshProUGUI playerNumber;
-    InputField changeName;
+    TMP_InputField changeName;
     TextMeshProUGUI explanation;
     Button lastCheck;
 
@@ -22,8 +22,8 @@ public class PlayerSelectUI : MonoBehaviour
 
     public Sprite[] sprites;
 
-    string name;
-   public  int type;
+    string playerName;
+    public int type;
 
     private void Awake()
     {
@@ -34,8 +34,7 @@ public class PlayerSelectUI : MonoBehaviour
         grandChild = child.GetChild(1);
         playerNumber = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(2);
-        changeName = grandChild.GetComponent<InputField>();
-        grandChild = child.GetChild(3);
+        changeName = grandChild.GetComponentInChildren<TMP_InputField>();
         explanation = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(4);
         lastCheck = grandChild.GetComponent<Button>();
@@ -51,160 +50,141 @@ public class PlayerSelectUI : MonoBehaviour
         solder_ShorSword = child.GetComponent<Button>();
         child = transform.GetChild(6);
         Warrior = child.GetComponent<Button>();
+        lastCheck.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        lastCheck.gameObject.SetActive(false);
         Player1Setting();
     }
 
     void Player1Setting()
     {
         playerNumber.text = "Player1";
-        name = changeName.text;
+        playerName = "Chalie";
+        changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        if(type != 0 && name.Length != 0)
-        {
-            lastCheck.gameObject.SetActive(true);
-            lastCheck.onClick.AddListener(Player1Selected);
-        }
+        lastCheck.onClick.AddListener(Player1Selected);
+        lastCheck.gameObject.SetActive(false) ;
     }
     void Player2Setting()
     {
         playerNumber.text = "Player2";
-        name = changeName.text;
+        playerName = "Cloe";
+        changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        if(type != 0 && name.Length != 0)
-        {
-            lastCheck.gameObject.SetActive(true);
-            lastCheck.onClick.AddListener(Player2Selected);
-        }
+        lastCheck.onClick.AddListener(Player2Selected);
+        lastCheck.gameObject.SetActive(false) ;
     }
     void Player3Setting()
     {
         playerNumber.text = "Player3";
-        name = changeName.text;
+        playerName = "Hyeba";
+        changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        if(type != 0 && name.Length != 0)
-        {
-            lastCheck.gameObject.SetActive(true);
-            lastCheck.onClick.AddListener(Player3Selected);
-        }
+        lastCheck.onClick.AddListener(Player3Selected);
+        lastCheck.gameObject.SetActive(false) ;
     }
 
     void Player1Selected()
     {
-        PlayerType selectedType = PlayerType.None;
+        PlayerType selectedType;
         switch(type)
         {
             case 1:
                 selectedType = PlayerType.Archor;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
             case 2:
                 selectedType = PlayerType.Archor_LongBow;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
             case 3:
                 selectedType = PlayerType.Gunner;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
             case 4:
                 selectedType = PlayerType.Soldier_LongSword;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
             case 5:
                 selectedType = PlayerType.Soldier_ShortSword;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
             case 6:
                 selectedType = PlayerType.Warrior_Hammer;
-                gameManager.onPlayer1Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
         }
         Player2Setting();
+        lastCheck.onClick.RemoveListener(Player1Selected);
+        changeName.text = "Add Name";
+        image.sprite = null;
     }
 
     void Player2Selected()
     {
-        PlayerType selectedType = PlayerType.None;
+        PlayerType selectedType;
         switch(type)
         {
             case 1:
                 selectedType = PlayerType.Archor;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
             case 2:
                 selectedType = PlayerType.Archor_LongBow;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
             case 3:
                 selectedType = PlayerType.Gunner;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
             case 4:
                 selectedType = PlayerType.Soldier_LongSword;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
             case 5:
                 selectedType = PlayerType.Soldier_ShortSword;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
             case 6:
                 selectedType = PlayerType.Warrior_Hammer;
-                gameManager.onPlayer2Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
         }
         Player3Setting();
+        changeName.text = "Add Name";
+        image.sprite = null;
     }
 
     void Player3Selected()
     {
-        PlayerType selectedType = PlayerType.None;
+        PlayerType selectedType;
         switch(type)
         {
             case 1:
                 selectedType = PlayerType.Archor;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
             case 2:
                 selectedType = PlayerType.Archor_LongBow;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
             case 3:
                 selectedType = PlayerType.Gunner;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
             case 4:
                 selectedType = PlayerType.Soldier_LongSword;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
             case 5:
                 selectedType = PlayerType.Soldier_ShortSword;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
             case 6:
                 selectedType = PlayerType.Warrior_Hammer;
-                gameManager.onPlayer3Change(selectedType, name);
-                lastCheck.gameObject.SetActive(false);
+                gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
         }
     }
@@ -221,31 +201,37 @@ public class PlayerSelectUI : MonoBehaviour
 
     void SelectArchor()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 1;
         image.sprite = sprites[0];
     }
     void SelectArchor_LongBow()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 2;
         image.sprite = sprites[1];
     }
     void SelectGunner()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 3;
         image.sprite = sprites[2];
     }
     void SelectSoldier_LongSword()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 4;
         image.sprite = sprites[3];
     }
     void SelectSolder_ShorSword()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 5;
         image.sprite = sprites[4];
     }
     void SelectWarrior()
     {
+        lastCheck.gameObject.SetActive(true);
         type = 6;
         image.sprite = sprites[5];
     }

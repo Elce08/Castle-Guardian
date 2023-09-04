@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
         onPlayer1Change = Player1Data;
         onPlayer2Change = Player2Data;
         onPlayer3Change = Player3Data;
+        player1Sprite = PlayerImage(player1Type);
+        player2Sprite = PlayerImage(player2Type);
+        player3Sprite = PlayerImage(player3Type);
     }
 
     private void OnEnable()
@@ -71,7 +74,13 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
     {
-        
+        if(scene.name == "Defence")
+        {
+            foreach(GameObject s in playerTypePrefabs)
+            {
+                s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+            }
+        }
     }
 
     //플레이어 선택=============================================================
@@ -88,27 +97,59 @@ public class GameManager : MonoBehaviour
     public PlayerType player2Type;
     public PlayerType player3Type;
 
-    PlayerSelectUI playerSelectUI;
+    public Sprite[] playerImages;
+
+    public Sprite player1Sprite;
+    public Sprite player2Sprite;
+    public Sprite player3Sprite;
 
     public void Player1Data(PlayerType selectedType, string selectedName)
     {
+        Debug.Log("Sent");
         player1Name = selectedName;
         player1Type = selectedType;
-        playerSelectUI.type = 0;
-        Debug.Log(player1Name);
+        player1Sprite = PlayerImage(player1Type);
     }
     public void Player2Data(PlayerType selectedType, string selectedName)
     {
-        player1Name = selectedName;
-        player1Type = selectedType;
-        playerSelectUI.type = 0;
-        Debug.Log(player1Name);
+        player2Name = selectedName;
+        player2Type = selectedType;
+        player2Sprite = PlayerImage(player2Type);
     }
     public void Player3Data(PlayerType selectedType, string selectedName)
     {
-        player1Name = selectedName;
-        player1Type = selectedType;
-        playerSelectUI.type = 0;
-        Debug.Log(player1Name);
+        player3Name = selectedName;
+        player3Type = selectedType;
+        player3Sprite = PlayerImage(player3Type);
+    }
+
+    Sprite PlayerImage(PlayerType type)
+    {
+        Sprite result = null;
+        switch (type)
+        {
+            case PlayerType.None:
+                result = null;
+                break;
+            case PlayerType.Archor:
+                result = playerImages[0];
+                break;
+            case PlayerType.Archor_LongBow:
+                result = playerImages[1];
+                break;
+            case PlayerType.Gunner:
+                result = playerImages[2];
+                break;
+            case PlayerType.Soldier_LongSword:
+                result = playerImages[3];
+                break;
+            case PlayerType.Soldier_ShortSword:
+                result = playerImages[4];
+                break;
+            case PlayerType.Warrior_Hammer:
+                result = playerImages[5];
+                break;
+        }
+        return result;
     }
 }

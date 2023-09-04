@@ -5,17 +5,7 @@ using UnityEngine;
 
 public class PlayerBase : PooledObject
 {
-    [Serializable]
-    public struct PlayerData
-    {
-        public PlayerData(PlayerType type = PlayerType.None)
-        {
-            this.playerType = type;
-        }
-        public PlayerType playerType;
-    }
-
-    public PlayerData playerData;
+    protected Animator anim;
 
     public float attackDamage;
 
@@ -39,16 +29,56 @@ public class PlayerBase : PooledObject
         }
     }
 
+    public float startHp;
+
+    public float hp;
+
+    public float Hp
+    {
+        get => hp;
+        set
+        {
+            if (hp != value)
+            {
+                hp = value;
+                if(hp <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+    }
+
+    public float startMp;
+
+    public float mp;
+
+    public float Mp
+    {
+        get => mp;
+        set
+        {
+            if (mp != value)
+            {
+                mp = value;
+            }
+        }
+    }
+
     GameManager gameManager;
 
-    private void Awake()
+    public PlayerType playerType;
+
+    protected virtual void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
-        switch (playerData.playerType)
+        hp = startHp;
+        Mp = startMp;
+        switch (playerType)
         {
             case PlayerType.None:
                 GameObject.Instantiate(gameManager.playerTypePrefabs[0], transform.position, Quaternion.identity).transform.parent = this.transform;
@@ -72,5 +102,11 @@ public class PlayerBase : PooledObject
                 GameObject.Instantiate(gameManager.playerTypePrefabs[6], transform.position, Quaternion.identity).transform.parent = this.transform;
                 break;
         }
+        anim = GetComponentInChildren<Animator>();
+    }
+
+    protected virtual void Die()
+    {
+        anim.SetBool("Die", true);
     }
 }

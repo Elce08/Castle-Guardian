@@ -4,15 +4,68 @@ using UnityEngine;
 
 public class EnemyBase : PooledObject
 {
-    // Start is called before the first frame update
-    void Start()
+    protected Animator anim;
+
+    public float attackDamage;
+
+    public float AttackDamage
     {
-        
+        get => attackDamage;
+        set
+        {
+            // 무기 얻으면 스탯도 얻게
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public float defence;
+
+    public float Defence
     {
-        
+        get => defence;
+        set
+        {
+            // 방어구 얻으면 스탯도 얻게
+        }
+    }
+
+    public float startHp;
+
+    public float hp;
+
+    public float Hp
+    {
+        get => hp;
+        set
+        {
+            if (hp != value)
+            {
+                hp = value;
+                if (hp <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+    }
+
+    public float startMp;
+
+    public float mp;
+
+    public float Mp
+    {
+        get => mp;
+        set
+        {
+            if (mp != value)
+            {
+                mp = value;
+            }
+        }
+    }
+
+    protected virtual void Die()
+    {
+        anim.SetBool("isDie", true);
     }
 }

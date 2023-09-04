@@ -44,4 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3363c180227d64691ec3d32339ae7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTypePrefabs: []
+  playerTypePrefabs:
+  - {fileID: 2409016944164460188, guid: ce45e4be856bffa418e22d68699fd604, type: 3}
+  - {fileID: 8462362766796592145, guid: f817d1e37d0923448a22db18b1c59ae5, type: 3}
+  - {fileID: 1937412264976123617, guid: 7c1e444111b2eab4e9d6729b542ecc49, type: 3}
+  - {fileID: 957968769926218849, guid: ced545c5a7ca9ca44b8d9cb3259db125, type: 3}
+  - {fileID: 2969152792215870502, guid: 4cb8a748ca9c5d441904e289c3aab353, type: 3}
+  - {fileID: 7098645166887879786, guid: ff02cffeb39d856498fc05cee50f6a55, type: 3}
+  - {fileID: 8041688148353284534, guid: a1f0f72d3ad9a6e4f9a14883a2271df9, type: 3}
+  player1Name: asd
+  player2Name: sdf
+  player3Name: dfg
+  player1Type: 1
+  player2Type: 2
+  player3Type: 3
+  playerImages:
+  - {fileID: 21300000, guid: ec201d8b1a7016041b4028136069bab6, type: 3}
+  - {fileID: 21300000, guid: c05afa20f9c662946a46f30a04e1761b, type: 3}
+  - {fileID: 21300000, guid: c0bdab7dd3074374dbde8c244df124ad, type: 3}
+  - {fileID: 21300000, guid: d53214d01859be74e9aa84fea522fdb2, type: 3}
+  - {fileID: 21300000, guid: 577a003e93574b844a5321ff643927cc, type: 3}
+  - {fileID: 21300000, guid: 3ef37fed17f647e438a4689a505835b7, type: 3}
+  player1Sprite: {fileID: 0}
+  player2Sprite: {fileID: 0}
+  player3Sprite: {fileID: 0}

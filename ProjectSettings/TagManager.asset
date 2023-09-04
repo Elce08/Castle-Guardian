@@ -7,6 +7,9 @@ TagManager:
   - Player1
   - Player2
   - Player3
+  - Ground
+  - Enemy
+  - LosingPoint
   layers:
   - Default
   - TransparentFX

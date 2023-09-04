@@ -9,6 +9,10 @@ public class PlayerBase : PooledObject
 
     public float attackDamage;
 
+    public float speed;
+
+    public float Speed;
+
     public float AttackDamage
     {
         get => attackDamage;

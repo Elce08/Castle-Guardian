@@ -14,6 +14,12 @@ public enum PoolObjectType
     DefenceSkeletonArcher,
     DefenceSkeletonWarrior,
     DefenceSkeletonWizard,
+    TurnGoblinBerserker,
+    TurnGoblinmagician,
+    TurnGoblinwarrior,
+    TurnSkeletonArcher,
+    TurnSkeletonWarrior,
+    TurnSkeletonWizard,
 }
 
 public class Factory : Singleton<Factory>
@@ -27,6 +33,12 @@ public class Factory : Singleton<Factory>
     DefenceSkeletonArcherPool defenceSkeletonArcherPool;
     DefenceSkeletonWarriorPool defenceSkeletonWarriorPool;
     DefenceSkeletonWizardPool defenceSkeletonWizardPool;
+    TurnGoblinBerserkerPool turnGoblinBerserkerPool;
+    TurnGoblinmagicianPool turnGoblinmagicianPool;
+    TurnGoblinwarriorPool turnGoblinwarriorPool;
+    TurnSkeletonArcherPool turnSkeletonArcherPool;
+    TurnSkeletonWarriorPool turnSkeletonWarriorPool;
+    TurnSkeletonWizardPool turnSkeletonWizardPool;
 
     protected override void OnInitialize()
     {
@@ -41,6 +53,12 @@ public class Factory : Singleton<Factory>
         defenceSkeletonArcherPool = GetComponentInChildren<DefenceSkeletonArcherPool>();
         defenceSkeletonWarriorPool = GetComponentInChildren<DefenceSkeletonWarriorPool>();
         defenceSkeletonWizardPool = GetComponentInChildren<DefenceSkeletonWizardPool>();
+        turnGoblinBerserkerPool = GetComponentInChildren<TurnGoblinBerserkerPool>();
+        turnGoblinmagicianPool = GetComponentInChildren<TurnGoblinmagicianPool>();
+        turnGoblinwarriorPool = GetComponentInChildren<TurnGoblinwarriorPool>();
+        turnSkeletonArcherPool = GetComponentInChildren<TurnSkeletonArcherPool>();
+        turnSkeletonWarriorPool = GetComponentInChildren<TurnSkeletonWarriorPool>();
+        turnSkeletonWizardPool = GetComponentInChildren<TurnSkeletonWizardPool>();
 
         defencePlayer1Pool?.Initialize();
         defencePlayer2Pool?.Initialize();
@@ -51,6 +69,12 @@ public class Factory : Singleton<Factory>
         defenceSkeletonArcherPool?.Initialize();
         defenceSkeletonWarriorPool?.Initialize();
         defenceSkeletonWizardPool?.Initialize();
+        turnGoblinBerserkerPool?.Initialize();
+        turnGoblinmagicianPool?.Initialize();
+        turnGoblinwarriorPool?.Initialize();
+        turnSkeletonArcherPool?.Initialize();
+        turnSkeletonWarriorPool?.Initialize();
+        turnSkeletonWizardPool?.Initialize();
     }
 
     public GameObject GetObject(PoolObjectType type)
@@ -66,6 +90,12 @@ public class Factory : Singleton<Factory>
             PoolObjectType.DefenceSkeletonArcher => defenceSkeletonArcherPool?.GetObject()?.gameObject,
             PoolObjectType.DefenceSkeletonWarrior => defenceSkeletonWarriorPool?.GetObject()?.gameObject,
             PoolObjectType.DefenceSkeletonWizard => defenceSkeletonWizardPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnGoblinBerserker => turnGoblinBerserkerPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnGoblinmagician => turnGoblinmagicianPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnGoblinwarrior => turnGoblinwarriorPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnSkeletonArcher => turnSkeletonArcherPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnSkeletonWarrior => turnSkeletonWarriorPool?.GetObject()?.gameObject,
+            PoolObjectType.TurnSkeletonWizard => turnSkeletonWizardPool?.GetObject()?.gameObject,
             _ => new GameObject(),
         };
         return result;

@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class TurnEnemyBase : EnemyBase,ITurn
 {
+    bool isAlive = true;
+    public bool IsAlive => isAlive;
     protected virtual void Start()
     {
-        Speed = Fast(speed);
+
     }
 
-    public float Fast(float speed)
+    public void Attack()
     {
-        return speed;
+
+    }
+
+    public void GetDamaged(float damage)
+    {
+
+    }
+
+    protected override void Die()
+    {
+        isAlive = false;
+        base.Die();
     }
 }

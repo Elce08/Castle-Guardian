@@ -4,8 +4,15 @@ using UnityEngine;
 
 public interface ITurn
 {
-    public float Fast(float speed)
+    bool IsAlive { get; }
+
+    public void Attack()
     {
-        return speed;
+
+    }
+
+    public void GetDamaged(float damage)
+    {
+
     }
 }

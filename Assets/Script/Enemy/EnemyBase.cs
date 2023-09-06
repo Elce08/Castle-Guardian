@@ -10,8 +10,6 @@ public class EnemyBase : PooledObject
 
     public float speed;
 
-    public float Speed;
-
     public float AttackDamage
     {
         get => attackDamage;

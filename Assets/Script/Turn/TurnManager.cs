@@ -8,15 +8,18 @@ public class TurnManager : MonoBehaviour
 
     public float moveSpeed;
 
+    public float attackTerm;
+
     bool isStopped = false;
 
     public Vector3[] enemysPosition;
     public Vector3[] playersPosition;
-
-    TurnEnemyBase[] enemys;
-    TurnPlayerBase[] players;
+    private TurnEnemyBase[] enemys;
+    private TurnPlayerBase[] players;
 
     Queue<GameObject> turnQueue = new();
+
+    ITurn[] turnAct;
 
     private void Start()
     {
@@ -138,7 +141,11 @@ public class TurnManager : MonoBehaviour
         }
         for(int i = 0; i < turnObjects.Length; i++)
         {
-            turnQueue.Enqueue(turnObjects[i]);
+            turnAct[i] = turnObjects[i].gameObject.GetComponent<ITurn>();
+            if (turnAct[i].IsAlive)
+            {
+                turnQueue.Enqueue(turnObjects[i]);
+            }
         }
     }
 }

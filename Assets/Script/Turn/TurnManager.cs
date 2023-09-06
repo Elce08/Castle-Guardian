@@ -16,6 +16,8 @@ public class TurnManager : MonoBehaviour
     TurnEnemyBase[] enemys;
     TurnPlayerBase[] players;
 
+    Queue<GameObject> turnQueue = new();
+
     private void Start()
     {
         for(int i = 0; i < enemys.Length; i++)
@@ -29,6 +31,7 @@ public class TurnManager : MonoBehaviour
         {
             players[i].transform.position = new(-spawnXPosition, players[i].transform.position.y, players[i].transform.position.z);
         }
+        StartCoroutine(StartGame());
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position)
@@ -66,7 +69,7 @@ public class TurnManager : MonoBehaviour
         }
         return spawnedEnemy;
     }
-    private void Update()
+    IEnumerator StartGame()
     {
         for(int i = 0; i< enemys.Length; i++)
         {
@@ -77,6 +80,14 @@ public class TurnManager : MonoBehaviour
             players[i].transform.position = Vector3.MoveTowards(enemysPosition[i], players[i].transform.position, moveSpeed);
         }
         isStopped = Arrived(enemys, players);
+        if(isStopped)
+        {
+            while(true)
+            {
+                SetQueue();
+                yield return null;
+            }
+        }
     }
 
     bool Arrived(TurnEnemyBase[] enemys, TurnPlayerBase[] players)
@@ -98,5 +109,36 @@ public class TurnManager : MonoBehaviour
         }
         if (num[0] && num[1] && num[2] && num[3] && num[4] && num[5]) return true;
         else return false;
+    }
+
+    private void SetQueue()
+    {
+        GameObject[] turnObjects = new GameObject[players.Length + enemys.Length];
+        float[] turnSpeed = new float[players.Length + enemys.Length];
+        for (int i = 0; i< players.Length; i++)
+        {
+            turnObjects[i] = players[i].gameObject;
+            turnSpeed[i] = players[i].speed;
+        }
+        for(int i = 0; i < enemys.Length; i++)
+        {
+            turnObjects[i + players.Length] = enemys[i].gameObject;
+            turnSpeed[i + players.Length] = enemys[i].speed;
+        }
+        for(int i = 0; i < turnSpeed.Length; i++)
+        {
+            for(int j = 1; j < turnSpeed.Length;j++)
+            {
+                if (turnSpeed[i] < turnSpeed[j])
+                {
+                    (turnObjects[j], turnObjects[i]) = (turnObjects[i], turnObjects[j]);
+                    (turnSpeed[j], turnSpeed[i]) = (turnSpeed[i], turnSpeed[j]);
+                }
+            }
+        }
+        for(int i = 0; i < turnObjects.Length; i++)
+        {
+            turnQueue.Enqueue(turnObjects[i]);
+        }
     }
 }

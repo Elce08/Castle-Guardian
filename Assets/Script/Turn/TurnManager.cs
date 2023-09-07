@@ -85,9 +85,23 @@ public class TurnManager : MonoBehaviour
         isStopped = Arrived(enemys, players);
         if(isStopped)
         {
+            ITurn act = null;
             while(true)
             {
                 SetQueue();
+                for(int i = 0; i<turnQueue.Count; i++)
+                {
+                    if(act == null)
+                    {
+                        act = turnQueue.Dequeue().GetComponent<ITurn>();
+                        if (act.IsAlive) act.OnAttack();
+                    }
+                    else if(act != null && act.EndTurn)
+                    {
+                        act = turnQueue.Dequeue().GetComponent<ITurn>();
+                        if (act.IsAlive) act.OnAttack();
+                    }
+                }
                 yield return null;
             }
         }

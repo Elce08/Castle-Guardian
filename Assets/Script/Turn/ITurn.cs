@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface ITurn
 {
+    bool EndTurn { get; }
+
     bool IsAlive { get; }
 
     public void OnAttack()

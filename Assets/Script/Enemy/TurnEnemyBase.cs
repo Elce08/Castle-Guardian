@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TurnEnemyBase : EnemyBase,ITurn
 {
+    bool endTurn = true;
+    public bool EndTurn => endTurn;
+
     bool isAlive = true;
     public bool IsAlive => isAlive;
     protected virtual void Start()

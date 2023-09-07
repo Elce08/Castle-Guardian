@@ -9,6 +9,8 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     bool endTurn = true;
 
+    public bool EndTurn => endTurn;
+
     bool isAlive = true;
     public bool IsAlive =>isAlive;
 

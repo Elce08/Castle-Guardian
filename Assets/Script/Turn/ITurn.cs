@@ -6,9 +6,9 @@ public interface ITurn
 {
     bool IsAlive { get; }
 
-    public void Attack()
+    public void OnAttack()
     {
-
+        
     }
 
     public void GetDamaged(float damage)

@@ -136,6 +136,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "NumberPad",
+            "id": "d2192b4e-f012-4aa5-8e3b-a242918751c4",
+            "actions": [
+                {
+                    "name": "1",
+                    "type": "Button",
+                    "id": "7d44e501-9c1d-4a9e-87b7-97ecdccdea53",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "2",
+                    "type": "Button",
+                    "id": "236ac4a5-d227-4c47-ae89-f2ef8070a527",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "3",
+                    "type": "Button",
+                    "id": "c21fbd91-3519-4813-a708-91553d93aeeb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "31fb131f-ec85-4a0e-a4a0-098d3df717f1",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KM",
+                    "action": "1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2d8f5f9-3e43-4bb7-8615-e6660935b0b1",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6528f1d7-05db-4ba6-bc3a-752f8d139032",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

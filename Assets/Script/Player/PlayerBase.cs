@@ -109,6 +109,6 @@ public class PlayerBase : PooledObject
 
     protected virtual void Die()
     {
-        anim.SetBool("Die", true);
+        anim.SetBool("isDied", true);
     }
 }

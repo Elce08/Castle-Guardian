@@ -11,7 +11,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     }
 
-    public void Attack()
+    public void OnAttack()
     {
 
     }

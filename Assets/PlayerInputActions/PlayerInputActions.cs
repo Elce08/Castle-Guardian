@@ -158,6 +158,74 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""NumberPad"",
+            ""id"": ""d2192b4e-f012-4aa5-8e3b-a242918751c4"",
+            ""actions"": [
+                {
+                    ""name"": ""1"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d44e501-9c1d-4a9e-87b7-97ecdccdea53"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""2"",
+                    ""type"": ""Button"",
+                    ""id"": ""236ac4a5-d227-4c47-ae89-f2ef8070a527"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""3"",
+                    ""type"": ""Button"",
+                    ""id"": ""c21fbd91-3519-4813-a708-91553d93aeeb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""31fb131f-ec85-4a0e-a4a0-098d3df717f1"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2d8f5f9-3e43-4bb7-8615-e6660935b0b1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6528f1d7-05db-4ba6-bc3a-752f8d139032"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -189,6 +257,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Mouse = m_Player.FindAction("Mouse", throwIfNotFound: true);
+        // NumberPad
+        m_NumberPad = asset.FindActionMap("NumberPad", throwIfNotFound: true);
+        m_NumberPad__1 = m_NumberPad.FindAction("1", throwIfNotFound: true);
+        m_NumberPad__2 = m_NumberPad.FindAction("2", throwIfNotFound: true);
+        m_NumberPad__3 = m_NumberPad.FindAction("3", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -370,6 +443,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // NumberPad
+    private readonly InputActionMap m_NumberPad;
+    private List<INumberPadActions> m_NumberPadActionsCallbackInterfaces = new List<INumberPadActions>();
+    private readonly InputAction m_NumberPad__1;
+    private readonly InputAction m_NumberPad__2;
+    private readonly InputAction m_NumberPad__3;
+    public struct NumberPadActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public NumberPadActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @_1 => m_Wrapper.m_NumberPad__1;
+        public InputAction @_2 => m_Wrapper.m_NumberPad__2;
+        public InputAction @_3 => m_Wrapper.m_NumberPad__3;
+        public InputActionMap Get() { return m_Wrapper.m_NumberPad; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NumberPadActions set) { return set.Get(); }
+        public void AddCallbacks(INumberPadActions instance)
+        {
+            if (instance == null || m_Wrapper.m_NumberPadActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_NumberPadActionsCallbackInterfaces.Add(instance);
+            @_1.started += instance.On_1;
+            @_1.performed += instance.On_1;
+            @_1.canceled += instance.On_1;
+            @_2.started += instance.On_2;
+            @_2.performed += instance.On_2;
+            @_2.canceled += instance.On_2;
+            @_3.started += instance.On_3;
+            @_3.performed += instance.On_3;
+            @_3.canceled += instance.On_3;
+        }
+
+        private void UnregisterCallbacks(INumberPadActions instance)
+        {
+            @_1.started -= instance.On_1;
+            @_1.performed -= instance.On_1;
+            @_1.canceled -= instance.On_1;
+            @_2.started -= instance.On_2;
+            @_2.performed -= instance.On_2;
+            @_2.canceled -= instance.On_2;
+            @_3.started -= instance.On_3;
+            @_3.performed -= instance.On_3;
+            @_3.canceled -= instance.On_3;
+        }
+
+        public void RemoveCallbacks(INumberPadActions instance)
+        {
+            if (m_Wrapper.m_NumberPadActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(INumberPadActions instance)
+        {
+            foreach (var item in m_Wrapper.m_NumberPadActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_NumberPadActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public NumberPadActions @NumberPad => new NumberPadActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -390,5 +525,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMouse(InputAction.CallbackContext context);
+    }
+    public interface INumberPadActions
+    {
+        void On_1(InputAction.CallbackContext context);
+        void On_2(InputAction.CallbackContext context);
+        void On_3(InputAction.CallbackContext context);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class TurnPlayerBase : PlayerBase, ITurn
@@ -73,6 +74,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         inputActions.NumberPad._1.performed += _1_performed;
         inputActions.NumberPad._2.performed += _2_performed;
         inputActions.NumberPad._3.performed += _3_performed;
+        inputActions.NumberPad.Mouse.performed += Mouse_performed;
         // 마우스로 누르는 것 추가
     }
 
@@ -186,7 +188,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            // 마우스 입력 끄기
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
@@ -198,7 +200,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            // 마우스 입력 끄기
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
@@ -210,9 +212,16 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            // 마우스 입력 끄기
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
+    }
+    private void Mouse_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Vector3 mousePos = obj.action.ReadValue<Vector3>();
+        Vector2  pos = Camera.main.ScreenToWorldPoint(mousePos);
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+
     }
     private void _1_Attack(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {

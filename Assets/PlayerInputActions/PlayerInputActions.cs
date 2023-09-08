@@ -65,12 +65,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Test5"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""d6105552-488a-4ffc-9c8c-1ce1e1059604"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -189,6 +189,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cc6adc6-dfa9-4e3b-9908-70fc3d7cbd41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -222,6 +231,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""75b70baf-b8b2-4095-8c0c-bc12b05d09e1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -262,6 +282,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_NumberPad__1 = m_NumberPad.FindAction("1", throwIfNotFound: true);
         m_NumberPad__2 = m_NumberPad.FindAction("2", throwIfNotFound: true);
         m_NumberPad__3 = m_NumberPad.FindAction("3", throwIfNotFound: true);
+        m_NumberPad_Mouse = m_NumberPad.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -450,6 +471,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_NumberPad__1;
     private readonly InputAction m_NumberPad__2;
     private readonly InputAction m_NumberPad__3;
+    private readonly InputAction m_NumberPad_Mouse;
     public struct NumberPadActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -457,6 +479,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @_1 => m_Wrapper.m_NumberPad__1;
         public InputAction @_2 => m_Wrapper.m_NumberPad__2;
         public InputAction @_3 => m_Wrapper.m_NumberPad__3;
+        public InputAction @Mouse => m_Wrapper.m_NumberPad_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_NumberPad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -475,6 +498,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @_3.started += instance.On_3;
             @_3.performed += instance.On_3;
             @_3.canceled += instance.On_3;
+            @Mouse.started += instance.OnMouse;
+            @Mouse.performed += instance.OnMouse;
+            @Mouse.canceled += instance.OnMouse;
         }
 
         private void UnregisterCallbacks(INumberPadActions instance)
@@ -488,6 +514,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @_3.started -= instance.On_3;
             @_3.performed -= instance.On_3;
             @_3.canceled -= instance.On_3;
+            @Mouse.started -= instance.OnMouse;
+            @Mouse.performed -= instance.OnMouse;
+            @Mouse.canceled -= instance.OnMouse;
         }
 
         public void RemoveCallbacks(INumberPadActions instance)
@@ -531,5 +560,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void On_1(InputAction.CallbackContext context);
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }

@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < enemys.Length; i++)
+        for(int i = 0; i < 3; i++)
         {
             enemys[i] = EnemySpawn(enemysPosition[i]);
         }

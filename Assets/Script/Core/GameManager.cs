@@ -81,6 +81,13 @@ public class GameManager : MonoBehaviour
                 s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
         }
+        if(scene.name == "Turn")
+        {
+            foreach (GameObject s in playerTypePrefabs)
+            {
+                s.transform.localScale = new Vector3(1f,1f,1f);
+            }
+        }
     }
 
     //플레이어 선택=============================================================

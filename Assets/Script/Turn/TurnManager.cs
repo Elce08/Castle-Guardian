@@ -23,6 +23,8 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        enemys = new TurnEnemyBase[3];
+        players = new TurnPlayerBase[3];
         for(int i = 0; i < 3; i++)
         {
             enemys[i] = EnemySpawn(enemysPosition[i]);
@@ -72,37 +74,41 @@ public class TurnManager : MonoBehaviour
         }
         return spawnedEnemy;
     }
+    // °íÄ¡ÀÚ
     IEnumerator StartGame()
     {
-        for(int i = 0; i< enemys.Length; i++)
+        while(true)
         {
-            enemys[i].transform.position = Vector3.MoveTowards(enemysPosition[i], enemys[i].transform.position, moveSpeed);
-        }
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = Vector3.MoveTowards(enemysPosition[i], players[i].transform.position, moveSpeed);
-        }
-        isStopped = Arrived(enemys, players);
-        if(isStopped)
-        {
-            ITurn act = null;
-            while(true)
+            if (!isStopped)
             {
-                SetQueue();
-                for(int i = 0; i<turnQueue.Count; i++)
+                for (int i = 0; i < enemys.Length; i++)
                 {
-                    if(act == null)
-                    {
-                        act = turnQueue.Dequeue().GetComponent<ITurn>();
-                        if (act.IsAlive) act.OnAttack();
-                    }
-                    else if(act != null && act.EndTurn)
-                    {
-                        act = turnQueue.Dequeue().GetComponent<ITurn>();
-                        if (act.IsAlive) act.OnAttack();
-                    }
+                    enemys[i].transform.position = Vector3.MoveTowards(enemysPosition[i], enemys[i].transform.position, moveSpeed);
                 }
-                yield return null;
+                for (int i = 0; i < players.Length; i++)
+                {
+                    players[i].transform.position = Vector3.MoveTowards(enemysPosition[i], players[i].transform.position, moveSpeed);
+                }
+            }
+            isStopped = Arrived(enemys, players); 
+            if (isStopped)
+            {
+                ITurn act = null;
+                SetQueue();
+                for (int i = 0; i < turnQueue.Count; i++)
+                {
+                    if (act == null)
+                    {
+                        act = turnQueue.Dequeue().GetComponent<ITurn>();
+                        if (act.IsAlive) act.OnAttack();
+                    }
+                    else if (act != null && act.EndTurn)
+                    {
+                        act = turnQueue.Dequeue().GetComponent<ITurn>();
+                        if (act.IsAlive) act.OnAttack();
+                    }
+                    yield return null;
+                }
             }
         }
     }

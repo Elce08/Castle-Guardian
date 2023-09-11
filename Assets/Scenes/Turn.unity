@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 32392421}
-  - component: {fileID: 32392420}
+  - component: {fileID: 32392422}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player1
@@ -140,27 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &32392420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32392419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294807ffc412e2a4b9f0b43f2d5d2c69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 0
-  speed: 0
-  defence: 0
-  startHp: 0
-  hp: 0
-  startMp: 0
-  mp: 0
-  playerType: 0
-  moveSpeed: 10
 --- !u!4 &32392421
 Transform:
   m_ObjectHideFlags: 0
@@ -176,6 +155,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &32392422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32392419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d450fc0e5126b0459d554451b4ac151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 0
+  speed: 0
+  defence: 0
+  startHp: 0
+  hp: 0
+  startMp: 0
+  mp: 0
+  playerType: 0
+  moveSpeed: 10
 --- !u!1 &60202688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1048,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1607176289}
-  - component: {fileID: 1607176288}
+  - component: {fileID: 1607176290}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player2
@@ -1056,27 +1056,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1607176288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607176287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294807ffc412e2a4b9f0b43f2d5d2c69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 0
-  speed: 0
-  defence: 0
-  startHp: 0
-  hp: 0
-  startMp: 0
-  mp: 0
-  playerType: 0
-  moveSpeed: 10
 --- !u!4 &1607176289
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,33 +1071,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1636530581
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1636530583}
-  - component: {fileID: 1636530582}
-  m_Layer: 0
-  m_Name: Player3
-  m_TagString: Player3
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1636530582
+--- !u!114 &1607176290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1636530581}
+  m_GameObject: {fileID: 1607176287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294807ffc412e2a4b9f0b43f2d5d2c69, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d64461bff6212e4a94d778b0191107d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 0
@@ -1130,6 +1092,23 @@ MonoBehaviour:
   mp: 0
   playerType: 0
   moveSpeed: 10
+--- !u!1 &1636530581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1636530583}
+  - component: {fileID: 1636530584}
+  m_Layer: 0
+  m_Name: Player3
+  m_TagString: Player3
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &1636530583
 Transform:
   m_ObjectHideFlags: 0
@@ -1145,6 +1124,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1636530584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636530581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06ce25ac313a764b83e68175f1747ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 0
+  speed: 0
+  defence: 0
+  startHp: 0
+  hp: 0
+  startMp: 0
+  mp: 0
+  playerType: 0
+  moveSpeed: 10
 --- !u!1 &1907321167
 GameObject:
   m_ObjectHideFlags: 0

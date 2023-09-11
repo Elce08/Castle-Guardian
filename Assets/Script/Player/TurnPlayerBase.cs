@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -44,9 +45,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         base.Start();
         buttons.SetActive(false);
-        enemys[0] = GameObject.Find("Enemy1").GetComponent<TurnEnemyBase>();
-        enemys[1] = GameObject.Find("Enemy2").GetComponent<TurnEnemyBase>();
-        enemys[2] = GameObject.Find("Enemy3").GetComponent<TurnEnemyBase>();
         target = null;
         startPos = transform.position;
     }
@@ -65,6 +63,9 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     public void OnAttack()
     {
+        enemys[0] = GameObject.Find("Enemy1").GetComponent<TurnEnemyBase>();
+        enemys[1] = GameObject.Find("Enemy2").GetComponent<TurnEnemyBase>();
+        enemys[2] = GameObject.Find("Enemy3").GetComponent<TurnEnemyBase>();
         endTurn = false;
         SetTarget();
     }

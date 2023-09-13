@@ -34,9 +34,9 @@ public class TurnManager : MonoBehaviour
         players[2] = GameObject.Find("Player3").GetComponent<TurnPlayerBase>();
         for(int  i = 0; i < players.Length; i++)
         {
-            players[i].transform.position = new(-spawnXPosition, players[i].transform.position.y, players[i].transform.position.z);
+            players[i].transform.position = new(-spawnXPosition, playersPosition[i].y, playersPosition[i].z);
         }
-        StartCoroutine(StartGame());
+        // StartCoroutine(StartGame());
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position)
@@ -74,23 +74,24 @@ public class TurnManager : MonoBehaviour
         }
         return spawnedEnemy;
     }
+
+    private void Update()
+    {
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].transform.position = Vector3.MoveTowards(playersPosition[i], players[i].transform.position,moveSpeed * Time.deltaTime);
+            }
+            for (int i = 0; i < enemys.Length; i++)
+            {
+                enemys[i].transform.position = Vector3.MoveTowards(enemysPosition[i], enemys[i].transform.position,0.0f);
+            }
+    }
+
     // °íÄ¡ÀÚ
     IEnumerator StartGame()
     {
         while(true)
         {
-            if (!isStopped)
-            {
-                for (int i = 0; i < enemys.Length; i++)
-                {
-                    enemys[i].transform.position = Vector3.MoveTowards(enemysPosition[i], enemys[i].transform.position, moveSpeed);
-                }
-                for (int i = 0; i < players.Length; i++)
-                {
-                    players[i].transform.position = Vector3.MoveTowards(enemysPosition[i], players[i].transform.position, moveSpeed);
-                }
-            }
-            isStopped = Arrived(enemys, players); 
             if (isStopped)
             {
                 ITurn act = null;
@@ -118,20 +119,20 @@ public class TurnManager : MonoBehaviour
         bool[] num = new bool[6];
         for(int i = 0; i < enemys.Length; i++)
         {
-            if((enemys[i].transform.position.x - enemysPosition[i].x) <= 0.001)
+            if((enemys[i].transform.position.x - enemysPosition[i].x) >= 0.001)
             {
                 num[i] = true;
             }
         }
         for(int i = 0; i < players.Length;i++)
         {
-            if ((players[i].transform.position.x - enemysPosition[i].x) <= 0.001)
+            if ((players[i].transform.position.x - playersPosition[i].x) <= -0.001)
             {
                 num[i + 3] = true;
             }
         }
-        if (num[0] && num[1] && num[2] && num[3] && num[4] && num[5]) return true;
-        else return false;
+        if (num[0] && num[1] && num[2] && num[3] && num[4] && num[5]) return false;
+        else return true;
     }
 
     private void SetQueue()

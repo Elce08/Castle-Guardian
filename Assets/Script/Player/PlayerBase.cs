@@ -67,7 +67,7 @@ public class PlayerBase : PooledObject
         }
     }
 
-    GameManager gameManager;
+    public GameManager gameManager;
 
     public PlayerType playerType;
 

@@ -584,7 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.57379764
+  m_Length: 0.5737976
   m_ChildTransform: {fileID: 8041688148149028942}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &8041688149188599549
@@ -1223,7 +1223,6 @@ GameObject:
   - component: {fileID: 8041688149522789123}
   - component: {fileID: 8041688149522789181}
   - component: {fileID: 8041688149522789180}
-  - component: {fileID: 5760635005749905186}
   m_Layer: 0
   m_Name: weapon
   m_TagString: Untagged
@@ -1320,22 +1319,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.5484897, y: -0.028156817, z: 0}
     m_Extent: {x: 0.7390095, y: 0.4690385, z: 0}
   m_DirtyAABB: 0
---- !u!70 &5760635005749905186
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8041688149522789122}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.046672106, y: -0.06431556}
-  m_Size: {x: 0.9132762, y: 1.5533402}
-  m_Direction: 0
 --- !u!1 &8041688149622895512
 GameObject:
   m_ObjectHideFlags: 0

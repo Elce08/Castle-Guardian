@@ -10,8 +10,6 @@ public class TurnManager : MonoBehaviour
 
     public float attackTerm;
 
-    bool isStopped = false;
-
     public Vector3[] enemysPosition;
     public Vector3[] playersPosition;
     private TurnEnemyBase[] enemys;
@@ -36,7 +34,7 @@ public class TurnManager : MonoBehaviour
         {
             players[i].transform.position = new(-spawnXPosition, playersPosition[i].y, playersPosition[i].z);
         }
-        // StartCoroutine(StartGame());
+        StartCoroutine(StartMove());
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position)
@@ -75,64 +73,66 @@ public class TurnManager : MonoBehaviour
         return spawnedEnemy;
     }
 
-    private void Update()
+    IEnumerator StartMove()
     {
+        bool[] isStop = new bool[6];
+        while (true)
+        {
             for (int i = 0; i < players.Length; i++)
             {
                 players[i].transform.position = Vector3.MoveTowards(players[i].transform.position, playersPosition[i], moveSpeed * Time.deltaTime);
+                if ((players[i].transform.position.x - playersPosition[i].x) >= -0.001)
+                {
+                    players[i].transform.position = playersPosition[i];
+                    isStop[i] = true;
+                }
+                else isStop[i] = false;
             }
             for (int i = 0; i < enemys.Length; i++)
             {
                 enemys[i].transform.position = Vector3.MoveTowards(enemys[i].transform.position, enemysPosition[i], moveSpeed * Time.deltaTime);
+                if ((enemys[i].transform.position.x - enemysPosition[i].x) <= 0.001)
+                {
+                    enemys[i].transform.position = enemysPosition[i];
+                    isStop[i + 3] = true;
+                }
+                else isStop[i + 3] = false;
             }
+            if (isStop[0] && isStop[1] && isStop[2] && isStop[3] && isStop[4] && isStop[5])
+            {
+                StartCoroutine(StartGame());
+                break;
+            }
+            yield return null;
+        }
     }
 
     // °íÄ¡ÀÚ
     IEnumerator StartGame()
     {
-        while(true)
+        ITurn act = null;
+        while (true)
         {
-            if (isStopped)
+            SetQueue();
+            for (int i = 0; i < turnQueue.Count; i++)
             {
-                ITurn act = null;
-                SetQueue();
-                for (int i = 0; i < turnQueue.Count; i++)
+                if (act == null)
                 {
-                    if (act == null)
-                    {
-                        act = turnQueue.Dequeue().GetComponent<ITurn>();
-                        if (act.IsAlive) act.OnAttack();
-                    }
-                    else if (act != null && act.EndTurn)
-                    {
-                        act = turnQueue.Dequeue().GetComponent<ITurn>();
-                        if (act.IsAlive) act.OnAttack();
-                    }
-                    yield return null;
+                    act = turnQueue.Dequeue().GetComponent<ITurn>();
+                    if (act.IsAlive) act.OnAttack();
                 }
+                else if (act != null && act.EndTurn)
+                {
+                    act = turnQueue.Dequeue().GetComponent<ITurn>();
+                    if (act.IsAlive) act.OnAttack();
+                }
+                yield return null;
             }
-        }
-    }
-
-    bool Arrived(TurnEnemyBase[] enemys, TurnPlayerBase[] players)
-    {
-        bool[] num = new bool[6];
-        for(int i = 0; i < enemys.Length; i++)
-        {
-            if((enemys[i].transform.position.x - enemysPosition[i].x) >= 0.001)
+            if ((!players[0].IsAlive && !players[1].IsAlive && !players[2].IsAlive) || (!enemys[0].IsAlive && !enemys[1].IsAlive && !enemys[2].IsAlive))
             {
-                num[i] = true;
+                break;
             }
         }
-        for(int i = 0; i < players.Length;i++)
-        {
-            if ((players[i].transform.position.x - playersPosition[i].x) <= -0.001)
-            {
-                num[i + 3] = true;
-            }
-        }
-        if (num[0] && num[1] && num[2] && num[3] && num[4] && num[5]) return false;
-        else return true;
     }
 
     private void SetQueue()

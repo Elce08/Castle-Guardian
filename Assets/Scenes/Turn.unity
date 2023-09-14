@@ -174,6 +174,7 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  gameManager: {fileID: 0}
   playerType: 0
   moveSpeed: 10
 --- !u!1 &60202688
@@ -225,12 +226,12 @@ MonoBehaviour:
   attackTerm: 0
   enemysPosition:
   - {x: 7, y: 3, z: 0}
-  - {x: 6, y: 0, z: 0}
-  - {x: 5, y: -3, z: 0}
+  - {x: 6, y: 0.5, z: 0}
+  - {x: 5, y: -2, z: 0}
   playersPosition:
   - {x: -7, y: 3, z: 0}
-  - {x: -6, y: 0, z: 0}
-  - {x: -5, y: -3, z: 0}
+  - {x: -6, y: 0.5, z: 0}
+  - {x: -5, y: -2, z: 0}
 --- !u!1 &89665116
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +307,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2206226437011864859, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206226437011864859, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206226437011864859, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206226437011864859, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014708230379512602, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014708230379512602, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014708230379512602, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014708230379512602, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4281499948743963065, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -353,6 +386,70 @@ PrefabInstance:
     - target: {fileID: 4281499948743963067, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
       propertyPath: m_Name
       value: Factory
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117558201738181151, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117558201738181151, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117558201738181151, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117558201738181151, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346932592689491480, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346932592689491480, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346932592689491480, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346932592689491480, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567198035174123350, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567198035174123350, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567198035174123350, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567198035174123350, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031627964518406508, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031627964518406508, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031627964518406508, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031627964518406508, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6360a90028bed614798045cf2519ef1e, type: 3}
@@ -1090,6 +1187,7 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  gameManager: {fileID: 0}
   playerType: 0
   moveSpeed: 10
 --- !u!1 &1636530581
@@ -1143,6 +1241,7 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  gameManager: {fileID: 0}
   playerType: 0
   moveSpeed: 10
 --- !u!1 &1907321167

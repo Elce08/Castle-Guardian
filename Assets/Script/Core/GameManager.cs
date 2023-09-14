@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (GameObject s in playerTypePrefabs)
             {
-                s.transform.localScale = new Vector3(1f,1f,1f);
+                s.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
             }
         }
     }

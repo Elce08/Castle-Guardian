@@ -6,7 +6,7 @@ public class TurnManager : MonoBehaviour
 {
     public float spawnXPosition;
 
-    public float moveSpeed;
+    public float moveSpeed = 5.0f;
 
     public float attackTerm;
 
@@ -79,11 +79,11 @@ public class TurnManager : MonoBehaviour
     {
             for (int i = 0; i < players.Length; i++)
             {
-                players[i].transform.position = Vector3.MoveTowards(playersPosition[i], players[i].transform.position,moveSpeed * Time.deltaTime);
+                players[i].transform.position = Vector3.MoveTowards(players[i].transform.position, playersPosition[i], moveSpeed * Time.deltaTime);
             }
             for (int i = 0; i < enemys.Length; i++)
             {
-                enemys[i].transform.position = Vector3.MoveTowards(enemysPosition[i], enemys[i].transform.position,0.0f);
+                enemys[i].transform.position = Vector3.MoveTowards(enemys[i].transform.position, enemysPosition[i], moveSpeed * Time.deltaTime);
             }
     }
 

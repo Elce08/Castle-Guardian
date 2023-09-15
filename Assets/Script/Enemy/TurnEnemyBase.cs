@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class TurnEnemyBase : EnemyBase,ITurn
 {
-    bool endTurn = true;
-    public bool EndTurn => endTurn;
+    bool endTurn = false;
+    public bool EndTurn
+    {
+        get => endTurn;
+        set => endTurn = value;
+    }
 
     bool isAlive = true;
     public bool IsAlive => isAlive;
@@ -16,7 +20,8 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     public void OnAttack()
     {
-
+        Debug.Log($"{gameObject.name}turn");
+        endTurn = true;
     }
 
     public void GetDamaged(float damage)

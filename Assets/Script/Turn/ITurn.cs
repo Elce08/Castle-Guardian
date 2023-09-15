@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ITurn
 {
-    bool EndTurn { get; }
+    bool EndTurn { get; set; }
 
     bool IsAlive { get; }
 

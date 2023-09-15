@@ -9,9 +9,13 @@ public class TurnPlayerBase : PlayerBase, ITurn
 {
     PlayerInputActions inputActions;
 
-    bool endTurn = true;
+    bool endTurn = false;
 
-    public bool EndTurn => endTurn;
+    public bool EndTurn
+    {
+        get => endTurn;
+        set => endTurn = value;
+    }
 
     bool isAlive = true;
     public bool IsAlive =>isAlive;
@@ -63,10 +67,11 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     public void OnAttack()
     {
-        enemys[0] = GameObject.Find("Enemy1").GetComponent<TurnEnemyBase>();
+        /*enemys[0] = GameObject.Find("Enemy1").GetComponent<TurnEnemyBase>();
         enemys[1] = GameObject.Find("Enemy2").GetComponent<TurnEnemyBase>();
-        enemys[2] = GameObject.Find("Enemy3").GetComponent<TurnEnemyBase>();
-        endTurn = false;
+        enemys[2] = GameObject.Find("Enemy3").GetComponent<TurnEnemyBase>();*/
+        Debug.Log($"{gameObject.name}turn");
+        endTurn = true;
         SetTarget();
     }
 

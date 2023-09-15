@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 0
-  speed: 0
+  speed: 7
   defence: 0
   startHp: 0
   hp: 0

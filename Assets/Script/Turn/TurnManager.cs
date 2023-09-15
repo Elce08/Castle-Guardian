@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TurnManager : MonoBehaviour
 {
@@ -116,10 +117,10 @@ public class TurnManager : MonoBehaviour
             SetQueue();
             for (int i = 0; i < turnQueue.Count; i++)
             {
-                if (act == null)
+                if( act == null)
                 {
                     act = turnQueue.Dequeue().GetComponent<ITurn>();
-                    if (act.IsAlive) act.OnAttack();
+                    act.EndTurn = true;
                 }
                 else if (act != null && act.EndTurn)
                 {
@@ -139,6 +140,7 @@ public class TurnManager : MonoBehaviour
     {
         GameObject[] turnObjects = new GameObject[players.Length + enemys.Length];
         float[] turnSpeed = new float[players.Length + enemys.Length];
+        turnAct = new ITurn[turnObjects.Length];
         for (int i = 0; i< players.Length; i++)
         {
             turnObjects[i] = players[i].gameObject;
@@ -153,7 +155,7 @@ public class TurnManager : MonoBehaviour
         {
             for(int j = 1; j < turnSpeed.Length;j++)
             {
-                if (turnSpeed[i] < turnSpeed[j])
+                if (turnSpeed[i] > turnSpeed[j])
                 {
                     (turnObjects[j], turnObjects[i]) = (turnObjects[i], turnObjects[j]);
                     (turnSpeed[j], turnSpeed[i]) = (turnSpeed[i], turnSpeed[j]);

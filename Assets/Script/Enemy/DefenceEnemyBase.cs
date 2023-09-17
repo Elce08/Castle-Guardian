@@ -8,7 +8,7 @@ public class DefenceEnemyBase : EnemyBase
 
     DefencePlayerBase player;
 
-    DefenceManager defenceManager;
+    protected DefenceManager defenceManager;
 
     public float moveSpeed = 1f;
 

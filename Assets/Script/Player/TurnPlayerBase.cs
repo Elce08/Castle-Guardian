@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngineInternal;
 
 public class TurnPlayerBase : PlayerBase, ITurn
 {
@@ -20,21 +22,63 @@ public class TurnPlayerBase : PlayerBase, ITurn
     bool isAlive = true;
     public bool IsAlive =>isAlive;
 
-    public float moveSpeed = 10.0f;
+    public float moveSpeed = 5.0f;
 
-    Vector3 startPos;
+    public Vector3 startPos;
 
     GameObject buttons;
 
     Button attack;
     Button skill;
 
+    public TurnManager turnManager;
+
     TurnEnemyBase[] enemys;
 
     TurnEnemyBase target;
 
+    protected enum State
+    {
+        Idle,
+        ToTraget,
+        Back,
+        Attack,
+    }
+
+    protected State state = State.Idle;
+
+    protected State CharacterState
+    {
+        get => state;
+        set
+        {
+            if(state != value)
+            {
+                state = value;
+                switch (state)
+                {
+                    case State.Idle:
+                        onMoveUpdate += Update_Idle;
+                        break;
+                    case State.ToTraget:
+                        onMoveUpdate += Update_ToTarget;
+                        break;
+                    case State.Back:
+                        onMoveUpdate += Update_Back;
+                        break;
+                    case State.Attack:
+                        onMoveUpdate += Update_Attack;
+                        break;
+                }
+            }
+        }
+    }
+
+    Action onMoveUpdate;
+
     protected override void Awake()
     {
+        turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         enemys = new TurnEnemyBase[3];
         base.Awake();
         inputActions = new PlayerInputActions();
@@ -43,6 +87,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         attack = child.GetComponent<Button>();
         child = buttons.transform.GetChild(1);
         skill = child.GetComponent<Button>();
+        onMoveUpdate += Update_Idle;
     }
 
     protected override void Start()
@@ -50,7 +95,12 @@ public class TurnPlayerBase : PlayerBase, ITurn
         base.Start();
         buttons.SetActive(false);
         target = null;
-        startPos = transform.position;
+        CharacterState = State.Idle;
+    }
+
+    private void Update()
+    {
+        onMoveUpdate();
     }
 
     protected override void OnEnable()
@@ -67,20 +117,17 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     public void OnAttack()
     {
-        /*enemys[0] = GameObject.Find("Enemy1").GetComponent<TurnEnemyBase>();
-        enemys[1] = GameObject.Find("Enemy2").GetComponent<TurnEnemyBase>();
-        enemys[2] = GameObject.Find("Enemy3").GetComponent<TurnEnemyBase>();*/
         Debug.Log($"{gameObject.name}turn");
-        endTurn = true;
         SetTarget();
     }
 
     void SetTarget()
     {
+        enemys = turnManager.enemys;
         inputActions.NumberPad._1.performed += _1_performed;
         inputActions.NumberPad._2.performed += _2_performed;
         inputActions.NumberPad._3.performed += _3_performed;
-        inputActions.NumberPad.Mouse.performed += Mouse_performed;
+        //inputActions.NumberPad.Mouse.performed += Mouse_performed;
         // 마우스로 누르는 것 추가
     }
 
@@ -88,6 +135,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         if(target != null)
         {
+            buttons.SetActive(true);
             attack.onClick.AddListener(Attack);
             skill.onClick.AddListener(Skill);
             inputActions.NumberPad._1.performed += _1_Attack;
@@ -97,51 +145,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Attack()
     {
-        StartCoroutine(AttackCoroutine());
-    }
-
-    IEnumerator AttackCoroutine()
-    {
-        if(target != null)
-        {
-            attack.onClick.RemoveAllListeners();
-            skill.onClick.RemoveAllListeners();
-            inputActions.NumberPad._1.performed -= _1_Attack;
-            inputActions.NumberPad._2.performed -= _2_Skill;
-            buttons.SetActive(false);
-            anim.SetBool("isIdle", false);
-            anim.SetBool("isRun", true);
-            while (true)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, target.gameObject.transform.position, moveSpeed);
-                if ((transform.position.x - target.gameObject.transform.position.x) > 0.001)
-                {
-                    anim.SetBool("isRun", false);
-                    anim.SetBool("isAttack", true);
-                    // 공격 함수
-                    yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                    anim.SetBool("isRun", true);
-                    anim.SetBool("isAttack", false);
-                    transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed);
-                    if ((transform.position.x - startPos.x) < 0.001)
-                    {
-                        anim.SetBool("isRun", false);
-                        anim.SetBool("isIdle", true);
-                        endTurn = true;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    void Skill()
-    {
-        StartCoroutine(SkillCoroutine());
-    }
-
-    IEnumerator SkillCoroutine()
-    {
+        Debug.Log("Attack");
         if (target != null)
         {
             attack.onClick.RemoveAllListeners();
@@ -149,29 +153,21 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_Attack;
             inputActions.NumberPad._2.performed -= _2_Skill;
             buttons.SetActive(false);
-            anim.SetBool("isIdle", false);
-            anim.SetBool("isRun", true);
-            while (true)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, target.gameObject.transform.position, moveSpeed);
-                if ((transform.position.x - target.gameObject.transform.position.x) > 0.001)
-                {
-                    anim.SetBool("isRun", false);
-                    anim.SetBool("isAttack", true);
-                    // 스킬 함수
-                    yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                    anim.SetBool("isRun", true);
-                    anim.SetBool("isAttack", false);
-                    transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed);
-                    if ((transform.position.x - startPos.x) < 0.001)
-                    {
-                        anim.SetBool("isRun", false);
-                        anim.SetBool("isIdle", true);
-                        endTurn = true;
-                        break;
-                    }
-                }
-            }
+            CharacterState = State.ToTraget;
+        }
+    }
+
+    void Skill()
+    {
+        Debug.Log("Skill");
+        if (target != null)
+        {
+            attack.onClick.RemoveAllListeners();
+            skill.onClick.RemoveAllListeners();
+            inputActions.NumberPad._1.performed -= _1_Attack;
+            inputActions.NumberPad._2.performed -= _2_Skill;
+            buttons.SetActive(false);
+            CharacterState = State.ToTraget;
         }
     }
 
@@ -189,45 +185,44 @@ public class TurnPlayerBase : PlayerBase, ITurn
     private void _1_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[0];
+        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
     private void _2_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[1];
+        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
     private void _3_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[2];
+        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
-    private void Mouse_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void Mouse_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        Vector3 mousePos = obj.action.ReadValue<Vector3>();
-        Vector2  pos = Camera.main.ScreenToWorldPoint(mousePos);
-        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-
     }
     private void _1_Attack(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -236,5 +231,54 @@ public class TurnPlayerBase : PlayerBase, ITurn
     private void _2_Skill(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         Skill();
+    }
+
+    void Update_Idle()
+    {
+        anim.SetBool("isIdle", true);
+        anim.SetBool("isRun", false);
+        anim.SetBool("isAttack", false);
+        transform.position = transform.position;
+    }
+
+    void Update_ToTarget()
+    {
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isRun", true);
+        anim.SetBool("isAttack", false);
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime);
+        if ((transform.position.x - target.transform.position.x) > -3.0f)
+        {
+            CharacterState = State.Attack;
+        }
+    }
+
+    void Update_Back()
+    {
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isRun", true);
+        anim.SetBool("isAttack", false);
+        transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime);
+        if ((transform.position.x - startPos.x) < 0.001)
+        {
+            transform.position = startPos;
+            Debug.Log($"{gameObject.name}turn end");
+            endTurn = true;
+            CharacterState = State.Idle;
+        }
+    }
+
+    void Update_Attack()
+    {
+        anim.SetBool("isIdle", false);
+        anim.SetBool("isRun", false);
+        anim.SetBool("isAttack", true);
+        StartCoroutine(AttackActionCoroutine());
+    }
+
+    IEnumerator AttackActionCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+        CharacterState = State.Back;
     }
 }

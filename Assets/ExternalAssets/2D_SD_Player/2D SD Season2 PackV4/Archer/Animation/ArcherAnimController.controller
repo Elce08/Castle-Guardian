@@ -310,7 +310,7 @@ AnimatorStateTransition:
   m_CanTransitionToSelf: 1
 --- !u!1102 &1102005562383216022
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -337,7 +337,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102096325448711680
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -364,7 +364,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102141169698227360
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -395,7 +395,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102504747658236672
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -422,7 +422,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102701851359928132
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -449,7 +449,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102767806126877946
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -475,7 +475,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &1102879905309364842
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -502,7 +502,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &1107254574293320920
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

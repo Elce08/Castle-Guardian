@@ -12,6 +12,7 @@ public class TurnPlayer3 : TurnPlayerBase
     protected override void Start()
     {
         base.Start();
+        startPos = turnManager.playersPosition[2];
     }
 }
 

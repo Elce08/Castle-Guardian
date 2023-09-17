@@ -13,10 +13,10 @@ public class TurnManager : MonoBehaviour
 
     public Vector3[] enemysPosition;
     public Vector3[] playersPosition;
-    private TurnEnemyBase[] enemys;
-    private TurnPlayerBase[] players;
+    public TurnEnemyBase[] enemys;
+    public TurnPlayerBase[] players;
 
-    Queue<GameObject> turnQueue = new();
+    private Queue<GameObject> turnQueue = new();
 
     ITurn[] turnAct;
 
@@ -164,7 +164,7 @@ public class TurnManager : MonoBehaviour
         }
         for(int i = 0; i < turnObjects.Length; i++)
         {
-            turnAct[i] = turnObjects[i].gameObject.GetComponent<ITurn>();
+            turnAct[i] = turnObjects[i].GetComponent<ITurn>();
             if (turnAct[i].IsAlive)
             {
                 turnQueue.Enqueue(turnObjects[i]);

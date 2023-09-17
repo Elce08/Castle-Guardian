@@ -7,7 +7,7 @@ public class PlayerBase : PooledObject
 {
     protected Animator anim;
 
-    public float attackDamage;
+    public float attackDamage = 10.0f;
 
     public float speed;
 
@@ -20,7 +20,7 @@ public class PlayerBase : PooledObject
         }
     }
 
-    public float defence;
+    public float defence = 5.0f;
 
     public float Defence
     {
@@ -31,7 +31,7 @@ public class PlayerBase : PooledObject
         }
     }
 
-    public float startHp;
+    public float startHp = 100.0f;
 
     public float hp;
 
@@ -51,7 +51,7 @@ public class PlayerBase : PooledObject
         }
     }
 
-    public float startMp;
+    public float startMp = 100.0f;
 
     public float mp;
 

@@ -232,7 +232,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Idle()
     {
-        onMoveUpdate = null;
         anim.SetBool("isIdle", true);
         anim.SetBool("isRun", false);
         anim.SetBool("isAttack", false);

@@ -68,6 +68,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     protected virtual void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         players = turnManager.players;
         onMoveUpdate += Update_Idle;
@@ -77,7 +78,10 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     private void Update()
     {
-        onMoveUpdate();
+        if(onMoveUpdate != null)
+        {
+            onMoveUpdate();
+        }
     }
 
     public void OnAttack()
@@ -101,9 +105,8 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Idle()
     {
-        onMoveUpdate = null;
         anim.SetBool("isIdle", true);
-        anim.SetBool("isRun", false);
+        anim.SetBool("isWalk", false);
         anim.SetBool("isAttack", false);
         transform.position = transform.position;
     }
@@ -111,7 +114,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
     void Update_ToTarget()
     {
         anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", true);
+        anim.SetBool("isWalk", true);
         anim.SetBool("isAttack", false);
         onMoveUpdate -= Update_Idle;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
@@ -125,7 +128,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
     void Update_Back()
     {
         anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", true);
+        anim.SetBool("isWalk", true);
         anim.SetBool("isAttack", false);
         transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime * 2.0f);
         if ((transform.position.x - startPos.x) > -0.001)
@@ -142,7 +145,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
     void Update_Attack()
     {
         anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", false);
+        anim.SetBool("isWalk", false);
         anim.SetBool("isAttack", true);
         StartCoroutine(AttackActionCoroutine());
     }

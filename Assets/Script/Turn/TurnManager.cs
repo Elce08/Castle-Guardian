@@ -26,7 +26,7 @@ public class TurnManager : MonoBehaviour
         players = new TurnPlayerBase[3];
         for(int i = 0; i < 3; i++)
         {
-            enemys[i] = EnemySpawn(enemysPosition[i]);
+            enemys[i] = EnemySpawn(enemysPosition[i], i);
         }
         players[0] = GameObject.Find("Player1").GetComponent<TurnPlayerBase>();
         players[1] = GameObject.Find("Player2").GetComponent<TurnPlayerBase>();
@@ -38,7 +38,7 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(StartMove());
     }
 
-    TurnEnemyBase EnemySpawn(Vector3 position)
+    TurnEnemyBase EnemySpawn(Vector3 position, int i)
     {
         Vector3 spawnPosition = new(spawnXPosition, position.y, position.z);
         int random = Random.Range(0, 6);
@@ -49,26 +49,32 @@ public class TurnManager : MonoBehaviour
             case 0:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnGoblinBerserker, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
             case 1:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnGoblinmagician, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
             case 2:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnGoblinwarrior, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
             case 3:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnSkeletonArcher, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
             case 4:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnSkeletonWarrior, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
             case 5:
                 enemy = Factory.Inst.GetObject(PoolObjectType.TurnSkeletonWizard, spawnPosition);
                 spawnedEnemy = enemy.GetComponent<TurnEnemyBase>();
+                spawnedEnemy.startPos = enemysPosition[i];
                 break;
         }
         return spawnedEnemy;
@@ -125,6 +131,7 @@ public class TurnManager : MonoBehaviour
                 else if (act != null && act.EndTurn)
                 {
                     act = turnQueue.Dequeue().GetComponent<ITurn>();
+                    act.EndTurn = false;
                     if (act.IsAlive) act.OnAttack();
                 }
                 yield return null;

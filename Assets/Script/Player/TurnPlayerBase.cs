@@ -185,7 +185,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
     private void _1_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[0];
-        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
@@ -198,7 +197,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
     private void _2_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[1];
-        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
@@ -211,7 +209,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
     private void _3_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         target = enemys[2];
-        Debug.Log($"target = {target.name}");
         if (target != null)
         {
             inputActions.NumberPad._1.performed -= _1_performed;
@@ -235,6 +232,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Idle()
     {
+        onMoveUpdate = null;
         anim.SetBool("isIdle", true);
         anim.SetBool("isRun", false);
         anim.SetBool("isAttack", false);
@@ -246,9 +244,11 @@ public class TurnPlayerBase : PlayerBase, ITurn
         anim.SetBool("isIdle", false);
         anim.SetBool("isRun", true);
         anim.SetBool("isAttack", false);
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime);
-        if ((transform.position.x - target.transform.position.x) > -3.0f)
+        onMoveUpdate -= Update_Idle;
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
+        if (transform.position.x > (target.transform.position.x -3.0f))
         {
+            onMoveUpdate -= Update_ToTarget;
             CharacterState = State.Attack;
         }
     }
@@ -258,10 +258,12 @@ public class TurnPlayerBase : PlayerBase, ITurn
         anim.SetBool("isIdle", false);
         anim.SetBool("isRun", true);
         anim.SetBool("isAttack", false);
-        transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime * 2.0f);
         if ((transform.position.x - startPos.x) < 0.001)
         {
             transform.position = startPos;
+            target = null;
+            onMoveUpdate -= Update_Back;
             Debug.Log($"{gameObject.name}turn end");
             endTurn = true;
             CharacterState = State.Idle;
@@ -279,6 +281,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     IEnumerator AttackActionCoroutine()
     {
         yield return new WaitForSeconds(1.0f);
+        onMoveUpdate -= Update_Attack;
         CharacterState = State.Back;
     }
 }

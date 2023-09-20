@@ -198,6 +198,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""60323a61-fe8e-46d7-bb85-585acafc837e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""5fd5f2e1-394c-47cc-b8c2-a1139021d972"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""38bfbfbf-5f41-488e-ab79-77813f8679a6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -244,6 +271,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19c76125-febd-416a-b676-44ae798dac70"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14e8855e-1f78-4e6b-b936-379943005e8f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eff9325d-224f-43d4-9d16-82ca54aa9d5b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +343,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_NumberPad__2 = m_NumberPad.FindAction("2", throwIfNotFound: true);
         m_NumberPad__3 = m_NumberPad.FindAction("3", throwIfNotFound: true);
         m_NumberPad_Mouse = m_NumberPad.FindAction("Mouse", throwIfNotFound: true);
+        m_NumberPad_RMouse = m_NumberPad.FindAction("RMouse", throwIfNotFound: true);
+        m_NumberPad_Space = m_NumberPad.FindAction("Space", throwIfNotFound: true);
+        m_NumberPad_ESC = m_NumberPad.FindAction("ESC", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -472,6 +535,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_NumberPad__2;
     private readonly InputAction m_NumberPad__3;
     private readonly InputAction m_NumberPad_Mouse;
+    private readonly InputAction m_NumberPad_RMouse;
+    private readonly InputAction m_NumberPad_Space;
+    private readonly InputAction m_NumberPad_ESC;
     public struct NumberPadActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -480,6 +546,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @_2 => m_Wrapper.m_NumberPad__2;
         public InputAction @_3 => m_Wrapper.m_NumberPad__3;
         public InputAction @Mouse => m_Wrapper.m_NumberPad_Mouse;
+        public InputAction @RMouse => m_Wrapper.m_NumberPad_RMouse;
+        public InputAction @Space => m_Wrapper.m_NumberPad_Space;
+        public InputAction @ESC => m_Wrapper.m_NumberPad_ESC;
         public InputActionMap Get() { return m_Wrapper.m_NumberPad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -501,6 +570,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Mouse.started += instance.OnMouse;
             @Mouse.performed += instance.OnMouse;
             @Mouse.canceled += instance.OnMouse;
+            @RMouse.started += instance.OnRMouse;
+            @RMouse.performed += instance.OnRMouse;
+            @RMouse.canceled += instance.OnRMouse;
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
+            @ESC.started += instance.OnESC;
+            @ESC.performed += instance.OnESC;
+            @ESC.canceled += instance.OnESC;
         }
 
         private void UnregisterCallbacks(INumberPadActions instance)
@@ -517,6 +595,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Mouse.started -= instance.OnMouse;
             @Mouse.performed -= instance.OnMouse;
             @Mouse.canceled -= instance.OnMouse;
+            @RMouse.started -= instance.OnRMouse;
+            @RMouse.performed -= instance.OnRMouse;
+            @RMouse.canceled -= instance.OnRMouse;
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
+            @ESC.started -= instance.OnESC;
+            @ESC.performed -= instance.OnESC;
+            @ESC.canceled -= instance.OnESC;
         }
 
         public void RemoveCallbacks(INumberPadActions instance)
@@ -561,5 +648,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnRMouse(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
     }
 }

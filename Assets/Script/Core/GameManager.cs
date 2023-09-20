@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public enum PlayerType
 {
@@ -39,6 +40,16 @@ public enum Body
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject[] playerTypePrefabs;
+    public static float timeScale = 1.0f;
+    public static bool gameStop = false;
+    PlayerInputActions inputActions;
+    Canvas settingCanvas;
+    Button resume;
+    Button setting;
+    Button sound;
+    Button quit;
+    
     public enum Scene
     {
         Menu,
@@ -48,7 +59,20 @@ public class GameManager : MonoBehaviour
         Defence,
     }
 
-    public GameObject[] playerTypePrefabs;
+    private void Awake()
+    {
+        inputActions = new PlayerInputActions();
+        settingCanvas = GetComponentInChildren<Canvas>();
+        Transform getChild = gameObject.transform.GetChild(0);
+        Transform child = getChild.gameObject.transform.GetChild(0);
+        resume = child.GetComponent<Button>();
+        child = getChild.gameObject.transform.GetChild(1);
+        setting = child.GetComponent<Button>();
+        child = getChild.gameObject.transform.GetChild(2);
+        sound = child.GetComponent<Button>();
+        child = getChild.gameObject.transform.GetChild(3);
+        quit = child.GetComponent<Button>();
+    }
 
 
     private void Start()
@@ -60,16 +84,22 @@ public class GameManager : MonoBehaviour
         player1Sprite = PlayerImage(player1Type);
         player2Sprite = PlayerImage(player2Type);
         player3Sprite = PlayerImage(player3Type);
+        settingCanvas.gameObject.SetActive(false);
+        resume.onClick.AddListener(ResumeButton);
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
+        inputActions.NumberPad.Enable();
+        inputActions.NumberPad.ESC.performed += GameSetting;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoad;
+        inputActions.NumberPad.Disable();
+        inputActions.NumberPad.ESC.performed -= GameSetting;
     }
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
@@ -88,6 +118,29 @@ public class GameManager : MonoBehaviour
                 s.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
             }
         }
+    }
+
+    private void GameSetting(UnityEngine.InputSystem.InputAction.CallbackContext _)
+    {
+        if (!gameStop)
+        {
+            settingCanvas.gameObject.SetActive(true);
+            timeScale = 0.0f;
+            gameStop = true;
+        }
+        else
+        {
+            settingCanvas.gameObject.SetActive(false);
+            timeScale = 1.0f;
+            gameStop = false;
+        }
+    }
+
+    private void ResumeButton()
+    {
+        settingCanvas.gameObject.SetActive(false);
+        timeScale = 1.0f;
+        gameStop = false;
     }
 
     //플레이어 선택=============================================================

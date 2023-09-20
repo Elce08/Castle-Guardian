@@ -9,7 +9,7 @@ using UnityEngineInternal;
 
 public class TurnPlayerBase : PlayerBase, ITurn
 {
-    PlayerInputActions inputActions;
+    static PlayerInputActions inputActions;
 
     bool endTurn = false;
 
@@ -117,7 +117,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     public static void Stop(bool stop)
     {
-        PlayerInputActions inputActions = new();
         if (stop)
         {
             inputActions.NumberPad.Disable();
@@ -292,7 +291,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     IEnumerator AttackActionCoroutine()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(5.0f);
         onMoveUpdate -= Update_Attack;
         CharacterState = State.Back;
     }

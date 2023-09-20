@@ -216,15 +216,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ESC"",
-                    ""type"": ""Button"",
-                    ""id"": ""38bfbfbf-5f41-488e-ab79-77813f8679a6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -293,15 +284,32 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Space"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""GameManager"",
+            ""id"": ""5c9c0fb4-eaf3-4c26-8a0a-9c7e3b177686"",
+            ""actions"": [
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d9c8636-0e91-4338-a7a9-c4f143efe793"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""eff9325d-224f-43d4-9d16-82ca54aa9d5b"",
+                    ""id"": ""f25dda6c-a284-48b9-b3a8-e8f5246f0ea4"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ESC"",
+                    ""groups"": ""KM"",
+                    ""action"": ""Esc"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -345,7 +353,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_NumberPad_Mouse = m_NumberPad.FindAction("Mouse", throwIfNotFound: true);
         m_NumberPad_RMouse = m_NumberPad.FindAction("RMouse", throwIfNotFound: true);
         m_NumberPad_Space = m_NumberPad.FindAction("Space", throwIfNotFound: true);
-        m_NumberPad_ESC = m_NumberPad.FindAction("ESC", throwIfNotFound: true);
+        // GameManager
+        m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
+        m_GameManager_Esc = m_GameManager.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -537,7 +547,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_NumberPad_Mouse;
     private readonly InputAction m_NumberPad_RMouse;
     private readonly InputAction m_NumberPad_Space;
-    private readonly InputAction m_NumberPad_ESC;
     public struct NumberPadActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -548,7 +557,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Mouse => m_Wrapper.m_NumberPad_Mouse;
         public InputAction @RMouse => m_Wrapper.m_NumberPad_RMouse;
         public InputAction @Space => m_Wrapper.m_NumberPad_Space;
-        public InputAction @ESC => m_Wrapper.m_NumberPad_ESC;
         public InputActionMap Get() { return m_Wrapper.m_NumberPad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -576,9 +584,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Space.started += instance.OnSpace;
             @Space.performed += instance.OnSpace;
             @Space.canceled += instance.OnSpace;
-            @ESC.started += instance.OnESC;
-            @ESC.performed += instance.OnESC;
-            @ESC.canceled += instance.OnESC;
         }
 
         private void UnregisterCallbacks(INumberPadActions instance)
@@ -601,9 +606,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Space.started -= instance.OnSpace;
             @Space.performed -= instance.OnSpace;
             @Space.canceled -= instance.OnSpace;
-            @ESC.started -= instance.OnESC;
-            @ESC.performed -= instance.OnESC;
-            @ESC.canceled -= instance.OnESC;
         }
 
         public void RemoveCallbacks(INumberPadActions instance)
@@ -621,6 +623,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public NumberPadActions @NumberPad => new NumberPadActions(this);
+
+    // GameManager
+    private readonly InputActionMap m_GameManager;
+    private List<IGameManagerActions> m_GameManagerActionsCallbackInterfaces = new List<IGameManagerActions>();
+    private readonly InputAction m_GameManager_Esc;
+    public struct GameManagerActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GameManagerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Esc => m_Wrapper.m_GameManager_Esc;
+        public InputActionMap Get() { return m_Wrapper.m_GameManager; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameManagerActions set) { return set.Get(); }
+        public void AddCallbacks(IGameManagerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameManagerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Add(instance);
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
+        }
+
+        private void UnregisterCallbacks(IGameManagerActions instance)
+        {
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
+        }
+
+        public void RemoveCallbacks(IGameManagerActions instance)
+        {
+            if (m_Wrapper.m_GameManagerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameManagerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameManagerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GameManagerActions @GameManager => new GameManagerActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -650,6 +698,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMouse(InputAction.CallbackContext context);
         void OnRMouse(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
-        void OnESC(InputAction.CallbackContext context);
+    }
+    public interface IGameManagerActions
+    {
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

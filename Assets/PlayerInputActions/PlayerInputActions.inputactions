@@ -194,15 +194,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "ESC",
-                    "type": "Button",
-                    "id": "38bfbfbf-5f41-488e-ab79-77813f8679a6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -271,15 +262,32 @@
                     "action": "Space",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "GameManager",
+            "id": "5c9c0fb4-eaf3-4c26-8a0a-9c7e3b177686",
+            "actions": [
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "7d9c8636-0e91-4338-a7a9-c4f143efe793",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "eff9325d-224f-43d4-9d16-82ca54aa9d5b",
+                    "id": "f25dda6c-a284-48b9-b3a8-e8f5246f0ea4",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "ESC",
+                    "groups": "KM",
+                    "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

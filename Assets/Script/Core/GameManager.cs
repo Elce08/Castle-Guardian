@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -41,8 +42,7 @@ public enum Body
 public class GameManager : MonoBehaviour
 {
     public GameObject[] playerTypePrefabs;
-    public static float timeScale = 1.0f;
-    public static bool gameStop = false;
+    bool gameStop = false;
     PlayerInputActions inputActions;
     Canvas settingCanvas;
     Button resume;
@@ -91,15 +91,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
-        inputActions.NumberPad.Enable();
-        inputActions.NumberPad.ESC.performed += GameSetting;
+        inputActions.GameManager.Enable();
+        inputActions.GameManager.Esc.performed += GameSetting;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoad;
-        inputActions.NumberPad.Disable();
-        inputActions.NumberPad.ESC.performed -= GameSetting;
+        inputActions.GameManager.Disable();
+        inputActions.GameManager.Esc.performed -= GameSetting;
     }
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
@@ -124,23 +124,28 @@ public class GameManager : MonoBehaviour
     {
         if (!gameStop)
         {
-            settingCanvas.gameObject.SetActive(true);
-            timeScale = 0.0f;
+            Debug.Log("On");
             gameStop = true;
+            settingCanvas.gameObject.SetActive(true);
+            Time.timeScale = 0.0f;
+            TurnPlayerBase.Stop(true);
         }
-        else
+        else if (gameStop)
         {
-            settingCanvas.gameObject.SetActive(false);
-            timeScale = 1.0f;
+            Debug.Log("Off");
             gameStop = false;
+            settingCanvas.gameObject.SetActive(false);
+            Time.timeScale = 1.0f;
+            TurnPlayerBase.Stop(false);
         }
     }
 
     private void ResumeButton()
     {
-        settingCanvas.gameObject.SetActive(false);
-        timeScale = 1.0f;
         gameStop = false;
+        settingCanvas.gameObject.SetActive(false);
+        Time.timeScale = 1.0f;
+        TurnPlayerBase.Stop(false);
     }
 
     //플레이어 선택=============================================================

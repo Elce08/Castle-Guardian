@@ -115,6 +115,19 @@ public class TurnPlayerBase : PlayerBase, ITurn
         inputActions.NumberPad.Disable();
     }
 
+    public static void Stop(bool stop)
+    {
+        PlayerInputActions inputActions = new();
+        if (stop)
+        {
+            inputActions.NumberPad.Disable();
+        }
+        else if (!stop)
+        {
+            inputActions.NumberPad.Enable();
+        }
+    } 
+
     public void OnAttack()
     {
         Debug.Log($"{gameObject.name}turn");

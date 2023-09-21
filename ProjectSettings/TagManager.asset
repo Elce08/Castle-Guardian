@@ -10,11 +10,12 @@ TagManager:
   - Ground
   - Enemy
   - LosingPoint
+  - UI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - OverUI
   - Water
   - UI
   - 

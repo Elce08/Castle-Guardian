@@ -86,6 +86,9 @@ public class GameManager : MonoBehaviour
         player3Sprite = PlayerImage(player3Type);
         settingCanvas.gameObject.SetActive(false);
         resume.onClick.AddListener(ResumeButton);
+        setting.onClick.AddListener(SettingButton);
+        sound.onClick.AddListener(SoundButton);
+        quit.onClick.AddListener(QuitButton);
     }
 
     private void OnEnable()
@@ -141,6 +144,22 @@ public class GameManager : MonoBehaviour
         settingCanvas.gameObject.SetActive(false);
         timeScale = 1.0f;
         gameStop = false;
+    }
+
+    private void SoundButton()
+    {
+        // 사운드 창 열리게(미구현 예정)
+    }
+
+    private void SettingButton()
+    {
+        // 세팅 창 열리게(미구현 예정)
+    }
+
+    private void QuitButton()
+    {
+        // 세이브까지 해주면 베스트
+        // 게임 종료
     }
 
     //플레이어 선택=============================================================

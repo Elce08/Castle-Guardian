@@ -20,6 +20,8 @@ public class TurnManager : MonoBehaviour
 
     ITurn[] turnAct;
 
+    public ResultUI result;
+
     private void Start()
     {
         enemys = new TurnEnemyBase[3];
@@ -36,6 +38,7 @@ public class TurnManager : MonoBehaviour
             players[i].transform.position = new(-spawnXPosition, playersPosition[i].y, playersPosition[i].z);
         }
         StartCoroutine(StartMove());
+        result.gameObject.SetActive(false);
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position, int i)
@@ -138,6 +141,14 @@ public class TurnManager : MonoBehaviour
             }
             if ((!players[0].IsAlive && !players[1].IsAlive && !players[2].IsAlive) || (!enemys[0].IsAlive && !enemys[1].IsAlive && !enemys[2].IsAlive))
             {
+                result.gameObject.SetActive(true);
+                for(int i = 0; i < 3; i++)
+                {
+                    players[i].gameObject.SetActive(false);
+                    enemys[i].gameObject.SetActive(false);
+                }
+                if (!players[0].IsAlive && !players[1].IsAlive && !players[2].IsAlive) result.Lose();
+                else if (!enemys[0].IsAlive && !enemys[1].IsAlive && !enemys[2].IsAlive) result.Win();
                 break;
             }
         }

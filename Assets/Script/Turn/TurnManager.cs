@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
     public TurnEnemyBase[] enemys;
     public TurnPlayerBase[] players;
 
-    private Queue<GameObject> turnQueue = new();
+    private readonly Queue<GameObject> turnQueue = new();
 
     ITurn[] turnAct;
 

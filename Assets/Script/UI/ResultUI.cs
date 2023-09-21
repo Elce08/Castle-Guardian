@@ -29,11 +29,6 @@ public class ResultUI : MonoBehaviour
         inputActions = new();
     }
 
-    private void Start()
-    {
-        SpawnActor();
-    }
-
     private void OnEnable()
     {
         inputActions.ResultUI.Enable();
@@ -110,13 +105,16 @@ public class ResultUI : MonoBehaviour
 
     public void Win()
     {
+        SpawnActor();
         resultText.text = "Victory";
         actorAnim.SetBool("isIdle", false);
         actorAnim.SetBool("isVictory", true);
+        // ÅÛ µå¶ø
     }
 
     public void Lose()
     {
+        SpawnActor();
         resultText.text = "Lose";
         actorAnim.SetBool("isIdle", false);
         actorAnim.SetBool("isDied", true);

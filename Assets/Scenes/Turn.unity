@@ -236,7 +236,7 @@ MonoBehaviour:
   - {x: -5, y: -2, z: 0}
   enemys: []
   players: []
-  result: {fileID: 0}
+  result: {fileID: 5743645903676193257}
 --- !u!1 &89665116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,3 +1494,14 @@ PrefabInstance:
       objectReference: {fileID: 1976052346}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8582f0da91aa214088c4906af53abf4, type: 3}
+--- !u!114 &5743645903676193257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5743645904785685749, guid: c8582f0da91aa214088c4906af53abf4, type: 3}
+  m_PrefabInstance: {fileID: 5743645903676193256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51932acc49f957a499c01a5538f34698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -27,7 +27,7 @@ public class PlayerSelectUI : MonoBehaviour
 
     private void Awake()
     {
-        Transform child = transform.GetChild(0);
+        Transform child = transform.GetChild(1);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Transform grandChild = child.GetChild(0);
         image = grandChild.GetComponent<Image>();
@@ -38,17 +38,17 @@ public class PlayerSelectUI : MonoBehaviour
         explanation = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(4);
         lastCheck = grandChild.GetComponent<Button>();
-        child = transform.GetChild(1);
-        archor = child.GetComponent<Button>();
         child = transform.GetChild(2);
-        archor_LongBow = child.GetComponent<Button>();
+        archor = child.GetComponent<Button>();
         child = transform.GetChild(3);
-        gunner = child.GetComponent<Button>();
+        archor_LongBow = child.GetComponent<Button>();
         child = transform.GetChild(4);
-        soldier_LongSword = child.GetComponent<Button>();
+        gunner = child.GetComponent<Button>();
         child = transform.GetChild(5);
-        solder_ShorSword = child.GetComponent<Button>();
+        soldier_LongSword = child.GetComponent<Button>();
         child = transform.GetChild(6);
+        solder_ShorSword = child.GetComponent<Button>();
+        child = transform.GetChild(7);
         Warrior = child.GetComponent<Button>();
         lastCheck.gameObject.SetActive(false);
     }
@@ -119,7 +119,7 @@ public class PlayerSelectUI : MonoBehaviour
         Player2Setting();
         lastCheck.onClick.RemoveListener(Player1Selected);
         changeName.text = "Add Name";
-        image.sprite = null;
+        image.sprite = sprites[6];
     }
 
     void Player2Selected()
@@ -154,7 +154,7 @@ public class PlayerSelectUI : MonoBehaviour
         }
         Player3Setting();
         changeName.text = "Add Name";
-        image.sprite = null;
+        image.sprite = sprites[6];
     }
 
     void Player3Selected()

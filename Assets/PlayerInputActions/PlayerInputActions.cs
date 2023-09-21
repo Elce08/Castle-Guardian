@@ -198,6 +198,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""60323a61-fe8e-46d7-bb85-585acafc837e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""5fd5f2e1-394c-47cc-b8c2-a1139021d972"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -244,6 +262,104 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19c76125-febd-416a-b676-44ae798dac70"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14e8855e-1f78-4e6b-b936-379943005e8f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""GameManager"",
+            ""id"": ""5c9c0fb4-eaf3-4c26-8a0a-9c7e3b177686"",
+            ""actions"": [
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d9c8636-0e91-4338-a7a9-c4f143efe793"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f25dda6c-a284-48b9-b3a8-e8f5246f0ea4"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""ResultUI"",
+            ""id"": ""db801083-dced-4204-8370-fd7323750ed6"",
+            ""actions"": [
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""2654f8c3-8717-4c17-9657-54d020322061"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""706d683a-f212-4d8f-828e-fb0eed547988"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""299d7a87-eaa0-46b4-aa95-9cda43be1d8c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""edab4756-3c49-48a5-9b20-49dbe13ae897"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KM"",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -283,6 +399,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_NumberPad__2 = m_NumberPad.FindAction("2", throwIfNotFound: true);
         m_NumberPad__3 = m_NumberPad.FindAction("3", throwIfNotFound: true);
         m_NumberPad_Mouse = m_NumberPad.FindAction("Mouse", throwIfNotFound: true);
+        m_NumberPad_RMouse = m_NumberPad.FindAction("RMouse", throwIfNotFound: true);
+        m_NumberPad_Space = m_NumberPad.FindAction("Space", throwIfNotFound: true);
+        // GameManager
+        m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
+        m_GameManager_Esc = m_GameManager.FindAction("Esc", throwIfNotFound: true);
+        // ResultUI
+        m_ResultUI = asset.FindActionMap("ResultUI", throwIfNotFound: true);
+        m_ResultUI_Space = m_ResultUI.FindAction("Space", throwIfNotFound: true);
+        m_ResultUI_LeftClick = m_ResultUI.FindAction("LeftClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -472,6 +597,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_NumberPad__2;
     private readonly InputAction m_NumberPad__3;
     private readonly InputAction m_NumberPad_Mouse;
+    private readonly InputAction m_NumberPad_RMouse;
+    private readonly InputAction m_NumberPad_Space;
     public struct NumberPadActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -480,6 +607,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @_2 => m_Wrapper.m_NumberPad__2;
         public InputAction @_3 => m_Wrapper.m_NumberPad__3;
         public InputAction @Mouse => m_Wrapper.m_NumberPad_Mouse;
+        public InputAction @RMouse => m_Wrapper.m_NumberPad_RMouse;
+        public InputAction @Space => m_Wrapper.m_NumberPad_Space;
         public InputActionMap Get() { return m_Wrapper.m_NumberPad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -501,6 +630,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Mouse.started += instance.OnMouse;
             @Mouse.performed += instance.OnMouse;
             @Mouse.canceled += instance.OnMouse;
+            @RMouse.started += instance.OnRMouse;
+            @RMouse.performed += instance.OnRMouse;
+            @RMouse.canceled += instance.OnRMouse;
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
         }
 
         private void UnregisterCallbacks(INumberPadActions instance)
@@ -517,6 +652,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Mouse.started -= instance.OnMouse;
             @Mouse.performed -= instance.OnMouse;
             @Mouse.canceled -= instance.OnMouse;
+            @RMouse.started -= instance.OnRMouse;
+            @RMouse.performed -= instance.OnRMouse;
+            @RMouse.canceled -= instance.OnRMouse;
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
         }
 
         public void RemoveCallbacks(INumberPadActions instance)
@@ -534,6 +675,106 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public NumberPadActions @NumberPad => new NumberPadActions(this);
+
+    // GameManager
+    private readonly InputActionMap m_GameManager;
+    private List<IGameManagerActions> m_GameManagerActionsCallbackInterfaces = new List<IGameManagerActions>();
+    private readonly InputAction m_GameManager_Esc;
+    public struct GameManagerActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GameManagerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Esc => m_Wrapper.m_GameManager_Esc;
+        public InputActionMap Get() { return m_Wrapper.m_GameManager; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameManagerActions set) { return set.Get(); }
+        public void AddCallbacks(IGameManagerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameManagerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Add(instance);
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
+        }
+
+        private void UnregisterCallbacks(IGameManagerActions instance)
+        {
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
+        }
+
+        public void RemoveCallbacks(IGameManagerActions instance)
+        {
+            if (m_Wrapper.m_GameManagerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameManagerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameManagerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameManagerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GameManagerActions @GameManager => new GameManagerActions(this);
+
+    // ResultUI
+    private readonly InputActionMap m_ResultUI;
+    private List<IResultUIActions> m_ResultUIActionsCallbackInterfaces = new List<IResultUIActions>();
+    private readonly InputAction m_ResultUI_Space;
+    private readonly InputAction m_ResultUI_LeftClick;
+    public struct ResultUIActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public ResultUIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Space => m_Wrapper.m_ResultUI_Space;
+        public InputAction @LeftClick => m_Wrapper.m_ResultUI_LeftClick;
+        public InputActionMap Get() { return m_Wrapper.m_ResultUI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ResultUIActions set) { return set.Get(); }
+        public void AddCallbacks(IResultUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ResultUIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ResultUIActionsCallbackInterfaces.Add(instance);
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
+            @LeftClick.started += instance.OnLeftClick;
+            @LeftClick.performed += instance.OnLeftClick;
+            @LeftClick.canceled += instance.OnLeftClick;
+        }
+
+        private void UnregisterCallbacks(IResultUIActions instance)
+        {
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
+            @LeftClick.started -= instance.OnLeftClick;
+            @LeftClick.performed -= instance.OnLeftClick;
+            @LeftClick.canceled -= instance.OnLeftClick;
+        }
+
+        public void RemoveCallbacks(IResultUIActions instance)
+        {
+            if (m_Wrapper.m_ResultUIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IResultUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ResultUIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ResultUIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ResultUIActions @ResultUI => new ResultUIActions(this);
     private int m_KMSchemeIndex = -1;
     public InputControlScheme KMScheme
     {
@@ -561,5 +802,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void On_2(InputAction.CallbackContext context);
         void On_3(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnRMouse(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
+    }
+    public interface IGameManagerActions
+    {
+        void OnEsc(InputAction.CallbackContext context);
+    }
+    public interface IResultUIActions
+    {
+        void OnSpace(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
     }
 }

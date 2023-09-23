@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
         Defence,
     }
 
+    Scene currentScene;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -109,13 +111,15 @@ public class GameManager : MonoBehaviour
     {
         if(scene.name == "Defence")
         {
+            currentScene = Scene.Defence;
             foreach(GameObject s in playerTypePrefabs)
             {
                 s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
         }
-        if(scene.name == "Turn")
+        else if(scene.name == "Turn")
         {
+            currentScene = Scene.Turn;
             foreach (GameObject s in playerTypePrefabs)
             {
                 s.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
@@ -131,7 +135,8 @@ public class GameManager : MonoBehaviour
             gameStop = true;
             settingCanvas.gameObject.SetActive(true);
             Time.timeScale = 0.0f;
-            TurnPlayerBase.Stop(true);
+            if(currentScene == Scene.Turn) TurnPlayerBase.Stop(true);
+            else if(currentScene == Scene.Defence) SpawnPlayer.Stop(true);
         }
         else if (gameStop)
         {
@@ -139,7 +144,8 @@ public class GameManager : MonoBehaviour
             gameStop = false;
             settingCanvas.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
-            TurnPlayerBase.Stop(false);
+            if (currentScene == Scene.Turn) TurnPlayerBase.Stop(false);
+            else if (currentScene == Scene.Defence) SpawnPlayer.Stop(false);
         }
     }
 

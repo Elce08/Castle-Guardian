@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8812280177632315680}
   - component: {fileID: 8812280177632315683}
+  - component: {fileID: -6909829171013637581}
   m_Layer: 0
   m_Name: DefenceGoblinwarriorPool
   m_TagString: Untagged
@@ -46,3 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origianlPrefab: {fileID: 8169607217515425572, guid: acf75ddd67860aa4c9a1acb437cbcacd, type: 3}
   poolSize: 64
+--- !u!210 &-6909829171013637581
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8812280177632315681}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0

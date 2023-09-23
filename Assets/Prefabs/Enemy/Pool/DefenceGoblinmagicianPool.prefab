@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 929588261745510167}
   - component: {fileID: 929588261745510166}
+  - component: {fileID: 7131945213162811631}
   m_Layer: 0
   m_Name: DefenceGoblinmagicianPool
   m_TagString: Untagged
@@ -46,3 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origianlPrefab: {fileID: 2848663933704069569, guid: 4ac2d494ca1d4354baa4604a6e2e08e2, type: 3}
   poolSize: 64
+--- !u!210 &7131945213162811631
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929588261745510152}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0

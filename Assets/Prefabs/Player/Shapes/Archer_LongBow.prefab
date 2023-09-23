@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5089542277990291511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8696992413505499681}
   - component: {fileID: 7424197683938795651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5885305924509942348}
   - component: {fileID: 6504970018742993848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6386413362195476899}
   - component: {fileID: 7294549007728428964}
   - component: {fileID: 8245328968800766405}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wepon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7188144667895125785}
   - component: {fileID: 6049824252109196088}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3233244484735918896}
   - component: {fileID: 8816935945782511907}
-  m_Layer: 0
+  - component: {fileID: 4984731959258733086}
+  m_Layer: 6
   m_Name: Archer_LongBow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 1937412264976123617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5089542277990291511}
@@ -346,6 +347,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &4984731959258733086
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937412264976123617}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!1 &2948828768041691940
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6560491329660744711}
   - component: {fileID: 3608014787265505784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body_bttome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7578169698749535150}
   - component: {fileID: 1025024299839749886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ArrowZip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +469,7 @@ GameObject:
   - component: {fileID: 1926743718808684365}
   - component: {fileID: 6706127143310077542}
   - component: {fileID: 4651452787764839449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wepon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +576,7 @@ GameObject:
   - component: {fileID: 1092027770319706075}
   - component: {fileID: 4705615024101842820}
   - component: {fileID: 7749219138843900250}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5546460209134965410}
   - component: {fileID: 3059024988821751444}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +735,7 @@ GameObject:
   - component: {fileID: 8154968840854591402}
   - component: {fileID: 929040814553154301}
   - component: {fileID: 5070832478515958051}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +842,7 @@ GameObject:
   - component: {fileID: 567756326653366993}
   - component: {fileID: 6603287029181263956}
   - component: {fileID: 3728891845330801372}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +949,7 @@ GameObject:
   - component: {fileID: 2244123476348942746}
   - component: {fileID: 1656660963104611934}
   - component: {fileID: 7013882146443234687}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1044,7 +1056,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6040401170662141634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7089905034611197228}
   - component: {fileID: 5385227579679497769}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1126,7 +1138,7 @@ GameObject:
   - component: {fileID: 178023061678513613}
   - component: {fileID: 6733127668199857641}
   - component: {fileID: 822456255707907470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1232,7 +1244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6664269729916271666}
   - component: {fileID: 8109575889637764907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1282,7 +1294,7 @@ GameObject:
   - component: {fileID: 1367611779314170976}
   - component: {fileID: 6737089121002357307}
   - component: {fileID: 2458475932202381514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: wepon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6921851463286466369}
   - component: {fileID: 3239262723455249196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1436,7 +1448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3974011679392956806}
   - component: {fileID: 5728522713544831478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1485,7 +1497,7 @@ GameObject:
   - component: {fileID: 2969440918432932548}
   - component: {fileID: 703928232207217818}
   - component: {fileID: 7003670275085039010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

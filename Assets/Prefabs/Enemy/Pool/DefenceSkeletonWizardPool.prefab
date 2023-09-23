@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5401353549113088295}
   - component: {fileID: 5401353549113088294}
+  - component: {fileID: 1226022543579211459}
   m_Layer: 0
   m_Name: DefenceSkeletonWizardPool
   m_TagString: Untagged
@@ -46,3 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origianlPrefab: {fileID: 8433287132920401887, guid: ee1b63f3a10b4ec448453ed1179d25c5, type: 3}
   poolSize: 64
+--- !u!210 &1226022543579211459
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401353549113088288}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0

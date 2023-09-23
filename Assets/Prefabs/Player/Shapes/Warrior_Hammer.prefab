@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688147756232115}
   - component: {fileID: 8041688147756232108}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688147786468923}
   - component: {fileID: 8041688147786468916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: upperbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8041688147920469894}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148140347150}
   - component: {fileID: 8041688148140347151}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: upperbody2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148149028942}
   - component: {fileID: 8041688148149028943}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148273504053}
   - component: {fileID: 8041688148273504054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148353284529}
   - component: {fileID: 8041688148353284528}
-  m_Layer: 0
+  - component: {fileID: -8304080380650920613}
+  m_Layer: 6
   m_Name: Warrior_Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 8041688148353284534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8041688149438470490}
@@ -334,6 +335,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &-8304080380650920613
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041688148353284534}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!1 &8041688148407501768
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148407501769}
   - component: {fileID: 8041688148407501770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: weapon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +405,7 @@ GameObject:
   - component: {fileID: 8041688148417025305}
   - component: {fileID: 8041688148417025307}
   - component: {fileID: 8041688148417025306}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148544656556}
   - component: {fileID: 8041688148544656557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_centerR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688148919220123}
   - component: {fileID: 8041688148919220116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +610,7 @@ GameObject:
   - component: {fileID: 8041688149188599550}
   - component: {fileID: 8041688149188599544}
   - component: {fileID: 8041688149188599551}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: weapon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,7 +717,7 @@ GameObject:
   - component: {fileID: 8041688149215119964}
   - component: {fileID: 8041688149215119966}
   - component: {fileID: 8041688149215119965}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: upperbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +826,7 @@ GameObject:
   - component: {fileID: 8041688149339617299}
   - component: {fileID: 8041688149339617293}
   - component: {fileID: 8041688149339617292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,7 +933,7 @@ GameObject:
   - component: {fileID: 8041688149370851788}
   - component: {fileID: 8041688149370851790}
   - component: {fileID: 8041688149370851789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1028,7 +1040,7 @@ GameObject:
   - component: {fileID: 8041688149377170396}
   - component: {fileID: 8041688149377170398}
   - component: {fileID: 8041688149377170397}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1133,7 +1145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8041688149438470490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688149513715506}
   - component: {fileID: 8041688149513715507}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_centerL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1223,7 +1235,7 @@ GameObject:
   - component: {fileID: 8041688149522789123}
   - component: {fileID: 8041688149522789181}
   - component: {fileID: 8041688149522789180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1329,7 +1341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688149622895513}
   - component: {fileID: 8041688149622895514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1377,7 +1389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8041688149758112048}
   - component: {fileID: 8041688149758112049}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1426,7 +1438,7 @@ GameObject:
   - component: {fileID: 8041688149763696894}
   - component: {fileID: 8041688149763696888}
   - component: {fileID: 8041688149763696895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hand_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}

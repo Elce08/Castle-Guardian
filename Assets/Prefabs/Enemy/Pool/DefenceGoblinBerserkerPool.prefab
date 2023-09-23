@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3130318602929108575}
   - component: {fileID: 3130318602929108544}
+  - component: {fileID: -7835797537053380680}
   m_Layer: 0
   m_Name: DefenceGoblinBerserkerPool
   m_TagString: Untagged
@@ -46,3 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origianlPrefab: {fileID: 1207499301323369676, guid: 0f22cfb5421c793498d8b05d976a7df9, type: 3}
   poolSize: 64
+--- !u!210 &-7835797537053380680
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130318602929108574}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0

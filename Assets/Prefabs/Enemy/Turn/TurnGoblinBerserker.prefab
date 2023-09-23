@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 9007996439636965338}
   - component: {fileID: 9007996439636965339}
   - component: {fileID: 8422779748697821592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TurnGoblinBerserker
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -585,6 +585,9 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  startPos: {x: 0, y: 0, z: 0}
+  turnManager: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &9007996439730023996
 GameObject:
   m_ObjectHideFlags: 0

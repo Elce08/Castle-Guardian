@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3265126463994493288}
   - component: {fileID: 3265126463994493289}
+  - component: {fileID: -1825665703389759299}
   m_Layer: 0
   m_Name: DefenceSkeletonArcherPool
   m_TagString: Untagged
@@ -46,3 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   origianlPrefab: {fileID: 81490134373273805, guid: afd14b2015255664abf957d2a9c73d19, type: 3}
   poolSize: 64
+--- !u!210 &-1825665703389759299
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265126463994493303}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 0

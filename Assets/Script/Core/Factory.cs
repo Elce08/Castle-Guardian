@@ -77,31 +77,35 @@ public class Factory : Singleton<Factory>
         turnSkeletonWizardPool?.Initialize();
     }
 
-    public GameObject GetObject(PoolObjectType type)
+    public GameObject GetObject(PoolObjectType? type)
     {
-        GameObject result = type switch
+        if(type != null)
         {
-            PoolObjectType.DefencePlayer1 => defencePlayer1Pool?.GetObject()?.gameObject,
-            PoolObjectType.DefencePlayer2 => defencePlayer2Pool?.GetObject()?.gameObject,
-            PoolObjectType.DefencePlayer3 => defencePlayer3Pool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceGoblinBerserker => defenceGoblinBerserkerPool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceGoblinmagician => defenceGoblinmagicianPool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceGoblinwarrior => defenceGoblinwarriorPool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceSkeletonArcher => defenceSkeletonArcherPool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceSkeletonWarrior => defenceSkeletonWarriorPool?.GetObject()?.gameObject,
-            PoolObjectType.DefenceSkeletonWizard => defenceSkeletonWizardPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnGoblinBerserker => turnGoblinBerserkerPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnGoblinmagician => turnGoblinmagicianPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnGoblinwarrior => turnGoblinwarriorPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnSkeletonArcher => turnSkeletonArcherPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnSkeletonWarrior => turnSkeletonWarriorPool?.GetObject()?.gameObject,
-            PoolObjectType.TurnSkeletonWizard => turnSkeletonWizardPool?.GetObject()?.gameObject,
-            _ => new GameObject(),
-        };
-        return result;
+            GameObject result = type switch
+            {
+                PoolObjectType.DefencePlayer1 => defencePlayer1Pool?.GetObject()?.gameObject,
+                PoolObjectType.DefencePlayer2 => defencePlayer2Pool?.GetObject()?.gameObject,
+                PoolObjectType.DefencePlayer3 => defencePlayer3Pool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceGoblinBerserker => defenceGoblinBerserkerPool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceGoblinmagician => defenceGoblinmagicianPool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceGoblinwarrior => defenceGoblinwarriorPool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceSkeletonArcher => defenceSkeletonArcherPool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceSkeletonWarrior => defenceSkeletonWarriorPool?.GetObject()?.gameObject,
+                PoolObjectType.DefenceSkeletonWizard => defenceSkeletonWizardPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnGoblinBerserker => turnGoblinBerserkerPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnGoblinmagician => turnGoblinmagicianPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnGoblinwarrior => turnGoblinwarriorPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnSkeletonArcher => turnSkeletonArcherPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnSkeletonWarrior => turnSkeletonWarriorPool?.GetObject()?.gameObject,
+                PoolObjectType.TurnSkeletonWizard => turnSkeletonWizardPool?.GetObject()?.gameObject,
+                _ => new GameObject(),
+            };
+            return result;
+        }
+        else return null;
     }
 
-    public GameObject GetObject(PoolObjectType type, Vector3 position)
+    public GameObject GetObject(PoolObjectType? type, Vector3 position)
     {
         GameObject obj = GetObject(type);
         obj.transform.position = position;

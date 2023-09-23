@@ -18,6 +18,7 @@ TagManager:
   - OverUI
   - Water
   - UI
+  - Charater
   - 
   - 
   - 
@@ -40,22 +41,24 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Tile
+  - Castle
+  - Base
   m_SortingLayers:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: background1
-    uniqueID: 286409651
+  - name: BackGround
+    uniqueID: 1463117293
     locked: 0
-  - name: background2
+  - name: Castle
     uniqueID: 3525730931
     locked: 0
-  - name: background3
-    uniqueID: 1463117293
+  - name: Tile
+    uniqueID: 286409651
+    locked: 0
+  - name: Character
+    uniqueID: 739511941
     locked: 0
   - name: background4
     uniqueID: 727723985

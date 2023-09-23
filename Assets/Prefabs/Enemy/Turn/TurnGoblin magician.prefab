@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 6818263351335240378}
   - component: {fileID: 6818263351335240377}
   - component: {fileID: 2959990640549079046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TurnGoblin magician
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -678,6 +678,9 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  startPos: {x: 0, y: 0, z: 0}
+  turnManager: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &6818263351439993284
 GameObject:
   m_ObjectHideFlags: 0

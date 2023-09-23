@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -8702840129742390727}
   - component: {fileID: 1143671545525755091}
   - component: {fileID: -5094327750421066914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefencePlayer1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -47,12 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 0
+  speed: 0
   defence: 0
   startHp: 0
   hp: 0
   startMp: 0
   mp: 0
+  gameManager: {fileID: 0}
   playerType: 0
+  attackSpeed: 5
 --- !u!50 &1143671545525755091
 Rigidbody2D:
   serializedVersion: 4

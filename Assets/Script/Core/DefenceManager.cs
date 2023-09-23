@@ -7,13 +7,16 @@ public class DefenceManager : MonoBehaviour
     public System.Action LosingPoint;
     public System.Action WinPoint;
 
-    public int winPoint;
-    public int losingPoint;
+    public int winPoint = 50;
+    public int losingPoint = 3;
+
+    public ResultUI result;
 
     private void Start()
     {
         LosingPoint = Lose;
         WinPoint = Win;
+        result.gameObject.SetActive(false);
     }
 
     void Win()
@@ -36,14 +39,14 @@ public class DefenceManager : MonoBehaviour
 
     void EndGame(bool win)
     {
+        result.gameObject.SetActive(true);
         if (win)
         {
-            // 승리 창
-            // 아이템 드랍
+            result.Win();
         }
         else
         {
-            // 패배 창
+            result.Lose();
         }
     }
 }

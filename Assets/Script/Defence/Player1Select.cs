@@ -5,50 +5,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class Player1Select : MonoBehaviour
+public class Player1Select : PlayerSelectBase
 {
-    Button button;
-
-    GameManager gameManager;
-
-    Image playerImage;
-
-    PlayerInputActions inputActions;
-
     public Action<bool> player1Selected;
 
-    private void Awake()
+    protected override void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        inputActions = new PlayerInputActions();
-        Transform child = transform.GetChild(0);
-        playerImage = child.GetComponent<Image>();
+        base.Awake();
     }
 
-    private void Start()
+    protected override void Start()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(Selected);
+        base.Start();
         playerImage.sprite = gameManager.player1Sprite;
     }
 
-    private void OnEnable()
+    protected override void Selected()
     {
-        inputActions.Player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Disable();
-    }
-
-    private void Selected()
-    {
+        base.Selected();
         player1Selected?.Invoke(true);
-        inputActions.Player.Mouse.performed += Mouse;
     }
 
-    private void Mouse(InputAction.CallbackContext _)
+    protected override void Mouse(InputAction.CallbackContext _)
     {
         Vector3 mousePosition = Input.mousePosition;
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePosition);

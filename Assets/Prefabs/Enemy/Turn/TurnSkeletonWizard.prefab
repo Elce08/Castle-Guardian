@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 2533663585922576838}
   - component: {fileID: 2533663585922576837}
   - component: {fileID: 5604566674104878569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TurnSkeletonWizard
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -123,6 +123,9 @@ MonoBehaviour:
   hp: 0
   startMp: 0
   mp: 0
+  startPos: {x: 0, y: 0, z: 0}
+  turnManager: {fileID: 0}
+  moveSpeed: 5
 --- !u!1 &2533663585945138926
 GameObject:
   m_ObjectHideFlags: 0

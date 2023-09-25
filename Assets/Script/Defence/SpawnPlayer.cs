@@ -16,9 +16,9 @@ public class SpawnPlayer : MonoBehaviour
 
     public GameManager gameManager;
 
-    protected Image[] playerImages;
+    static Image[] playerImages;
 
-    protected static PlayerInputActions inputActions;
+    static PlayerInputActions inputActions;
 
     /// <summary>
     /// 선택된 플레이어
@@ -28,6 +28,7 @@ public class SpawnPlayer : MonoBehaviour
     private void Awake()
     {
         inputActions = new();
+        buttonImages = new Image[button];
     }
 
     private void Start()
@@ -40,6 +41,7 @@ public class SpawnPlayer : MonoBehaviour
             buttons[i] = child.GetComponent<Button>();
             Transform grandChild = child.GetChild(0);
             playerImages[i] = grandChild.GetComponent<Image>();
+            buttonImages[i] = buttons[i].gameObject.GetComponent<Image>();
         }
         playerImages[0].sprite = gameManager.player1Sprite;
         playerImages[1].sprite = gameManager.player2Sprite;
@@ -47,6 +49,7 @@ public class SpawnPlayer : MonoBehaviour
         buttons[0].onClick.AddListener(Player1Selected);
         buttons[1].onClick.AddListener(Player2Selected);
         buttons[2].onClick.AddListener(Player3Selected);
+        blink += Blink;
     }
 
     private void OnEnable()
@@ -109,19 +112,54 @@ public class SpawnPlayer : MonoBehaviour
                 Factory.Inst.GetObject(player, hit.collider.gameObject.transform.position - new Vector3());
                 Tile tile = hit.collider.gameObject.GetComponent<Tile>();
                 tile.State = Tile.TIleState.PlayerOn;
-                inputActions.Player.Mouse.performed -= Mouse;
-                player = null;
-            }
-            else
-            {
-                inputActions.Player.Mouse.performed -= Mouse;
-                player = null;
             }
         }
-        else
+        inputActions.Player.Mouse.performed -= Mouse;
+        player = null;
+    }
+
+    // 깜빡이-------------------------------------------------------------------------------------------
+    static Image[] buttonImages;
+
+    /// <summary>
+    /// 켜진 버튼 확인용
+    /// </summary>
+    private enum OnButton
+    {
+        off,
+        player1on,
+        player2on,
+        player3on,
+    }
+
+    static OnButton buttonState = OnButton.off;
+
+    static OnButton ButtonState
+    {
+        get => buttonState;
+        set
         {
-            inputActions.Player.Mouse.performed -= Mouse;
-            player = null;
+            if(buttonState != value)
+            {
+                buttonState = value;
+                blink(ButtonState);
+            }
         }
+    }
+
+    static Action<OnButton> blink;
+
+    private void Update()
+    {
+        blink(ButtonState);
+    }
+
+    /// <summary>
+    /// 깜빡이게 할 함수
+    /// </summary>
+    /// <param name="buttonImage">대상</param>
+    static void Blink(OnButton buttonImage)
+    {
+
     }
 }

@@ -206,7 +206,6 @@ public class GameManager : MonoBehaviour
 
     public void Player1Data(PlayerType selectedType, string selectedName)
     {
-        Debug.Log("Sent");
         player1Name = selectedName;
         player1Type = selectedType;
         player1Sprite = PlayerImage(player1Type);
@@ -254,6 +253,26 @@ public class GameManager : MonoBehaviour
         return result;
     }
 
-    // 인벤토리-----------------------------------------------
+    // 아이템------------------------------------------
 
+    int money = 0;
+
+    public int Money
+    {
+        get => money;
+        set
+        {
+            if(money != value)
+            {
+                money = value;
+                onMoneyChange?.Invoke(money);
+            }
+        }
+    }
+
+    public Action<int> onMoneyChange;
+
+    ItemDataManager itemDataManager;
+
+    public ItemDataManager ItemData;
 }

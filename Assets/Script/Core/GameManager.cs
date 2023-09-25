@@ -10,6 +10,21 @@ using UnityEngine.UI;
 public enum PlayerType
 {
     None,
+    Armor,
+    Pants,
+    Archor,
+    Archor_LongBow,
+    Gunner,
+    Soldier_LongSword,
+    Soldier_ShortSword,
+    Warrior_Hammer,
+}
+
+public enum WeaponType
+{
+    None,
+    Armor,
+    Pants,
     Archor,
     Archor_LongBow,
     Gunner,
@@ -21,22 +36,18 @@ public enum PlayerType
 public enum PlayerWeapon
 {
     None,
-    Bow,
-    LongBow,
-    Gun,
-    LongSword,
-    ShortSword,
-    Hammer,
-}
-
-public enum Head
-{
-    None,
-}
-
-public enum Body
-{
-    None,
+    Bow1,
+    Bow2,
+    LongBow1,
+    LongBow2,
+    Gun1,
+    Gun2,
+    LongSword1,
+    LongSword2,
+    ShortSword1,
+    ShortSword2,
+    Hammer1,
+    Hammer2,
 }
 
 public class GameManager : MonoBehaviour
@@ -242,4 +253,7 @@ public class GameManager : MonoBehaviour
         }
         return result;
     }
+
+    // 인벤토리-----------------------------------------------
+
 }

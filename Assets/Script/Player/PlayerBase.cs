@@ -1,35 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerBase : PooledObject
 {
     protected Animator anim;
 
-    public float attackDamage = 10.0f;
-
     public float speed;
 
-    public float AttackDamage
-    {
-        get => attackDamage;
-        set
-        {
-            // 무기 얻으면 스탯도 얻게
-        }
-    }
-
-    public float defence = 5.0f;
-
-    public float Defence
-    {
-        get => defence;
-        set
-        {
-            // 방어구 얻으면 스탯도 얻게
-        }
-    }
+    public float str;
+    public float wis;
+    public float def;
 
     public float startHp = 100.0f;
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ff9ef463ed6544f988b3f282d54548, type: 3}
+  m_Name: New Item Data - Pants
+  m_EditorClassIdentifier: 
+  code: 2
+  itemName: Item
+  itemIcon: {fileID: 0}
+  maxStackCount: 1
+  upgrade: 0
+  speed: 0
+  beforeStr: 0
+  beforeWis: 0
+  beforeDef: 0
+  beforeHP: 0
+  beforeMP: 0
+  beforeValue: 0
+  afterStr: 0
+  afterWis: 0
+  afterDef: 0
+  afterHP: 0
+  afterMP: 0
+  afterValue: 0
+  risingStr: 0
+  risingWis: 0
+  risingDef: 0
+  risingHP: 0
+  risingMP: 0
+  price: 0
+  cost: 0

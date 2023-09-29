@@ -18,7 +18,7 @@ public class ItemDataManager : MonoBehaviour
     /// </summary>
     /// <param name="code">접근할 아이템의 코드</param>
     /// <returns>아이템 데이터</returns>
-    public ItemData this[WeaponType code] => itemDatas[(int)code];
+    public ItemData this[PlayerWeapon code] => itemDatas[(int)code];
 
     /// <summary>
     /// 아이템 종류별 접근을 위한 인덱서(테스트용)

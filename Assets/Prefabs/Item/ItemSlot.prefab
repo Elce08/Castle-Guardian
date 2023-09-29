@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 6264940710266418871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2285510715006814367}
@@ -87,9 +87,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6264940710266418871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d585b68ff890e48a9c74607ae17594, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a25e2574278b304187e4b538810f7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipType: 0
   ifDragStartInven: 0
 --- !u!1 &8049398212493659189
 GameObject:

@@ -36,21 +36,23 @@ public enum WeaponType
 public enum PlayerWeapon
 {
     None,
-    Bow1,
-    Bow2,
-    LongBow1,
-    LongBow2,
-    Gun1,
-    Gun2,
-    LongSword1,
-    LongSword2,
-    ShortSword1,
-    ShortSword2,
-    Hammer1,
-    Hammer2,
+    Armor,
+    Pants,
+    Archor1,
+    Archor2,
+    Archor_LongBow1,
+    Archor_LongBow2,
+    Gunner1,
+    Gunner2,
+    Soldier_LongSword1,
+    Soldier_LongSword2,
+    Soldier_ShortSword1,
+    Soldier_ShortSword2,
+    Warrior_Hammer1,
+    Warrior_Hammer2,
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public GameObject[] playerTypePrefabs;
     bool gameStop = false;
@@ -85,6 +87,10 @@ public class GameManager : MonoBehaviour
         sound = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(3);
         quit = child.GetComponent<Button>();
+
+        // 인벤토리 관련
+        inventoryUI = FindObjectOfType<InventoryUI>();
+        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
     }
 
 
@@ -102,6 +108,13 @@ public class GameManager : MonoBehaviour
         setting.onClick.AddListener(SettingButton);
         sound.onClick.AddListener(SoundButton);
         quit.onClick.AddListener(QuitButton);
+
+        // 인벤토리 관련
+        inven = new Inventory(this);
+        if(GameManager.Inst.InvenUi != null)
+        {
+            GameManager.Inst.InvenUi.InitializeInventory(inven);
+        }
     }
 
     private void OnEnable()
@@ -272,7 +285,88 @@ public class GameManager : MonoBehaviour
 
     public Action<int> onMoneyChange;
 
+    PlayerWeapon playerWeapon;
+
     ItemDataManager itemDataManager;
 
-    public ItemDataManager ItemData;
+    public ItemDataManager ItemData => itemDataManager;
+
+    Inventory inven;
+
+    public Inventory Inventory => inven;
+
+    public InvenSlot[] partSlot;
+
+    public InvenSlot this[WeaponType part] => partSlot[(int)part];
+
+    InventoryUI inventoryUI;
+    
+    public InventoryUI InvenUi => inventoryUI;
+
+    protected override void OnPreInitialize()
+    {
+        base.OnPreInitialize();
+        itemDataManager = GetComponent<ItemDataManager>();
+    }
+
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
+        inventoryUI = FindObjectOfType<InventoryUI>();
+    }
+
+    public void ResultGetItem()
+    {
+        int getItem = UnityEngine.Random.Range(0, 2);
+
+        switch (getItem)
+        {
+            case 0:
+                playerWeapon = PlayerWeapon.None;
+                break;
+            case 1:
+                playerWeapon = PlayerWeapon.Armor;
+                break;
+            case 2:
+                playerWeapon = PlayerWeapon.Pants;
+                break;
+            case 3:
+                playerWeapon = PlayerWeapon.Archor1;
+                break;
+            case 4:
+                playerWeapon = PlayerWeapon.Archor2;
+                break;
+            case 6:
+                playerWeapon = PlayerWeapon.Archor_LongBow1;
+                break;
+            case 7:
+                playerWeapon = PlayerWeapon.Archor_LongBow2;
+                break;
+            case 8:
+                playerWeapon = PlayerWeapon.Gunner1;
+                break;
+            case 9:
+                playerWeapon = PlayerWeapon.Gunner2;
+                break;
+            case 10:
+                playerWeapon = PlayerWeapon.Soldier_LongSword1;
+                break;
+            case 11:
+                playerWeapon = PlayerWeapon.Soldier_LongSword2;
+                break;
+            case 12:
+                playerWeapon = PlayerWeapon.Soldier_ShortSword1;
+                break;
+            case 13:
+                playerWeapon = PlayerWeapon.Soldier_ShortSword2;
+                break;
+            case 14:
+                playerWeapon = PlayerWeapon.Warrior_Hammer1;
+                break;
+            case 15:
+                playerWeapon = PlayerWeapon.Warrior_Hammer2;
+                break;
+        }
+        inven.AddItem(playerWeapon);     // 즉시 소비가능한 아이템이 아니면 아이템 추가 시도
+    }
 }

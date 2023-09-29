@@ -5,19 +5,13 @@ using UnityEngine.UI;
 
 public class InvenOpenButton : MonoBehaviour
 {
+    InventoryUI invenLink;
     Button openButton;
-
-    public GameObject inven;
 
     private void Awake()
     {
-        inven.gameObject.SetActive(false);
+        invenLink = FindObjectOfType<InventoryUI>();
         openButton = GetComponent<Button>();
-        openButton.onClick.AddListener(open);
+        openButton.onClick.AddListener(invenLink.Open);
     }
-
-    private void open()
-    {
-        inven.gameObject.SetActive(true);
-    }
-}
+} 

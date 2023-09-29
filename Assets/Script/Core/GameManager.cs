@@ -96,6 +96,13 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        // 인벤토리 관련
+        inven = new Inventory(this);
+        if (GameManager.Inst.InvenUi != null)
+        {
+            GameManager.Inst.InvenUi.InitializeInventory(inven);
+        }
+
         DontDestroyOnLoad(this);
         onPlayer1Change = Player1Data;
         onPlayer2Change = Player2Data;
@@ -108,13 +115,6 @@ public class GameManager : Singleton<GameManager>
         setting.onClick.AddListener(SettingButton);
         sound.onClick.AddListener(SoundButton);
         quit.onClick.AddListener(QuitButton);
-
-        // 인벤토리 관련
-        inven = new Inventory(this);
-        if(GameManager.Inst.InvenUi != null)
-        {
-            GameManager.Inst.InvenUi.InitializeInventory(inven);
-        }
     }
 
     private void OnEnable()

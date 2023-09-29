@@ -64,8 +64,8 @@ public class Inventory
     public Inventory(GameManager owner, uint size = Default_Inventory_Size)
     {
         invenSlot = new InvenSlot(size);
-
         slots = new InvenSlot[size];
+
         for (uint i = 0; i < size; i++)
         {
             slots[i] = new InvenSlot(i);                // 슬롯 만들어서 저장
@@ -113,18 +113,13 @@ public class Inventory
     public bool AddItem(PlayerWeapon code, uint slotIndex)
     {
         bool result = false;
-
+        ItemData data = itemDataManager[code];  // 아이템 데이터 가져오기
+        InvenSlot slot = slots[slotIndex];      // 아이템을 추가할 슬롯 가져오기
         if (IsValidIndex(slotIndex))   // 인덱스가 적절한지 확인
         {
-            ItemData data = itemDataManager[code];  // 아이템 데이터 가져오기
-            InvenSlot slot = slots[slotIndex];      // 아이템을 추가할 슬롯 가져오기
             if (slot.IsEmpty)
             {
                 slot.AssignSlotItem(data);          // 슬롯이 비었으면 아이템 할당
-            }
-            else
-            {
-
             }
         }
         return result;

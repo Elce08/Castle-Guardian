@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvenSlot : MonoBehaviour
+public class InvenSlot
 {
     /// <summary>
     /// 인벤토리에서의 인덱스

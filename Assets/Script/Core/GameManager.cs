@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public enum PlayerType
 {
     None,
-    Armor,
-    Pants,
     Archor,
     Archor_LongBow,
     Gunner,
@@ -78,7 +76,7 @@ public class GameManager : Singleton<GameManager>
     {
         inputActions = new PlayerInputActions();
         settingCanvas = GetComponentInChildren<Canvas>();
-        Transform getChild = gameObject.transform.GetChild(0);
+        Transform getChild = gameObject.transform.GetChild(0).GetChild(0);
         Transform child = getChild.gameObject.transform.GetChild(0);
         resume = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(1);
@@ -89,19 +87,19 @@ public class GameManager : Singleton<GameManager>
         quit = child.GetComponent<Button>();
 
         // 인벤토리 관련
-        inventoryUI = FindObjectOfType<InventoryUI>();
-        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
+        /*inventoryUI = FindObjectOfType<InventoryUI>();
+        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];*/
     }
 
 
     private void Start()
     {
         // 인벤토리 관련
-        inven = new Inventory(this);
+        /*inven = new Inventory(this);
         if (GameManager.Inst.InvenUi != null)
         {
             GameManager.Inst.InvenUi.InitializeInventory(inven);
-        }
+        }*/
 
         DontDestroyOnLoad(this);
         onPlayer1Change = Player1Data;
@@ -110,7 +108,7 @@ public class GameManager : Singleton<GameManager>
         player1Sprite = PlayerImage(player1Type);
         player2Sprite = PlayerImage(player2Type);
         player3Sprite = PlayerImage(player3Type);
-        settingCanvas.gameObject.SetActive(false);
+        settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
         resume.onClick.AddListener(ResumeButton);
         setting.onClick.AddListener(SettingButton);
         sound.onClick.AddListener(SoundButton);
@@ -151,22 +149,22 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // 세팅메뉴 =================================================
+
     private void GameSetting(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         if (!gameStop)
         {
-            Debug.Log("On");
             gameStop = true;
-            settingCanvas.gameObject.SetActive(true);
+            settingCanvas.transform.GetChild(0).gameObject.SetActive(true);
             Time.timeScale = 0.0f;
             if(currentScene == Scene.Turn) TurnPlayerBase.Stop(true);
             else if(currentScene == Scene.Defence) SpawnPlayer.Stop(true);
         }
         else if (gameStop)
         {
-            Debug.Log("Off");
             gameStop = false;
-            settingCanvas.gameObject.SetActive(false);
+            settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
             Time.timeScale = 1.0f;
             if (currentScene == Scene.Turn) TurnPlayerBase.Stop(false);
             else if (currentScene == Scene.Defence) SpawnPlayer.Stop(false);
@@ -291,7 +289,7 @@ public class GameManager : Singleton<GameManager>
 
     public ItemDataManager ItemData => itemDataManager;
 
-    Inventory inven;
+    /*Inventory inven;
 
     public Inventory Inventory => inven;
 
@@ -368,5 +366,5 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
         inven.AddItem(playerWeapon);     // 즉시 소비가능한 아이템이 아니면 아이템 추가 시도
-    }
+    }*/
 }

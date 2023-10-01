@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerSelectUI : MonoBehaviour
@@ -38,18 +39,12 @@ public class PlayerSelectUI : MonoBehaviour
         explanation = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(4);
         lastCheck = grandChild.GetComponent<Button>();
-        child = transform.GetChild(2);
-        archor = child.GetComponent<Button>();
-        child = transform.GetChild(3);
-        archor_LongBow = child.GetComponent<Button>();
-        child = transform.GetChild(4);
-        gunner = child.GetComponent<Button>();
-        child = transform.GetChild(5);
-        soldier_LongSword = child.GetComponent<Button>();
-        child = transform.GetChild(6);
-        solder_ShorSword = child.GetComponent<Button>();
-        child = transform.GetChild(7);
-        Warrior = child.GetComponent<Button>();
+        archor = transform.GetChild(2).GetComponent<Button>();
+        archor_LongBow = transform.GetChild(3).GetComponent<Button>();
+        gunner = transform.GetChild(4).GetComponent<Button>();
+        soldier_LongSword = transform.GetChild(5).GetComponent<Button>();
+        solder_ShorSword = transform.GetChild(6).GetComponent<Button>();
+        Warrior = transform.GetChild(7).GetComponent<Button>();
         lastCheck.gameObject.SetActive(false);
     }
 
@@ -187,6 +182,7 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
         }
+        LoadScene();
     }
 
     void PlayerCharacterSelect()
@@ -234,5 +230,10 @@ public class PlayerSelectUI : MonoBehaviour
         lastCheck.gameObject.SetActive(true);
         type = 6;
         image.sprite = sprites[5];
+    }
+
+    void LoadScene()
+    {
+        AsyncLoad.OnSceneLoad("Village");
     }
 }

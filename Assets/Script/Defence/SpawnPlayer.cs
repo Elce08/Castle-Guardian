@@ -43,6 +43,7 @@ public class SpawnPlayer : MonoBehaviour
             playerImages[i] = grandChild.GetComponent<Image>();
             buttonImages[i] = buttons[i].gameObject.GetComponent<Image>();
         }
+        gameManager = FindObjectOfType<GameManager>();
         playerImages[0].sprite = gameManager.player1Sprite;
         playerImages[1].sprite = gameManager.player2Sprite;
         playerImages[2].sprite = gameManager.player3Sprite;

@@ -10,8 +10,8 @@ public class ItemDataManager : MonoBehaviour
     /// <summary>
     /// 모든 아이템 종류에 대한 배열
     /// </summary>
-    //public ItemData[] itemDatas = null;
-    public ItemData[] itemDatas = new ItemData[Enum.GetValues(typeof(WeaponType)).Length];
+    public ItemData[] itemDatas = null;
+    // public ItemData[] itemDatas = new ItemData[Enum.GetValues(typeof(WeaponType)).Length];
 
     /// <summary>
     /// 아이템 종류별 접근을 위한 인덱서

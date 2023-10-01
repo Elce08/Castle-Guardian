@@ -57,7 +57,7 @@ public class GameManager : Singleton<GameManager>
     PlayerInputActions inputActions;
     Canvas settingCanvas;
     Button resume;
-    Button setting;
+    Button controll;
     Button sound;
     Button quit;
     
@@ -80,7 +80,7 @@ public class GameManager : Singleton<GameManager>
         Transform child = getChild.gameObject.transform.GetChild(0);
         resume = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(1);
-        setting = child.GetComponent<Button>();
+        controll = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(2);
         sound = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(3);
@@ -89,6 +89,8 @@ public class GameManager : Singleton<GameManager>
         // 인벤토리 관련
         /*inventoryUI = FindObjectOfType<InventoryUI>();
         partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];*/
+
+        PlayerSelectUI.sprites = playerImages;
     }
 
 
@@ -110,7 +112,7 @@ public class GameManager : Singleton<GameManager>
         player3Sprite = PlayerImage(player3Type);
         settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
         resume.onClick.AddListener(ResumeButton);
-        setting.onClick.AddListener(SettingButton);
+        controll.onClick.AddListener(Controll);
         sound.onClick.AddListener(SoundButton);
         quit.onClick.AddListener(QuitButton);
     }
@@ -118,8 +120,6 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
-        inputActions.GameManager.Enable();
-        inputActions.GameManager.Esc.performed += GameSetting;
     }
 
     private void OnDisable()
@@ -131,21 +131,27 @@ public class GameManager : Singleton<GameManager>
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
     {
-        if(scene.name == "Defence")
+        if (scene.name == "Defence1" || scene.name == "Defence2")
         {
             currentScene = Scene.Defence;
-            foreach(GameObject s in playerTypePrefabs)
+            foreach (GameObject s in playerTypePrefabs)
             {
                 s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
         }
-        else if(scene.name == "Turn")
+        else if (scene.name == "Turn1" || scene.name == "Turn2")
         {
             currentScene = Scene.Turn;
             foreach (GameObject s in playerTypePrefabs)
             {
-                s.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+                s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             }
+        }
+        else if(scene.name == "PlayerSelect")
+        {
+            currentScene = Scene.PlayerSelect;
+            inputActions.GameManager.Enable();
+            inputActions.GameManager.Esc.performed += GameSetting;
         }
     }
 
@@ -160,6 +166,7 @@ public class GameManager : Singleton<GameManager>
             Time.timeScale = 0.0f;
             if(currentScene == Scene.Turn) TurnPlayerBase.Stop(true);
             else if(currentScene == Scene.Defence) SpawnPlayer.Stop(true);
+            else if(currentScene == Scene.PlayerSelect) PlayerSelectUI.Stop(true);
         }
         else if (gameStop)
         {
@@ -168,6 +175,7 @@ public class GameManager : Singleton<GameManager>
             Time.timeScale = 1.0f;
             if (currentScene == Scene.Turn) TurnPlayerBase.Stop(false);
             else if (currentScene == Scene.Defence) SpawnPlayer.Stop(false);
+            else if (currentScene == Scene.PlayerSelect) PlayerSelectUI.Stop(false);
         }
     }
 
@@ -184,9 +192,9 @@ public class GameManager : Singleton<GameManager>
         // 사운드 창 열리게(미구현 예정)
     }
 
-    private void SettingButton()
+    private void Controll()
     {
-        // 세팅 창 열리게(미구현 예정)
+        // 키세팅 창 열리게(미구현 예정)
     }
 
     private void QuitButton()

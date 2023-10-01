@@ -7,24 +7,63 @@ using UnityEngine.UI;
 
 public class PlayerSelectUI : MonoBehaviour
 {
-    GameManager gameManager;
-    Image image;
-    TextMeshProUGUI playerNumber;
-    TMP_InputField changeName;
+    /// <summary>
+    /// 확인버튼 껴졌다 켰을 때 오류 해결 용도
+    /// </summary>
+    enum CurrentState
+    {
+        None,
+        Player1,
+        Player2,
+        Player3,
+    }
+
+    static CurrentState state = CurrentState.None;
+    static CurrentState State
+    {
+        get => state;
+        set
+        {
+            if(state != value)
+            {
+                state = value;
+                switch (state)
+                {
+                    case CurrentState.None:
+                        lastCheck.onClick.RemoveAllListeners();
+                        break;
+                    case CurrentState.Player1:
+                        lastCheck.onClick.AddListener(Player1Selected); 
+                        break;
+                    case CurrentState.Player2:
+                        lastCheck.onClick.AddListener(Player2Selected);
+                        break;
+                    case CurrentState.Player3:
+                        lastCheck.onClick.AddListener(Player3Selected);
+                        break;
+                }
+            }
+        }
+    }
+
+    static GameManager gameManager;
+    static Image image;
+    static TextMeshProUGUI playerNumber;
+    static TMP_InputField changeName;
     TextMeshProUGUI explanation;
-    Button lastCheck;
+    static Button lastCheck;
 
-    Button archor;
-    Button archor_LongBow;
-    Button gunner;
-    Button soldier_LongSword;
-    Button solder_ShorSword;
-    Button Warrior;
+    static Button archor;
+    static Button archor_LongBow;
+    static Button gunner;
+    static Button soldier_LongSword;
+    static Button solder_ShorSword;
+    static Button Warrior;
 
-    public Sprite[] sprites;
+    public static Sprite[] sprites;
 
-    string playerName;
-    public int type;
+    static string playerName;
+    public static int type;
 
     private void Awake()
     {
@@ -53,35 +92,35 @@ public class PlayerSelectUI : MonoBehaviour
         Player1Setting();
     }
 
-    void Player1Setting()
+    static void Player1Setting()
     {
         playerNumber.text = "Player1";
         playerName = "Chalie";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player1Selected);
+        State = CurrentState.Player1;
         lastCheck.gameObject.SetActive(false);
     }
-    void Player2Setting()
+    static void Player2Setting()
     {
         playerNumber.text = "Player2";
         playerName = "Cloe";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player2Selected);
+        State = CurrentState.Player2;
         lastCheck.gameObject.SetActive(false);
     }
-    void Player3Setting()
+    static void Player3Setting()
     {
         playerNumber.text = "Player3";
         playerName = "Hyeba";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player3Selected);
+        State = CurrentState.Player3;
         lastCheck.gameObject.SetActive(false);
     }
 
-    void Player1Selected()
+    static void Player1Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -111,13 +150,13 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
         }
+        State = CurrentState.None;
         Player2Setting();
-        lastCheck.onClick.RemoveListener(Player1Selected);
         changeName.text = "Add Name";
         image.sprite = sprites[6];
     }
 
-    void Player2Selected()
+    static void Player2Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -147,12 +186,13 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
         }
+        State = CurrentState.None;
         Player3Setting();
         changeName.text = "Add Name";
         image.sprite = sprites[6];
     }
 
-    void Player3Selected()
+    static void Player3Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -185,7 +225,7 @@ public class PlayerSelectUI : MonoBehaviour
         LoadScene();
     }
 
-    void PlayerCharacterSelect()
+    static void PlayerCharacterSelect()
     {
         archor.onClick.AddListener(SelectArchor);
         archor_LongBow.onClick.AddListener(SelectArchor_LongBow);
@@ -195,45 +235,83 @@ public class PlayerSelectUI : MonoBehaviour
         Warrior.onClick.AddListener(SelectWarrior);
     }
 
-    void SelectArchor()
+    static void SelectArchor()
     {
         lastCheck.gameObject.SetActive(true);
         type = 1;
         image.sprite = sprites[0];
     }
-    void SelectArchor_LongBow()
+    static void SelectArchor_LongBow()
     {
         lastCheck.gameObject.SetActive(true);
         type = 2;
         image.sprite = sprites[1];
     }
-    void SelectGunner()
+    static void SelectGunner()
     {
         lastCheck.gameObject.SetActive(true);
         type = 3;
         image.sprite = sprites[2];
     }
-    void SelectSoldier_LongSword()
+    static void SelectSoldier_LongSword()
     {
         lastCheck.gameObject.SetActive(true);
         type = 4;
         image.sprite = sprites[3];
     }
-    void SelectSolder_ShorSword()
+    static void SelectSolder_ShorSword()
     {
         lastCheck.gameObject.SetActive(true);
         type = 5;
         image.sprite = sprites[4];
     }
-    void SelectWarrior()
+    static void SelectWarrior()
     {
         lastCheck.gameObject.SetActive(true);
         type = 6;
         image.sprite = sprites[5];
     }
 
-    void LoadScene()
+    static void LoadScene()
     {
         AsyncLoad.OnSceneLoad("Village");
+    }
+
+    public static void Stop(bool stop)
+    {
+        if(stop)
+        {
+            lastCheck.onClick.RemoveAllListeners();
+            archor.onClick.RemoveAllListeners();
+            archor_LongBow.onClick.RemoveAllListeners();
+            gunner.onClick.RemoveAllListeners();
+            soldier_LongSword.onClick.RemoveAllListeners();
+            solder_ShorSword.onClick.RemoveAllListeners();
+            Warrior.onClick.RemoveAllListeners();
+        }
+        else if (!stop)
+        {
+            switch (State)
+            {
+                case CurrentState.None:
+                    lastCheck.onClick.RemoveAllListeners();
+                    break;
+                case CurrentState.Player1:
+                    lastCheck.onClick.AddListener(Player1Selected);
+                    break;
+                case CurrentState.Player2:
+                    lastCheck.onClick.AddListener(Player2Selected);
+                    break;
+                case CurrentState.Player3:
+                    lastCheck.onClick.AddListener(Player3Selected);
+                    break;
+            }
+            archor.onClick.AddListener(SelectArchor);
+            archor_LongBow.onClick.AddListener(SelectArchor_LongBow);
+            gunner.onClick.AddListener(SelectGunner);
+            soldier_LongSword.onClick.AddListener(SelectSoldier_LongSword);
+            solder_ShorSword.onClick.AddListener(SelectSolder_ShorSword);
+            Warrior.onClick.AddListener(SelectWarrior);
+        }
     }
 }

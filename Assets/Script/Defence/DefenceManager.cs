@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class DefenceManager : MonoBehaviour
     public int losingPoint = 3;
 
     public ResultUI result;
+
+    public System.Action gameEnd;
 
     private void Start()
     {
@@ -40,6 +43,11 @@ public class DefenceManager : MonoBehaviour
     void EndGame(bool win)
     {
         result.gameObject.SetActive(true);
+        PooledObject[] pooledObjects = FindObjectsOfType<PooledObject>();
+        foreach(PooledObject obj in pooledObjects)
+        {
+            obj.gameObject.SetActive(false);
+        }
         if (win)
         {
             result.Win();
@@ -48,5 +56,6 @@ public class DefenceManager : MonoBehaviour
         {
             result.Lose();
         }
+        gameEnd?.Invoke();
     }
 }

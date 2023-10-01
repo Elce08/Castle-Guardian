@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -21,9 +22,13 @@ public class EnemySpawner : MonoBehaviour
 
     public SpawnData[] spawnDatas;
 
+    DefenceManager defenceManager;
+
     private void Start()
     {
         StartCoroutine(SpawnCoroutine());
+        defenceManager = FindObjectOfType<DefenceManager>();
+        defenceManager.gameEnd += GameEnd;
     }
 
     DefenceEnemyBase Spawn(PoolObjectType spawnType)
@@ -43,5 +48,10 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(data.interval);
             Spawn(data.spawnType);
         }
+    }
+
+    private void GameEnd()
+    {
+        StopAllCoroutines();
     }
 }

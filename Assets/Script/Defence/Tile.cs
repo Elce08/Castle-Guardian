@@ -59,7 +59,6 @@ public class Tile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             State = TIleState.Empty;
-            Debug.Log("missing");
         }
     }
 }

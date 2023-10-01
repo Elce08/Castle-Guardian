@@ -14,7 +14,8 @@ public class SpawnPlayer : MonoBehaviour
     /// </summary>
     readonly int button = 3;
 
-    public GameManager gameManager;
+    GameManager gameManager;
+    DefenceManager defenceManager;
 
     static Image[] playerImages;
 
@@ -29,6 +30,7 @@ public class SpawnPlayer : MonoBehaviour
     {
         inputActions = new();
         buttonImages = new Image[button];
+        defenceManager = FindObjectOfType<DefenceManager>();
     }
 
     private void Start()
@@ -51,6 +53,7 @@ public class SpawnPlayer : MonoBehaviour
         buttons[1].onClick.AddListener(Player2Selected);
         buttons[2].onClick.AddListener(Player3Selected);
         blink += Blink;
+        defenceManager.gameEnd += GameEnd;
     }
 
     private void OnEnable()
@@ -117,6 +120,12 @@ public class SpawnPlayer : MonoBehaviour
         }
         inputActions.Player.Mouse.performed -= Mouse;
         player = null;
+    }
+
+    private void GameEnd()
+    {
+        inputActions.Player.Disable();
+        foreach(Button button in buttons) button.onClick.RemoveAllListeners();
     }
 
     // ±ôºýÀÌ-------------------------------------------------------------------------------------------

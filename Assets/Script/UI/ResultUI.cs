@@ -8,6 +8,8 @@ public class ResultUI : MonoBehaviour
 {
     public GameManager gameManager;
 
+    TextMeshProUGUI goldAmount;
+
     Image item1Image;
     Image item2Image;
 
@@ -15,17 +17,12 @@ public class ResultUI : MonoBehaviour
 
     PlayerInputActions inputActions;
 
-    GameObject Actor;
-
-    Animator actorAnim;
-
     private void Awake()
     {
-        Transform child = transform.GetChild(0);
-        item1Image = child.GetComponent<Image>();
-        child = transform.GetChild(1);
-        item2Image = child.GetComponent<Image>();
-        resultText = GetComponentInChildren<TextMeshProUGUI>();
+        goldAmount = transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
+        item1Image = transform.GetChild(3).GetComponent<Image>();
+        item2Image = transform.GetChild(4).GetComponent<Image>();
+        resultText = transform.GetChild(5).GetComponent<TextMeshProUGUI>();
         inputActions = new();
     }
 
@@ -43,81 +40,36 @@ public class ResultUI : MonoBehaviour
         inputActions.ResultUI.Disable();
     }
 
-    void SpawnActor()
-    {
-        int random = Random.Range(0, 3);
-        PlayerType actor = PlayerType.None;
-        switch (random)
-        {
-            case 0:
-                actor = gameManager.player1Type;
-                break;
-            case 1:
-                actor = gameManager.player2Type;
-                break;
-            case 2:
-                actor = gameManager.player3Type;
-                break;
-        }
-        switch (actor)
-        {
-            case PlayerType.None:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[0], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Archor:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[1], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Archor_LongBow:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[2], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Gunner:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[3], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Soldier_LongSword:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[4], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Soldier_ShortSword:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[5], Vector3.zero, Quaternion.identity);
-                break;
-            case PlayerType.Warrior_Hammer:
-                Actor = GameObject.Instantiate(gameManager.playerTypePrefabs[6], Vector3.zero, Quaternion.identity);
-                break;
-        }
-        actorAnim = Actor.GetComponent<Animator>();
-        Actor.layer = 3;
-    }
-
     private void LeftClick_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         Vector3 mousePos = Input.mousePosition;
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePos);
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-        if(hit.collider == null)
+        inputActions.ResultUI.Disable();
+        if (hit.collider == null)
         {
-            // 마을로 복귀
+            AsyncLoad.OnSceneLoad("Village");
         }
+        else if (!hit.collider.CompareTag("Item")) AsyncLoad.OnSceneLoad("Village");
     }
 
     private void Space_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        // 마을로 복귀
+        AsyncLoad.OnSceneLoad("Village");
+        inputActions.ResultUI.Disable();
     }
 
     public void Win()
     {
-        SpawnActor();
-        resultText.text = "Victory";
-        actorAnim.SetBool("isIdle", false);
-        actorAnim.SetBool("isVictory", true);
+        resultText.text = "Victory!!!";
+        // 골드 드랍
         // 템 드랍
     }
 
     public void Lose()
     {
-        SpawnActor();
-        resultText.text = "Lose";
-        actorAnim.SetBool("isIdle", false);
-        actorAnim.SetBool("isDied", true);
+        resultText.text = "Lose...";
+        // 골드 조금 드랍
         item1Image.gameObject.SetActive(false);
         item2Image.gameObject.SetActive(false);
     }

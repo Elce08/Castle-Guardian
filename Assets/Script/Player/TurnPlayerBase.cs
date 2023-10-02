@@ -9,7 +9,7 @@ using UnityEngineInternal;
 
 public class TurnPlayerBase : PlayerBase, ITurn
 {
-    static PlayerInputActions inputActions;
+    PlayerInputActions inputActions;
 
     bool endTurn = false;
 
@@ -115,7 +115,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         inputActions.NumberPad.Disable();
     }
 
-    public static void Stop(bool stop)
+    public void Stop(bool stop)
     {
         if (stop)
         {

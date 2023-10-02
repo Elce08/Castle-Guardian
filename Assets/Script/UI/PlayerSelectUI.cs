@@ -18,8 +18,8 @@ public class PlayerSelectUI : MonoBehaviour
         Player3,
     }
 
-    static CurrentState state = CurrentState.None;
-    static CurrentState State
+    CurrentState state = CurrentState.None;
+    CurrentState State
     {
         get => state;
         set
@@ -46,23 +46,23 @@ public class PlayerSelectUI : MonoBehaviour
         }
     }
 
-    static GameManager gameManager;
-    static Image image;
-    static TextMeshProUGUI playerNumber;
-    static TMP_InputField changeName;
+    GameManager gameManager;
+    Image image;
+    TextMeshProUGUI playerNumber;
+    TMP_InputField changeName;
     TextMeshProUGUI explanation;
-    static Button lastCheck;
+    Button lastCheck;
 
-    static Button archor;
-    static Button archor_LongBow;
-    static Button gunner;
-    static Button soldier_LongSword;
-    static Button solder_ShorSword;
-    static Button Warrior;
+    Button archor;
+    Button archor_LongBow;
+    Button gunner;
+    Button soldier_LongSword;
+    Button solder_ShorSword;
+    Button Warrior;
 
     public static Sprite[] sprites;
 
-    static string playerName;
+    string playerName;
     public static int type;
 
     private void Awake()
@@ -92,7 +92,7 @@ public class PlayerSelectUI : MonoBehaviour
         Player1Setting();
     }
 
-    static void Player1Setting()
+    void Player1Setting()
     {
         playerNumber.text = "Player1";
         playerName = "Chalie";
@@ -101,7 +101,7 @@ public class PlayerSelectUI : MonoBehaviour
         State = CurrentState.Player1;
         lastCheck.gameObject.SetActive(false);
     }
-    static void Player2Setting()
+    void Player2Setting()
     {
         playerNumber.text = "Player2";
         playerName = "Cloe";
@@ -110,7 +110,7 @@ public class PlayerSelectUI : MonoBehaviour
         State = CurrentState.Player2;
         lastCheck.gameObject.SetActive(false);
     }
-    static void Player3Setting()
+    void Player3Setting()
     {
         playerNumber.text = "Player3";
         playerName = "Hyeba";
@@ -120,7 +120,7 @@ public class PlayerSelectUI : MonoBehaviour
         lastCheck.gameObject.SetActive(false);
     }
 
-    static void Player1Selected()
+    void Player1Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -156,7 +156,7 @@ public class PlayerSelectUI : MonoBehaviour
         image.sprite = sprites[6];
     }
 
-    static void Player2Selected()
+    void Player2Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -192,7 +192,7 @@ public class PlayerSelectUI : MonoBehaviour
         image.sprite = sprites[6];
     }
 
-    static void Player3Selected()
+    void Player3Selected()
     {
         PlayerType selectedType;
         switch (type)
@@ -225,7 +225,7 @@ public class PlayerSelectUI : MonoBehaviour
         LoadScene();
     }
 
-    static void PlayerCharacterSelect()
+    void PlayerCharacterSelect()
     {
         archor.onClick.AddListener(SelectArchor);
         archor_LongBow.onClick.AddListener(SelectArchor_LongBow);
@@ -235,49 +235,49 @@ public class PlayerSelectUI : MonoBehaviour
         Warrior.onClick.AddListener(SelectWarrior);
     }
 
-    static void SelectArchor()
+    void SelectArchor()
     {
         lastCheck.gameObject.SetActive(true);
         type = 1;
         image.sprite = sprites[0];
     }
-    static void SelectArchor_LongBow()
+    void SelectArchor_LongBow()
     {
         lastCheck.gameObject.SetActive(true);
         type = 2;
         image.sprite = sprites[1];
     }
-    static void SelectGunner()
+    void SelectGunner()
     {
         lastCheck.gameObject.SetActive(true);
         type = 3;
         image.sprite = sprites[2];
     }
-    static void SelectSoldier_LongSword()
+    void SelectSoldier_LongSword()
     {
         lastCheck.gameObject.SetActive(true);
         type = 4;
         image.sprite = sprites[3];
     }
-    static void SelectSolder_ShorSword()
+    void SelectSolder_ShorSword()
     {
         lastCheck.gameObject.SetActive(true);
         type = 5;
         image.sprite = sprites[4];
     }
-    static void SelectWarrior()
+    void SelectWarrior()
     {
         lastCheck.gameObject.SetActive(true);
         type = 6;
         image.sprite = sprites[5];
     }
 
-    static void LoadScene()
+    void LoadScene()
     {
         AsyncLoad.OnSceneLoad("Village");
     }
 
-    public static void Stop(bool stop)
+    public void Stop(bool stop)
     {
         if(stop)
         {

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SpawnPlayer : MonoBehaviour
 {
-    static Button[] buttons;
+    Button[] buttons;
 
     /// <summary>
     /// 버튼 갯수
@@ -17,9 +17,9 @@ public class SpawnPlayer : MonoBehaviour
     GameManager gameManager;
     DefenceManager defenceManager;
 
-    static Image[] playerImages;
+    Image[] playerImages;
 
-    static PlayerInputActions inputActions;
+    PlayerInputActions inputActions;
 
     /// <summary>
     /// 선택된 플레이어
@@ -61,7 +61,7 @@ public class SpawnPlayer : MonoBehaviour
         inputActions.Player.Enable();
     }
 
-    public static void Stop(bool stop)
+    public void Stop(bool stop)
     {
         if (stop)
         {
@@ -81,19 +81,19 @@ public class SpawnPlayer : MonoBehaviour
         }
     }
 
-    private static void Player1Selected()
+    private void Player1Selected()
     {
         player = PoolObjectType.DefencePlayer1;
         inputActions.Player.Mouse.performed += Mouse;
     }
 
-    private static void Player2Selected()
+    private void Player2Selected()
     {
         player = PoolObjectType.DefencePlayer2;
         inputActions.Player.Mouse.performed += Mouse;
     }
 
-    private static void Player3Selected()
+    private void Player3Selected()
     {
         player = PoolObjectType.DefencePlayer3;
         inputActions.Player.Mouse.performed += Mouse;
@@ -104,7 +104,7 @@ public class SpawnPlayer : MonoBehaviour
         inputActions.Player.Disable();
     }
 
-    private static void Mouse(InputAction.CallbackContext _)
+    private void Mouse(InputAction.CallbackContext _)
     {
         Vector3 mousePosition = Input.mousePosition;
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePosition);

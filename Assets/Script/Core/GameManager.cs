@@ -120,6 +120,7 @@ public class GameManager : Singleton<GameManager>
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
+        SceneManager.activeSceneChanged += OnSceneChange;
     }
 
     private void OnDisable()
@@ -138,6 +139,7 @@ public class GameManager : Singleton<GameManager>
             {
                 s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
+            spawnPlayer = FindObjectOfType<SpawnPlayer>();
         }
         else if (scene.name == "Turn1" || scene.name == "Turn2")
         {
@@ -146,16 +148,38 @@ public class GameManager : Singleton<GameManager>
             {
                 s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             }
+            turnPlayerBase = FindObjectOfType<TurnPlayerBase>();
         }
         else if(scene.name == "PlayerSelect")
         {
             currentScene = Scene.PlayerSelect;
             inputActions.GameManager.Enable();
             inputActions.GameManager.Esc.performed += GameSetting;
+            playerSelectUI = FindObjectOfType<PlayerSelectUI>();
+        }
+    }
+
+    private void OnSceneChange(UnityEngine.SceneManagement.Scene current, UnityEngine.SceneManagement.Scene next)
+    {
+        if (current.name == "Defence1" || current.name == "Defence2")
+        {
+            spawnPlayer = null;
+        }
+        else if (current.name == "Turn1" || current.name == "Turn2")
+        {
+            turnPlayerBase = null;
+        }
+        else if (current.name == "PlayerSelect")
+        {
+            playerSelectUI = null;
         }
     }
 
     // 세팅메뉴 =================================================
+
+    SpawnPlayer spawnPlayer;
+    TurnPlayerBase turnPlayerBase;
+    PlayerSelectUI playerSelectUI;
 
     private void GameSetting(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -164,18 +188,18 @@ public class GameManager : Singleton<GameManager>
             gameStop = true;
             settingCanvas.transform.GetChild(0).gameObject.SetActive(true);
             Time.timeScale = 0.0f;
-            if(currentScene == Scene.Turn) TurnPlayerBase.Stop(true);
-            else if(currentScene == Scene.Defence) SpawnPlayer.Stop(true);
-            else if(currentScene == Scene.PlayerSelect) PlayerSelectUI.Stop(true);
+            if(currentScene == Scene.Turn) turnPlayerBase.Stop(true);
+            else if(currentScene == Scene.Defence) spawnPlayer.Stop(true);
+            else if(currentScene == Scene.PlayerSelect) playerSelectUI.Stop(true);
         }
         else if (gameStop)
         {
             gameStop = false;
             settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
             Time.timeScale = 1.0f;
-            if (currentScene == Scene.Turn) TurnPlayerBase.Stop(false);
-            else if (currentScene == Scene.Defence) SpawnPlayer.Stop(false);
-            else if (currentScene == Scene.PlayerSelect) PlayerSelectUI.Stop(false);
+            if (currentScene == Scene.Turn) turnPlayerBase.Stop(false);
+            else if (currentScene == Scene.Defence) spawnPlayer.Stop(false);
+            else if (currentScene == Scene.PlayerSelect) playerSelectUI.Stop(false);
         }
     }
 
@@ -184,7 +208,9 @@ public class GameManager : Singleton<GameManager>
         gameStop = false;
         settingCanvas.gameObject.SetActive(false);
         Time.timeScale = 1.0f;
-        TurnPlayerBase.Stop(false);
+        if (currentScene == Scene.Turn) turnPlayerBase.Stop(false);
+        else if (currentScene == Scene.Defence) spawnPlayer.Stop(false);
+        else if (currentScene == Scene.PlayerSelect) playerSelectUI.Stop(false);
     }
 
     private void SoundButton()

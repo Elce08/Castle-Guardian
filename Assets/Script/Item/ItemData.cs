@@ -46,4 +46,8 @@ public class ItemData : ScriptableObject
     public virtual void ItemStatus()
     {
     }
+
+    public virtual void ItemUpgrade()
+    {
+    }
 }

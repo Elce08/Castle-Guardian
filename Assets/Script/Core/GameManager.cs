@@ -87,8 +87,9 @@ public class GameManager : Singleton<GameManager>
         quit = child.GetComponent<Button>();
 
         // 인벤토리 관련
-        /*inventoryUI = FindObjectOfType<InventoryUI>();
-        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];*/
+        inventoryUI = FindObjectOfType<InventoryUI>();
+        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
+        itemDataManager = GetComponent<ItemDataManager>();
 
         PlayerSelectUI.sprites = playerImages;
     }
@@ -96,12 +97,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        // 인벤토리 관련
-        /*inven = new Inventory(this);
-        if (GameManager.Inst.InvenUi != null)
+        //인벤토리 관련
+        inven = new Inventory(this);
+        if (GameManager.Inst.InvenUI != null)
         {
-            GameManager.Inst.InvenUi.InitializeInventory(inven);
-        }*/
+            GameManager.Inst.InvenUI.InitializeInventory(inven);
+        }
 
         DontDestroyOnLoad(this);
         onPlayer1Change = Player1Data;
@@ -323,7 +324,7 @@ public class GameManager : Singleton<GameManager>
 
     public ItemDataManager ItemData => itemDataManager;
 
-    /*Inventory inven;
+    Inventory inven;
 
     public Inventory Inventory => inven;
 
@@ -333,12 +334,11 @@ public class GameManager : Singleton<GameManager>
 
     InventoryUI inventoryUI;
     
-    public InventoryUI InvenUi => inventoryUI;
+    public InventoryUI InvenUI => inventoryUI;
 
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
-        itemDataManager = GetComponent<ItemDataManager>();
     }
 
     protected override void OnInitialize()
@@ -349,7 +349,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ResultGetItem()
     {
-        int getItem = UnityEngine.Random.Range(0, 2);
+        int getItem = UnityEngine.Random.Range(1, 5);
 
         switch (getItem)
         {
@@ -399,6 +399,6 @@ public class GameManager : Singleton<GameManager>
                 playerWeapon = PlayerWeapon.Warrior_Hammer2;
                 break;
         }
-        inven.AddItem(playerWeapon);     // 즉시 소비가능한 아이템이 아니면 아이템 추가 시도
-    }*/
+        inven.AddItem(playerWeapon);
+    }
 }

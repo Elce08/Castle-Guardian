@@ -37,6 +37,7 @@ public class ItemDataManager : MonoBehaviour
         for(int i = 0; i < Length; i++)
         {
             itemDatas[i].ItemStatus();
+            itemDatas[i].upgrade = 0;
         }
     }
 }

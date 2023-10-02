@@ -14,7 +14,7 @@ public class ItemData_Armor : ItemData
 
     public override void ItemStatus()
     {
-        price = 1000;      // 아이템 가치
+        price = 1000 + (upgrade * 500);                // 아이템 가치
 
         beforeStr = (upgrade + 1) * 5;                 // 아이템의 강화 전 Str 수치
         beforeWis = (upgrade + 1) * 5;                 // 아이템의 강화 전 Agi 수치
@@ -28,7 +28,7 @@ public class ItemData_Armor : ItemData
         afterDef = (upgrade + 2) * 5;                  // 아이템의 강화 후 Int 수치
         afterHP = (upgrade + 2) * 10;                  // 아이템의 강화 후 HP 수치
         afterMP = (upgrade + 2) * 10;                  // 아이템의 강화 후 MP 수치
-        afterValue = Mathf.Min(upgrade + 1, 5);        // 아이템의 강화 후 강화 수치
+        afterValue = upgrade + 1;
 
         risingStr = afterStr - beforeStr;    // 아이템의 강화 시 상승 Str 수치
         risingWis = afterWis - beforeWis;    // 아이템의 강화 시 상승 Agi 수치
@@ -36,6 +36,10 @@ public class ItemData_Armor : ItemData
         risingHP = afterHP - beforeHP;       // 아이템의 강화 시 상승 HP 수치
         risingMP = afterMP - beforeMP;       // 아이템의 강화 시 상승 MP 수치
 
+        if(upgrade == 5)
+        {
+            cost = 0;                          // 아이템의 강화 시 소모 비용
+        }
         cost = (upgrade + 1) * 500;                          // 아이템의 강화 시 소모 비용
     }
 }

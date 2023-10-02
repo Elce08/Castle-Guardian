@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Warrior_Hammer2
   m_EditorClassIdentifier: 
   code: 14
-  itemName: Item
-  itemIcon: {fileID: 0}
+  itemName: "\uC911\uAE09\uC790\uC6A9 \uB9DD\uCE58"
+  itemIcon: {fileID: 21300000, guid: fc17d9bd92dedc24a8632d3d68c94943, type: 3}
   maxStackCount: 1
   upgrade: 0
-  speed: 0
-  beforeStr: 0
-  beforeWis: 0
-  beforeDef: 0
-  beforeHP: 0
-  beforeMP: 0
+  speed: 6
+  beforeStr: 10
+  beforeWis: 10
+  beforeDef: 10
+  beforeHP: 20
+  beforeMP: 20
   beforeValue: 0
-  afterStr: 0
-  afterWis: 0
-  afterDef: 0
-  afterHP: 0
-  afterMP: 0
-  afterValue: 0
-  risingStr: 0
-  risingWis: 0
-  risingDef: 0
-  risingHP: 0
-  risingMP: 0
-  price: 0
-  cost: 0
+  afterStr: 20
+  afterWis: 20
+  afterDef: 20
+  afterHP: 40
+  afterMP: 40
+  afterValue: 1
+  risingStr: 10
+  risingWis: 10
+  risingDef: 10
+  risingHP: 20
+  risingMP: 20
+  price: 1000
+  cost: 1000

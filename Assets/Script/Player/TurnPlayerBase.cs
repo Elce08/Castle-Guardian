@@ -76,6 +76,19 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     Action onMoveUpdate;
 
+    public override float Mp
+    {
+        get => mp;
+        set
+        {
+            if (mp != value)
+            {
+                if (value > MaxMp) mp = MaxMp;
+                else mp = value;
+            }
+        }
+    }
+
     protected override void Awake()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
@@ -139,8 +152,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         inputActions.NumberPad._1.performed += _1_performed;
         inputActions.NumberPad._2.performed += _2_performed;
         inputActions.NumberPad._3.performed += _3_performed;
-        //inputActions.NumberPad.Mouse.performed += Mouse_performed;
-        // 마우스로 누르는 것 추가
+        inputActions.NumberPad.Mouse.performed += Mouse_performed;
     }
 
     void ChooseAction()
@@ -185,7 +197,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     public void GetDamaged(float damage)
     {
-
+        Hitted(damage);
     }
 
     protected override void Die()
@@ -202,7 +214,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
@@ -214,7 +226,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
@@ -226,12 +238,27 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed -= _1_performed;
             inputActions.NumberPad._2.performed -= _2_performed;
             inputActions.NumberPad._3.performed -= _3_performed;
-            //inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+            inputActions.NumberPad.Mouse.performed -= Mouse_performed;
             ChooseAction();
         }
     }
     private void Mouse_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
+        Vector3 mousePosition = Input.mousePosition;
+        Vector2 pos = Camera.main.ScreenToWorldPoint(mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+        if(hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                inputActions.NumberPad._1.performed -= _1_performed;
+                inputActions.NumberPad._2.performed -= _2_performed;
+                inputActions.NumberPad._3.performed -= _3_performed;
+                inputActions.NumberPad.Mouse.performed -= Mouse_performed;
+                target = hit.collider.GetComponent<TurnEnemyBase>();
+                ChooseAction();
+            }
+        }
     }
     private void _1_Attack(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -244,17 +271,13 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Idle()
     {
-        anim.SetBool("isIdle", true);
-        anim.SetBool("isRun", false);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsIdle");
         transform.position = transform.position;
     }
 
     void Update_ToTarget()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", true);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsWalk");
         onMoveUpdate -= Update_Idle;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
         if (transform.position.x > (target.transform.position.x -3.0f))
@@ -266,9 +289,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Back()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", true);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsWalk");
         transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime * 2.0f);
         if ((transform.position.x - startPos.x) < 0.001)
         {
@@ -283,15 +304,15 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Attack()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isRun", false);
-        anim.SetBool("isAttack", true);
+        Mp += 5.0f;
+        anim.SetTrigger("IsAttack");
         StartCoroutine(AttackActionCoroutine());
     }
 
     IEnumerator AttackActionCoroutine()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         onMoveUpdate -= Update_Attack;
         CharacterState = State.Back;
     }

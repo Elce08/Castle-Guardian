@@ -12,15 +12,14 @@ public class DefenceEnemyBase : EnemyBase
 
     public float moveSpeed = 1f;
 
-    public float attackPeriod = 2f;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         gameObject.transform.localScale = new(0.4f, 0.4f, 0.4f);
     }
 
@@ -34,13 +33,13 @@ public class DefenceEnemyBase : EnemyBase
 
     IEnumerator AttackCoroutine(DefencePlayerBase target)
     {
-        anim.SetBool("isWalk", false);
         if (target != null)
         {
             while (true)
             {
-                anim.SetBool("isAttack", true);
-                yield return new WaitForSeconds(attackPeriod);
+                anim.SetTrigger("IsAttack");
+                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             }
         }
     }

@@ -66,8 +66,9 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     Action onMoveUpdate;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         anim = GetComponentInChildren<Animator>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         players = turnManager.players;
@@ -78,10 +79,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     private void Update()
     {
-        if(onMoveUpdate != null)
-        {
-            onMoveUpdate();
-        }
+        onMoveUpdate?.Invoke();
     }
 
     public void OnAttack()
@@ -105,17 +103,13 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Idle()
     {
-        anim.SetBool("isIdle", true);
-        anim.SetBool("isWalk", false);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsIdle");
         transform.position = transform.position;
     }
 
     void Update_ToTarget()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", true);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsWalk");
         onMoveUpdate -= Update_Idle;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
         if (transform.position.x < (target.transform.position.x + 3.0f))
@@ -127,9 +121,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Back()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", true);
-        anim.SetBool("isAttack", false);
+        anim.SetTrigger("IsWalk");
         transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime * 2.0f);
         if ((transform.position.x - startPos.x) > -0.001)
         {
@@ -144,15 +136,14 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Attack()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", false);
-        anim.SetBool("isAttack", true);
+        anim.SetTrigger("IsAttack");
         StartCoroutine(AttackActionCoroutine());
     }
 
     IEnumerator AttackActionCoroutine()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         onMoveUpdate -= Update_Attack;
         CharacterState = State.Back;
     }

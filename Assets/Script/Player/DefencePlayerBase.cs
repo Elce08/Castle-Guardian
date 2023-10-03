@@ -7,9 +7,22 @@ public class DefencePlayerBase : PlayerBase
 {
     DefenceEnemyBase Enemy;
 
-    public float attackSpeed = 5.0f;
-
-    Animator animator;
+    public override float Mp
+    {
+        get => mp;
+        set
+        {
+            if(mp  != value)
+            {
+                mp = value;
+                if(mp > MaxMp)
+                {
+                    mp = 0.0f;
+                    Skill();
+                }
+            }
+        }
+    }
 
     protected override void Awake()
     {
@@ -19,7 +32,7 @@ public class DefencePlayerBase : PlayerBase
     protected override void Start()
     {
         base.Start();
-        animator = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     protected override void Die()
@@ -35,12 +48,15 @@ public class DefencePlayerBase : PlayerBase
             {
                 if (target == null)
                 {
-                    animator.SetBool("isAttack", false);
-                    animator.SetBool("isIdle", true);
-                    break;
+                    anim.SetTrigger("IsIdle");
                 }
-                animator.SetBool("isAttack", true);
-                yield return new WaitForSeconds(attackSpeed);
+                else
+                {
+                    anim.SetTrigger("IsAttack");
+                    Mp += 5.0f;
+                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+                }
             }
         }
     }
@@ -52,5 +68,10 @@ public class DefencePlayerBase : PlayerBase
         {
             StartCoroutine(AttackCoroutine(Enemy));
         }
+    }
+
+    public void Skill()
+    {
+        // ½ºÅ³
     }
 }

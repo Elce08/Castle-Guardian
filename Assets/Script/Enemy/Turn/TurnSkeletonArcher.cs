@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class TurnSkeletonArcher : TurnEnemyBase
 {
-
+    protected override void Start()
+    {
+        base.Start();
+        speed = 14.0f;
+    }
 }

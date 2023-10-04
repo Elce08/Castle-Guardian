@@ -37,6 +37,7 @@ public class AsyncLoad : MonoBehaviour
         operation.allowSceneActivation = false;
         float timer = 0.0f;
         slider = GetComponentInChildren<Slider>();
+        slider.value = 0.0f;
         LoadingText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         randomCharacterImage = transform.GetChild(3).GetComponent<Image>();
         SetImage();

@@ -889,7 +889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270320974790382344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -931,12 +931,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171edc95c2d23cb48bc5bd0a5c240904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   attackDamage: 0
-  defence: 0
+  def: 1
   startHp: 0
   hp: 0
-  startMp: 0
-  mp: 0
   moveSpeed: 1
 --- !u!50 &-5610065604144244250
 Rigidbody2D:

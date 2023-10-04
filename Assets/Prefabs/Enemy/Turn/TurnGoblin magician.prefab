@@ -629,7 +629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6818263351335240379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -671,13 +671,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05b7c0ee2406d440ad55ee2e2eb4fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 0
   speed: 3
-  defence: 0
+  attackDamage: 0
+  def: 1
   startHp: 0
   hp: 0
-  startMp: 0
-  mp: 0
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 0}
   moveSpeed: 5

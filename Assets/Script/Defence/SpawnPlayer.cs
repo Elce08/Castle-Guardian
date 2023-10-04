@@ -29,7 +29,6 @@ public class SpawnPlayer : MonoBehaviour
     private void Awake()
     {
         inputActions = new();
-        buttonImages = new Image[button];
         defenceManager = FindObjectOfType<DefenceManager>();
     }
 
@@ -43,7 +42,6 @@ public class SpawnPlayer : MonoBehaviour
             buttons[i] = child.GetComponent<Button>();
             Transform grandChild = child.GetChild(0);
             playerImages[i] = grandChild.GetComponent<Image>();
-            buttonImages[i] = buttons[i].gameObject.GetComponent<Image>();
         }
         gameManager = FindObjectOfType<GameManager>();
         playerImages[0].sprite = gameManager.player1Sprite;
@@ -52,7 +50,6 @@ public class SpawnPlayer : MonoBehaviour
         buttons[0].onClick.AddListener(Player1Selected);
         buttons[1].onClick.AddListener(Player2Selected);
         buttons[2].onClick.AddListener(Player3Selected);
-        blink += Blink;
         defenceManager.gameEnd += GameEnd;
     }
 
@@ -126,50 +123,5 @@ public class SpawnPlayer : MonoBehaviour
     {
         inputActions.Player.Disable();
         foreach(Button button in buttons) button.onClick.RemoveAllListeners();
-    }
-
-    // ±ôºýÀÌ-------------------------------------------------------------------------------------------
-    static Image[] buttonImages;
-
-    /// <summary>
-    /// ÄÑÁø ¹öÆ° È®ÀÎ¿ë
-    /// </summary>
-    private enum OnButton
-    {
-        off,
-        player1on,
-        player2on,
-        player3on,
-    }
-
-    static OnButton buttonState = OnButton.off;
-
-    static OnButton ButtonState
-    {
-        get => buttonState;
-        set
-        {
-            if(buttonState != value)
-            {
-                buttonState = value;
-                blink(ButtonState);
-            }
-        }
-    }
-
-    static Action<OnButton> blink;
-
-    private void Update()
-    {
-        blink(ButtonState);
-    }
-
-    /// <summary>
-    /// ±ôºýÀÌ°Ô ÇÒ ÇÔ¼ö
-    /// </summary>
-    /// <param name="buttonImage">´ë»ó</param>
-    static void Blink(OnButton buttonImage)
-    {
-
     }
 }

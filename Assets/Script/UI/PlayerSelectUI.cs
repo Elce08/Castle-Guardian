@@ -2,10 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerSelectUI : MonoBehaviour
 {
+    /// <summary>
+    /// 확인버튼 껴졌다 켰을 때 오류 해결 용도
+    /// </summary>
+    enum CurrentState
+    {
+        None,
+        Player1,
+        Player2,
+        Player3,
+    }
+
+    CurrentState state = CurrentState.None;
+    CurrentState State
+    {
+        get => state;
+        set
+        {
+            if(state != value)
+            {
+                state = value;
+                switch (state)
+                {
+                    case CurrentState.None:
+                        lastCheck.onClick.RemoveAllListeners();
+                        break;
+                    case CurrentState.Player1:
+                        lastCheck.onClick.AddListener(Player1Selected); 
+                        break;
+                    case CurrentState.Player2:
+                        lastCheck.onClick.AddListener(Player2Selected);
+                        break;
+                    case CurrentState.Player3:
+                        lastCheck.onClick.AddListener(Player3Selected);
+                        break;
+                }
+            }
+        }
+    }
+
     GameManager gameManager;
     Image image;
     TextMeshProUGUI playerNumber;
@@ -20,10 +60,10 @@ public class PlayerSelectUI : MonoBehaviour
     Button solder_ShorSword;
     Button Warrior;
 
-    public Sprite[] sprites;
+    public static Sprite[] sprites;
 
     string playerName;
-    public int type;
+    public static int type;
 
     private void Awake()
     {
@@ -38,18 +78,12 @@ public class PlayerSelectUI : MonoBehaviour
         explanation = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(4);
         lastCheck = grandChild.GetComponent<Button>();
-        child = transform.GetChild(2);
-        archor = child.GetComponent<Button>();
-        child = transform.GetChild(3);
-        archor_LongBow = child.GetComponent<Button>();
-        child = transform.GetChild(4);
-        gunner = child.GetComponent<Button>();
-        child = transform.GetChild(5);
-        soldier_LongSword = child.GetComponent<Button>();
-        child = transform.GetChild(6);
-        solder_ShorSword = child.GetComponent<Button>();
-        child = transform.GetChild(7);
-        Warrior = child.GetComponent<Button>();
+        archor = transform.GetChild(2).GetComponent<Button>();
+        archor_LongBow = transform.GetChild(3).GetComponent<Button>();
+        gunner = transform.GetChild(4).GetComponent<Button>();
+        soldier_LongSword = transform.GetChild(5).GetComponent<Button>();
+        solder_ShorSword = transform.GetChild(6).GetComponent<Button>();
+        Warrior = transform.GetChild(7).GetComponent<Button>();
         lastCheck.gameObject.SetActive(false);
     }
 
@@ -64,7 +98,7 @@ public class PlayerSelectUI : MonoBehaviour
         playerName = "Chalie";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player1Selected);
+        State = CurrentState.Player1;
         lastCheck.gameObject.SetActive(false);
     }
     void Player2Setting()
@@ -73,7 +107,7 @@ public class PlayerSelectUI : MonoBehaviour
         playerName = "Cloe";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player2Selected);
+        State = CurrentState.Player2;
         lastCheck.gameObject.SetActive(false);
     }
     void Player3Setting()
@@ -82,7 +116,7 @@ public class PlayerSelectUI : MonoBehaviour
         playerName = "Hyeba";
         changeName.onEndEdit.AddListener((text) => playerName = text);
         PlayerCharacterSelect();
-        lastCheck.onClick.AddListener(Player3Selected);
+        State = CurrentState.Player3;
         lastCheck.gameObject.SetActive(false);
     }
 
@@ -116,8 +150,8 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer1Change.Invoke(selectedType, playerName);
                 break;
         }
+        State = CurrentState.None;
         Player2Setting();
-        lastCheck.onClick.RemoveListener(Player1Selected);
         changeName.text = "Add Name";
         image.sprite = sprites[6];
     }
@@ -152,6 +186,7 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer2Change.Invoke(selectedType, playerName);
                 break;
         }
+        State = CurrentState.None;
         Player3Setting();
         changeName.text = "Add Name";
         image.sprite = sprites[6];
@@ -187,6 +222,7 @@ public class PlayerSelectUI : MonoBehaviour
                 gameManager.onPlayer3Change.Invoke(selectedType, playerName);
                 break;
         }
+        LoadScene();
     }
 
     void PlayerCharacterSelect()
@@ -234,5 +270,48 @@ public class PlayerSelectUI : MonoBehaviour
         lastCheck.gameObject.SetActive(true);
         type = 6;
         image.sprite = sprites[5];
+    }
+
+    void LoadScene()
+    {
+        AsyncLoad.OnSceneLoad("Village");
+    }
+
+    public void Stop(bool stop)
+    {
+        if(stop)
+        {
+            lastCheck.onClick.RemoveAllListeners();
+            archor.onClick.RemoveAllListeners();
+            archor_LongBow.onClick.RemoveAllListeners();
+            gunner.onClick.RemoveAllListeners();
+            soldier_LongSword.onClick.RemoveAllListeners();
+            solder_ShorSword.onClick.RemoveAllListeners();
+            Warrior.onClick.RemoveAllListeners();
+        }
+        else if (!stop)
+        {
+            switch (State)
+            {
+                case CurrentState.None:
+                    lastCheck.onClick.RemoveAllListeners();
+                    break;
+                case CurrentState.Player1:
+                    lastCheck.onClick.AddListener(Player1Selected);
+                    break;
+                case CurrentState.Player2:
+                    lastCheck.onClick.AddListener(Player2Selected);
+                    break;
+                case CurrentState.Player3:
+                    lastCheck.onClick.AddListener(Player3Selected);
+                    break;
+            }
+            archor.onClick.AddListener(SelectArchor);
+            archor_LongBow.onClick.AddListener(SelectArchor_LongBow);
+            gunner.onClick.AddListener(SelectGunner);
+            soldier_LongSword.onClick.AddListener(SelectSoldier_LongSword);
+            solder_ShorSword.onClick.AddListener(SelectSolder_ShorSword);
+            Warrior.onClick.AddListener(SelectWarrior);
+        }
     }
 }

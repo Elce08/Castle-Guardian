@@ -10,8 +10,6 @@ using UnityEngine.UI;
 public enum PlayerType
 {
     None,
-    Armor,
-    Pants,
     Archor,
     Archor_LongBow,
     Gunner,
@@ -36,28 +34,30 @@ public enum WeaponType
 public enum PlayerWeapon
 {
     None,
-    Bow1,
-    Bow2,
-    LongBow1,
-    LongBow2,
-    Gun1,
-    Gun2,
-    LongSword1,
-    LongSword2,
-    ShortSword1,
-    ShortSword2,
-    Hammer1,
-    Hammer2,
+    Armor,
+    Pants,
+    Archor1,
+    Archor2,
+    Archor_LongBow1,
+    Archor_LongBow2,
+    Gunner1,
+    Gunner2,
+    Soldier_LongSword1,
+    Soldier_LongSword2,
+    Soldier_ShortSword1,
+    Soldier_ShortSword2,
+    Warrior_Hammer1,
+    Warrior_Hammer2,
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public GameObject[] playerTypePrefabs;
     bool gameStop = false;
     PlayerInputActions inputActions;
     Canvas settingCanvas;
     Button resume;
-    Button setting;
+    Button controll;
     Button sound;
     Button quit;
     
@@ -76,20 +76,34 @@ public class GameManager : MonoBehaviour
     {
         inputActions = new PlayerInputActions();
         settingCanvas = GetComponentInChildren<Canvas>();
-        Transform getChild = gameObject.transform.GetChild(0);
+        Transform getChild = gameObject.transform.GetChild(0).GetChild(0);
         Transform child = getChild.gameObject.transform.GetChild(0);
         resume = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(1);
-        setting = child.GetComponent<Button>();
+        controll = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(2);
         sound = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(3);
         quit = child.GetComponent<Button>();
+
+        // 인벤토리 관련
+        inventoryUI = FindObjectOfType<InventoryUI>();
+        partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
+        itemDataManager = GetComponent<ItemDataManager>();
+
+        PlayerSelectUI.sprites = playerImages;
     }
 
 
     private void Start()
     {
+        //인벤토리 관련
+        inven = new Inventory(this);
+        if (GameManager.Inst.InvenUI != null)
+        {
+            GameManager.Inst.InvenUI.InitializeInventory(inven);
+        }
+
         DontDestroyOnLoad(this);
         onPlayer1Change = Player1Data;
         onPlayer2Change = Player2Data;
@@ -97,9 +111,9 @@ public class GameManager : MonoBehaviour
         player1Sprite = PlayerImage(player1Type);
         player2Sprite = PlayerImage(player2Type);
         player3Sprite = PlayerImage(player3Type);
-        settingCanvas.gameObject.SetActive(false);
+        settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
         resume.onClick.AddListener(ResumeButton);
-        setting.onClick.AddListener(SettingButton);
+        controll.onClick.AddListener(Controll);
         sound.onClick.AddListener(SoundButton);
         quit.onClick.AddListener(QuitButton);
     }
@@ -107,8 +121,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
-        inputActions.GameManager.Enable();
-        inputActions.GameManager.Esc.performed += GameSetting;
+        SceneManager.activeSceneChanged += OnSceneChange;
     }
 
     private void OnDisable()
@@ -120,43 +133,74 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
     {
-        if(scene.name == "Defence")
+        if (scene.name == "Defence1" || scene.name == "Defence2")
         {
             currentScene = Scene.Defence;
-            foreach(GameObject s in playerTypePrefabs)
+            foreach (GameObject s in playerTypePrefabs)
             {
                 s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             }
+            spawnPlayer = FindObjectOfType<SpawnPlayer>();
         }
-        else if(scene.name == "Turn")
+        else if (scene.name == "Turn1" || scene.name == "Turn2")
         {
             currentScene = Scene.Turn;
             foreach (GameObject s in playerTypePrefabs)
             {
-                s.transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+                s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             }
+            turnPlayerBase = FindObjectOfType<TurnPlayerBase>();
+        }
+        else if(scene.name == "PlayerSelect")
+        {
+            currentScene = Scene.PlayerSelect;
+            inputActions.GameManager.Enable();
+            inputActions.GameManager.Esc.performed += GameSetting;
+            playerSelectUI = FindObjectOfType<PlayerSelectUI>();
         }
     }
+
+    private void OnSceneChange(UnityEngine.SceneManagement.Scene current, UnityEngine.SceneManagement.Scene next)
+    {
+        if (current.name == "Defence1" || current.name == "Defence2")
+        {
+            spawnPlayer = null;
+        }
+        else if (current.name == "Turn1" || current.name == "Turn2")
+        {
+            turnPlayerBase = null;
+        }
+        else if (current.name == "PlayerSelect")
+        {
+            playerSelectUI = null;
+        }
+    }
+
+    // 세팅메뉴 =================================================
+
+    SpawnPlayer spawnPlayer;
+    TurnPlayerBase turnPlayerBase;
+    PlayerSelectUI playerSelectUI;
 
     private void GameSetting(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
         if (!gameStop)
         {
-            Debug.Log("On");
             gameStop = true;
-            settingCanvas.gameObject.SetActive(true);
+            settingCanvas.transform.GetChild(0).gameObject.SetActive(true);
             Time.timeScale = 0.0f;
-            if(currentScene == Scene.Turn) TurnPlayerBase.Stop(true);
-            else if(currentScene == Scene.Defence) SpawnPlayer.Stop(true);
+            if(currentScene == Scene.Turn) turnPlayerBase.Stop(true);
+            else if(currentScene == Scene.Defence) spawnPlayer.Stop(true);
+            else if(currentScene == Scene.PlayerSelect) playerSelectUI.Stop(true);
         }
         else if (gameStop)
         {
-            Debug.Log("Off");
             gameStop = false;
-            settingCanvas.gameObject.SetActive(false);
+            settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
             Time.timeScale = 1.0f;
-            if (currentScene == Scene.Turn) TurnPlayerBase.Stop(false);
-            else if (currentScene == Scene.Defence) SpawnPlayer.Stop(false);
+            if (currentScene == Scene.Turn) turnPlayerBase.Stop(false);
+            else if (currentScene == Scene.Defence) spawnPlayer.Stop(false);
+            else if (currentScene == Scene.PlayerSelect) playerSelectUI.Stop(false);
         }
     }
 
@@ -165,7 +209,9 @@ public class GameManager : MonoBehaviour
         gameStop = false;
         settingCanvas.gameObject.SetActive(false);
         Time.timeScale = 1.0f;
-        TurnPlayerBase.Stop(false);
+        if (currentScene == Scene.Turn) turnPlayerBase.Stop(false);
+        else if (currentScene == Scene.Defence) spawnPlayer.Stop(false);
+        else if (currentScene == Scene.PlayerSelect) playerSelectUI.Stop(false);
     }
 
     private void SoundButton()
@@ -173,9 +219,9 @@ public class GameManager : MonoBehaviour
         // 사운드 창 열리게(미구현 예정)
     }
 
-    private void SettingButton()
+    private void Controll()
     {
-        // 세팅 창 열리게(미구현 예정)
+        // 키세팅 창 열리게(미구현 예정)
     }
 
     private void QuitButton()
@@ -206,7 +252,6 @@ public class GameManager : MonoBehaviour
 
     public void Player1Data(PlayerType selectedType, string selectedName)
     {
-        Debug.Log("Sent");
         player1Name = selectedName;
         player1Type = selectedType;
         player1Sprite = PlayerImage(player1Type);
@@ -254,6 +299,106 @@ public class GameManager : MonoBehaviour
         return result;
     }
 
-    // 인벤토리-----------------------------------------------
+    // 아이템------------------------------------------
 
+    int money = 0;
+
+    public int Money
+    {
+        get => money;
+        set
+        {
+            if(money != value)
+            {
+                money = value;
+                onMoneyChange?.Invoke(money);
+            }
+        }
+    }
+
+    public Action<int> onMoneyChange;
+
+    PlayerWeapon playerWeapon;
+
+    ItemDataManager itemDataManager;
+
+    public ItemDataManager ItemData => itemDataManager;
+
+    Inventory inven;
+
+    public Inventory Inventory => inven;
+
+    public InvenSlot[] partSlot;
+
+    public InvenSlot this[WeaponType part] => partSlot[(int)part];
+
+    InventoryUI inventoryUI;
+    
+    public InventoryUI InvenUI => inventoryUI;
+
+    protected override void OnPreInitialize()
+    {
+        base.OnPreInitialize();
+    }
+
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
+        inventoryUI = FindObjectOfType<InventoryUI>();
+    }
+
+    public void ResultGetItem()
+    {
+        int getItem = UnityEngine.Random.Range(1, 5);
+
+        switch (getItem)
+        {
+            case 0:
+                playerWeapon = PlayerWeapon.None;
+                break;
+            case 1:
+                playerWeapon = PlayerWeapon.Armor;
+                break;
+            case 2:
+                playerWeapon = PlayerWeapon.Pants;
+                break;
+            case 3:
+                playerWeapon = PlayerWeapon.Archor1;
+                break;
+            case 4:
+                playerWeapon = PlayerWeapon.Archor2;
+                break;
+            case 6:
+                playerWeapon = PlayerWeapon.Archor_LongBow1;
+                break;
+            case 7:
+                playerWeapon = PlayerWeapon.Archor_LongBow2;
+                break;
+            case 8:
+                playerWeapon = PlayerWeapon.Gunner1;
+                break;
+            case 9:
+                playerWeapon = PlayerWeapon.Gunner2;
+                break;
+            case 10:
+                playerWeapon = PlayerWeapon.Soldier_LongSword1;
+                break;
+            case 11:
+                playerWeapon = PlayerWeapon.Soldier_LongSword2;
+                break;
+            case 12:
+                playerWeapon = PlayerWeapon.Soldier_ShortSword1;
+                break;
+            case 13:
+                playerWeapon = PlayerWeapon.Soldier_ShortSword2;
+                break;
+            case 14:
+                playerWeapon = PlayerWeapon.Warrior_Hammer1;
+                break;
+            case 15:
+                playerWeapon = PlayerWeapon.Warrior_Hammer2;
+                break;
+        }
+        inven.AddItem(playerWeapon);
+    }
 }

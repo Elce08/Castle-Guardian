@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data - SSword2", menuName = "Scriptable Object/Item Data - SSword2", order = 9)]
+[CreateAssetMenu(fileName = "New Item Data - Soldier_ShortSword2", menuName = "Scriptable Object/Item Data - Soldier_ShortSword2", order = 12)]
 public class ItemData_Soldier_ShortSword2 : ItemData
 {
     [Header("단검2 데이터")]
@@ -14,7 +14,7 @@ public class ItemData_Soldier_ShortSword2 : ItemData
     public override void ItemStatus()
     {
         speed = 8;
-        price = 1000;      // 아이템 가치
+        price = 1000 + (upgrade * 500);                // 아이템 가치
 
         beforeStr = (upgrade + 1) * 10;                 // 아이템의 강화 전 Str 수치
         beforeWis = (upgrade + 1) * 10;                 // 아이템의 강화 전 Agi 수치
@@ -28,7 +28,7 @@ public class ItemData_Soldier_ShortSword2 : ItemData
         afterDef = (upgrade + 2) * 10;                  // 아이템의 강화 후 Int 수치
         afterHP = (upgrade + 2) * 20;                  // 아이템의 강화 후 HP 수치
         afterMP = (upgrade + 2) * 20;                  // 아이템의 강화 후 MP 수치
-        afterValue = Mathf.Min(upgrade + 1, 5);        // 아이템의 강화 후 강화 수치
+        afterValue = upgrade + 1;
 
         risingStr = afterStr - beforeStr;    // 아이템의 강화 시 상승 Str 수치
         risingWis = afterWis - beforeWis;    // 아이템의 강화 시 상승 Agi 수치

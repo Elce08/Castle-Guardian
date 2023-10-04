@@ -7,18 +7,19 @@ using UnityEngine.UI;
 
 public class SpawnPlayer : MonoBehaviour
 {
-    static Button[] buttons;
+    Button[] buttons;
 
     /// <summary>
     /// ¹öÆ° °¹¼ö
     /// </summary>
     readonly int button = 3;
 
-    public GameManager gameManager;
+    GameManager gameManager;
+    DefenceManager defenceManager;
 
-    static Image[] playerImages;
+    Image[] playerImages;
 
-    static PlayerInputActions inputActions;
+    PlayerInputActions inputActions;
 
     /// <summary>
     /// ¼±ÅÃµÈ ÇÃ·¹ÀÌ¾î
@@ -29,6 +30,7 @@ public class SpawnPlayer : MonoBehaviour
     {
         inputActions = new();
         buttonImages = new Image[button];
+        defenceManager = FindObjectOfType<DefenceManager>();
     }
 
     private void Start()
@@ -43,6 +45,7 @@ public class SpawnPlayer : MonoBehaviour
             playerImages[i] = grandChild.GetComponent<Image>();
             buttonImages[i] = buttons[i].gameObject.GetComponent<Image>();
         }
+        gameManager = FindObjectOfType<GameManager>();
         playerImages[0].sprite = gameManager.player1Sprite;
         playerImages[1].sprite = gameManager.player2Sprite;
         playerImages[2].sprite = gameManager.player3Sprite;
@@ -50,6 +53,7 @@ public class SpawnPlayer : MonoBehaviour
         buttons[1].onClick.AddListener(Player2Selected);
         buttons[2].onClick.AddListener(Player3Selected);
         blink += Blink;
+        defenceManager.gameEnd += GameEnd;
     }
 
     private void OnEnable()
@@ -57,7 +61,7 @@ public class SpawnPlayer : MonoBehaviour
         inputActions.Player.Enable();
     }
 
-    public static void Stop(bool stop)
+    public void Stop(bool stop)
     {
         if (stop)
         {
@@ -77,19 +81,19 @@ public class SpawnPlayer : MonoBehaviour
         }
     }
 
-    private static void Player1Selected()
+    private void Player1Selected()
     {
         player = PoolObjectType.DefencePlayer1;
         inputActions.Player.Mouse.performed += Mouse;
     }
 
-    private static void Player2Selected()
+    private void Player2Selected()
     {
         player = PoolObjectType.DefencePlayer2;
         inputActions.Player.Mouse.performed += Mouse;
     }
 
-    private static void Player3Selected()
+    private void Player3Selected()
     {
         player = PoolObjectType.DefencePlayer3;
         inputActions.Player.Mouse.performed += Mouse;
@@ -100,7 +104,7 @@ public class SpawnPlayer : MonoBehaviour
         inputActions.Player.Disable();
     }
 
-    private static void Mouse(InputAction.CallbackContext _)
+    private void Mouse(InputAction.CallbackContext _)
     {
         Vector3 mousePosition = Input.mousePosition;
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -116,6 +120,12 @@ public class SpawnPlayer : MonoBehaviour
         }
         inputActions.Player.Mouse.performed -= Mouse;
         player = null;
+    }
+
+    private void GameEnd()
+    {
+        inputActions.Player.Disable();
+        foreach(Button button in buttons) button.onClick.RemoveAllListeners();
     }
 
     // ±ôºýÀÌ-------------------------------------------------------------------------------------------

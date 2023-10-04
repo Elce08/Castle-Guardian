@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data - Gun1", menuName = "Scriptable Object/Item Data - Gun1", order = 14)]
+[CreateAssetMenu(fileName = "New Item Data - Gunner1", menuName = "Scriptable Object/Item Data - Gunner1", order = 7)]
 public class ItemData_Gunner1 : ItemData
 {
     [Header("총1 데이터")]
@@ -13,7 +13,7 @@ public class ItemData_Gunner1 : ItemData
 
     public override void ItemStatus()
     {
-        price = 1000;      // 아이템 가치
+        price = 1000 + (upgrade * 500);                // 아이템 가치
 
         speed = 10;
         beforeStr = (upgrade + 1) * 5;                 // 아이템의 강화 전 Str 수치
@@ -28,7 +28,7 @@ public class ItemData_Gunner1 : ItemData
         afterDef = (upgrade + 2) * 5;                  // 아이템의 강화 후 Int 수치
         afterHP = (upgrade + 2) * 10;                  // 아이템의 강화 후 HP 수치
         afterMP = (upgrade + 2) * 10;                  // 아이템의 강화 후 MP 수치
-        afterValue = Mathf.Min(upgrade + 1, 5);        // 아이템의 강화 후 강화 수치
+        afterValue = upgrade + 1;
 
         risingStr = afterStr - beforeStr;    // 아이템의 강화 시 상승 Str 수치
         risingWis = afterWis - beforeWis;    // 아이템의 강화 시 상승 Agi 수치

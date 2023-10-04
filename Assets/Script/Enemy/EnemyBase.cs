@@ -6,29 +6,13 @@ public class EnemyBase : PooledObject
 {
     protected Animator anim;
 
-    public float attackDamage = 10.0f;
-
     public float speed;
-
-    public float AttackDamage
-    {
-        get => attackDamage;
-        set
-        {
-            // 무기 얻으면 스탯도 얻게
-        }
-    }
-
-    public float defence = 50.0f;
-
-    public float Defence
-    {
-        get => defence;
-        set
-        {
-            // 방어구 얻으면 스탯도 얻게
-        }
-    }
+    public float attackDamage = 5.0f;
+    public float def = 1.0f;
+    /// <summary>
+    /// 방어력으로 나누는 것을 자주 하는것을 방지하기 위한 임시
+    /// </summary>
+    float Adef;
 
     public float startHp = 50.0f;
 
@@ -50,24 +34,27 @@ public class EnemyBase : PooledObject
         }
     }
 
-    public float startMp = 100.0f;
-
-    public float mp;
-
-    public float Mp
+    protected virtual void Start()
     {
-        get => mp;
-        set
-        {
-            if (mp != value)
-            {
-                mp = value;
-            }
-        }
+        Adef = 1 / def;
+    }
+
+    public void Hitted(float damage)
+    {
+        Hp -= damage * Adef;
+        StartCoroutine(HittedCoroutine());
     }
 
     protected virtual void Die()
     {
-        anim.SetBool("isDie", true);
+        anim.SetTrigger("IsDie");
+    }
+
+    IEnumerator HittedCoroutine()
+    {
+        anim.SetTrigger("IsHitted");
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        anim.SetTrigger("IsIdle");
     }
 }

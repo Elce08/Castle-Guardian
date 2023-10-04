@@ -48,16 +48,20 @@ public class TurnEnemyBase : EnemyBase,ITurn
                 switch (state)
                 {
                     case State.Idle:
-                        onMoveUpdate += Update_Idle;
+                        onMoveUpdate = Update_Idle;
+                        anim.SetTrigger("IsIdle");
                         break;
                     case State.ToTraget:
-                        onMoveUpdate += Update_ToTarget;
+                        anim.SetTrigger("IsWalk");
+                        onMoveUpdate = Update_ToTarget;
                         break;
                     case State.Back:
-                        onMoveUpdate += Update_Back;
+                        anim.SetTrigger("IsWalk");
+                        onMoveUpdate = Update_Back;
                         break;
                     case State.Attack:
-                        onMoveUpdate += Update_Attack;
+                        anim.SetTrigger("IsAttack");
+                        onMoveUpdate = Update_Attack;
                         break;
                 }
             }
@@ -66,8 +70,9 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     Action onMoveUpdate;
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         anim = GetComponentInChildren<Animator>();
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
         players = turnManager.players;
@@ -78,10 +83,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     private void Update()
     {
-        if(onMoveUpdate != null)
-        {
-            onMoveUpdate();
-        }
+        onMoveUpdate?.Invoke();
     }
 
     public void OnAttack()
@@ -105,37 +107,25 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Idle()
     {
-        anim.SetBool("isIdle", true);
-        anim.SetBool("isWalk", false);
-        anim.SetBool("isAttack", false);
         transform.position = transform.position;
     }
 
     void Update_ToTarget()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", true);
-        anim.SetBool("isAttack", false);
-        onMoveUpdate -= Update_Idle;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
         if (transform.position.x < (target.transform.position.x + 3.0f))
         {
-            onMoveUpdate -= Update_ToTarget;
             CharacterState = State.Attack;
         }
     }
 
     void Update_Back()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", true);
-        anim.SetBool("isAttack", false);
         transform.position = Vector3.MoveTowards(transform.position, startPos, moveSpeed * Time.deltaTime * 2.0f);
         if ((transform.position.x - startPos.x) > -0.001)
         {
             transform.position = startPos;
             target = null;
-            onMoveUpdate -= Update_Back;
             Debug.Log($"{gameObject.name}turn end");
             endTurn = true;
             CharacterState = State.Idle;
@@ -144,16 +134,13 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_Attack()
     {
-        anim.SetBool("isIdle", false);
-        anim.SetBool("isWalk", false);
-        anim.SetBool("isAttack", true);
         StartCoroutine(AttackActionCoroutine());
     }
 
     IEnumerator AttackActionCoroutine()
     {
-        yield return new WaitForSeconds(1.0f);
-        onMoveUpdate -= Update_Attack;
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         CharacterState = State.Back;
     }
 }

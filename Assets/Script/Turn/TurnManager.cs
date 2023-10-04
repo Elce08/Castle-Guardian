@@ -39,6 +39,7 @@ public class TurnManager : MonoBehaviour
         }
         StartCoroutine(StartMove());
         result.gameObject.SetActive(false);
+        enemyType = new int[3];
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position, int i)
@@ -80,6 +81,7 @@ public class TurnManager : MonoBehaviour
                 spawnedEnemy.startPos = enemysPosition[i];
                 break;
         }
+        enemyType[i] = random;
         return spawnedEnemy;
     }
 
@@ -189,4 +191,7 @@ public class TurnManager : MonoBehaviour
             }
         }
     }
+
+    public Sprite[] enemySprites;
+    public int[] enemyType = new int[3];
 }

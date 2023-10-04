@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class PlayerBase : PooledObject
 {
-    protected 
-    Animator anim;
+    protected Animator anim;
 
     public float speed = 0.0f;
 
@@ -30,6 +29,8 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
+                UI.hpSlider.value = hp * ReMaxHP;
+                UI.hpText.text = $"{hp} / {startHp}";
                 if(hp <= 0)
                 {
                     Die();
@@ -50,9 +51,15 @@ public class PlayerBase : PooledObject
             if (mp != value)
             {
                 mp = value;
+                UI.hpSlider.value = mp * ReMaxMP;
+                UI.hpText.text = $"{mp} / {MaxMp}";
             }
         }
     }
+
+    // 피통 나누기 자주 안하게 하기 위한 임시
+    float ReMaxHP;
+    float ReMaxMP;
 
     public GameManager gameManager;
 
@@ -117,6 +124,8 @@ public class PlayerBase : PooledObject
         hp = startHp;
         Mp = MaxMp;
         Adef = 1 / def;
+        ReMaxHP = 1 / startHp;
+        ReMaxMP = 1 / MaxMp;
     }
 
     public void Hitted(float damage)
@@ -137,4 +146,8 @@ public class PlayerBase : PooledObject
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.SetTrigger("IsIdle");
     }
+
+    // --------------피통마나통 UI
+
+    public PlayerUIBase UI;
 }

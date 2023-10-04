@@ -26,6 +26,26 @@ public class TurnEnemyBase : EnemyBase,ITurn
     bool isAlive = true;
     public bool IsAlive => isAlive;
 
+    public System.Action<float> OnHpChange;
+
+    public override float Hp
+    {
+        get => base.Hp;
+        set
+        {
+            if (hp != value)
+            {
+                hp = value;
+                if (hp <= 0)
+                {
+                    hp = 0;
+                    Die();
+                }
+                OnHpChange.Invoke(hp);
+            }
+        }
+    }
+
 
     protected enum State
     {

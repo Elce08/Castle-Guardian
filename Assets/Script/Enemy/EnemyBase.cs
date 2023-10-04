@@ -18,7 +18,7 @@ public class EnemyBase : PooledObject
 
     public float hp;
 
-    public float Hp
+    public virtual float Hp
     {
         get => hp;
         set
@@ -28,15 +28,19 @@ public class EnemyBase : PooledObject
                 hp = value;
                 if (hp <= 0)
                 {
+                    hp = 0;
                     Die();
                 }
             }
         }
     }
 
+    public float ReMaxHp;
+
     protected virtual void Start()
     {
         Adef = 1 / def;
+        ReMaxHp = 1 / startHp;
     }
 
     public void Hitted(float damage)

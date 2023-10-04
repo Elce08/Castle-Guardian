@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1143671545525755091}
   - component: {fileID: -5094327750421066914}
   - component: {fileID: 8382914002000909321}
+  - component: {fileID: -4562112042028963628}
   m_Layer: 6
   m_Name: DefencePlayer1
   m_TagString: Player
@@ -149,3 +150,14 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!210 &-4562112042028963628
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570880505119671804}
+  m_Enabled: 1
+  m_SortingLayerID: 739511941
+  m_SortingLayer: 4
+  m_SortingOrder: 1

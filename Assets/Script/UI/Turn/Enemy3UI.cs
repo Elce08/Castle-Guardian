@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy3UI : EnemyUIBase
 {
-    protected override void Start()
+    public override void GameOn()
     {
         enemy = turnManager.enemys[2];
         portrait.sprite = turnManager.enemySprites[turnManager.enemyType[2]];

@@ -21,8 +21,12 @@ public class EnemyUIBase : MonoBehaviour
         hpText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
     }
 
-    protected virtual void Start()
+    private void Start()
     {
         turnManager = FindObjectOfType<TurnManager>();
+    }
+
+    public virtual void GameOn()
+    {
     }
 }

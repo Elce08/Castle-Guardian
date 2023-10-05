@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,7 @@ public class TurnManager : MonoBehaviour
     public Vector3[] playersPosition;
     public TurnEnemyBase[] enemys;
     public TurnPlayerBase[] players;
+    private EnemyUIBase[] enemyUI;
 
     private readonly Queue<GameObject> turnQueue = new();
 
@@ -24,6 +26,8 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        enemyUI = FindObjectsOfType<EnemyUIBase>();
+        enemyType = new int[3];
         enemys = new TurnEnemyBase[3];
         players = new TurnPlayerBase[3];
         for(int i = 0; i < 3; i++)
@@ -39,7 +43,10 @@ public class TurnManager : MonoBehaviour
         }
         StartCoroutine(StartMove());
         result.gameObject.SetActive(false);
-        enemyType = new int[3];
+        for(int i =0; i<enemyUI.Length;i++)
+        {
+            enemyUI[i].GameOn();
+        }
     }
 
     TurnEnemyBase EnemySpawn(Vector3 position, int i)

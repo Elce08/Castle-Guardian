@@ -162,5 +162,6 @@ public class TurnEnemyBase : EnemyBase,ITurn
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         CharacterState = State.Back;
+        StopAllCoroutines();
     }
 }

@@ -17,7 +17,7 @@ public class PlayerBase : PooledObject
     /// </summary>
     float Adef;
 
-    public float startHp = 100.0f;
+    public float startHp = 0.0f;
 
     public float hp;
 
@@ -30,6 +30,7 @@ public class PlayerBase : PooledObject
             {
                 hp = value;
                 UI.hpSlider.value = hp * ReMaxHP;
+                Debug.Log(hp * ReMaxHP);
                 UI.hpText.text = $"{hp} / {startHp}";
                 if(hp <= 0)
                 {
@@ -121,7 +122,7 @@ public class PlayerBase : PooledObject
                 break;
         }
         anim = GetComponentInChildren<Animator>();
-        hp = startHp;
+        Hp = startHp;
         Mp = MaxMp;
         Adef = 1 / def;
         ReMaxHP = 1 / startHp;

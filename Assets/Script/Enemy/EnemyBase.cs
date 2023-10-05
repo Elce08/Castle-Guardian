@@ -9,10 +9,6 @@ public class EnemyBase : PooledObject
     public float speed;
     public float attackDamage = 5.0f;
     public float def = 1.0f;
-    /// <summary>
-    /// 방어력으로 나누는 것을 자주 하는것을 방지하기 위한 임시
-    /// </summary>
-    float Adef;
 
     public float startHp = 50.0f;
 
@@ -39,13 +35,12 @@ public class EnemyBase : PooledObject
 
     protected virtual void Start()
     {
-        Adef = 1 / def;
-        ReMaxHp = 1 / startHp;
+        Hp = startHp;
     }
 
-    public void Hitted(float damage)
+    public virtual void Hitted(float damage)
     {
-        Hp -= damage * Adef;
+        Hp -= damage / def;
         StartCoroutine(HittedCoroutine());
     }
 
@@ -54,11 +49,12 @@ public class EnemyBase : PooledObject
         anim.SetTrigger("IsDie");
     }
 
-    IEnumerator HittedCoroutine()
+    protected virtual IEnumerator HittedCoroutine()
     {
         anim.SetTrigger("IsHitted");
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.SetTrigger("IsIdle");
+        StopAllCoroutines();
     }
 }

@@ -12,12 +12,8 @@ public class PlayerBase : PooledObject
 
     public float str = 0.0f;
     public float def = 1.0f;
-    /// <summary>
-    /// 방어력으로 나누는 것을 자주 하는것을 방지하기 위한 임시
-    /// </summary>
-    float Adef;
 
-    public float startHp = 0.0f;
+    public float startHp;
 
     public float hp;
 
@@ -29,9 +25,11 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
-                UI.hpSlider.value = hp * ReMaxHP;
-                Debug.Log(hp * ReMaxHP);
-                UI.hpText.text = $"{hp} / {startHp}";
+                if(UI != null)
+                {
+                    UI.hpSlider.value = hp / startHp;
+                    UI.hpText.text = $"{hp} / {startHp}";
+                }
                 if(hp <= 0)
                 {
                     Die();
@@ -40,7 +38,7 @@ public class PlayerBase : PooledObject
         }
     }
 
-    public float MaxMp = 100.0f;
+    public float MaxMp;
 
     public float mp;
 
@@ -52,15 +50,14 @@ public class PlayerBase : PooledObject
             if (mp != value)
             {
                 mp = value;
-                UI.hpSlider.value = mp * ReMaxMP;
-                UI.hpText.text = $"{mp} / {MaxMp}";
+                if(UI != null)
+                {
+                    UI.mpSlider.value = mp / MaxMp;
+                    UI.mpText.text = $"{mp} / {MaxMp}";
+                }
             }
         }
     }
-
-    // 피통 나누기 자주 안하게 하기 위한 임시
-    float ReMaxHP;
-    float ReMaxMP;
 
     public GameManager gameManager;
 
@@ -122,16 +119,14 @@ public class PlayerBase : PooledObject
                 break;
         }
         anim = GetComponentInChildren<Animator>();
+        MaxMp = 100.0f;
         Hp = startHp;
         Mp = MaxMp;
-        Adef = 1 / def;
-        ReMaxHP = 1 / startHp;
-        ReMaxMP = 1 / MaxMp;
     }
 
-    public void Hitted(float damage)
+    public virtual void Hitted(float damage)
     {
-        Hp -= damage * Adef;
+        Hp -= damage / def;
         StartCoroutine(HittedCoroutine());
     }
 
@@ -140,12 +135,13 @@ public class PlayerBase : PooledObject
         anim.SetTrigger("IsDie");
     }
 
-    IEnumerator HittedCoroutine()
+    protected virtual IEnumerator HittedCoroutine()
     {
         anim.SetTrigger("IsHitted");
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.SetTrigger("IsIdle");
+        StopAllCoroutines();
     }
 
     // --------------피통마나통 UI

@@ -53,6 +53,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
         ToTraget,
         Back,
         Attack,
+        Hitted,
     }
 
     protected State state = State.Idle;
@@ -82,6 +83,9 @@ public class TurnEnemyBase : EnemyBase,ITurn
                     case State.Attack:
                         anim.SetTrigger("IsAttack");
                         onMoveUpdate = Update_Attack;
+                        break;
+                    case State.Hitted:
+                        onMoveUpdate = null;
                         break;
                 }
             }
@@ -163,5 +167,18 @@ public class TurnEnemyBase : EnemyBase,ITurn
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         CharacterState = State.Back;
         StopAllCoroutines();
+    }
+
+    public override void Hitted(float damage)
+    {
+        CharacterState = State.Hitted;
+        base.Hitted(damage);
+    }
+
+    protected override IEnumerator HittedCoroutine()
+    {
+        StartCoroutine(base.HittedCoroutine());
+        CharacterState = State.Idle;
+        yield return null;
     }
 }

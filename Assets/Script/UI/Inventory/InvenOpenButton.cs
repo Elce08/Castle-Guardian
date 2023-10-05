@@ -13,7 +13,10 @@ public class InvenOpenButton : MonoBehaviour
         invenLink = FindObjectOfType<InventoryUI>();
         openButton = GetComponent<Button>();
         openButton.onClick.AddListener(invenLink.Open);
+    }
 
+    private void Start()
+    {
         invenLink.Close();
     }
 } 

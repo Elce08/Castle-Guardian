@@ -344,7 +344,6 @@ public class GameManager : Singleton<GameManager>
     protected override void OnInitialize()
     {
         base.OnInitialize();
-        inventoryUI = FindObjectOfType<InventoryUI>();
     }
 
     public void ResultGetItem()

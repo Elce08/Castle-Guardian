@@ -22,6 +22,7 @@ public class EnemyBase : PooledObject
             if (hp != value)
             {
                 hp = value;
+                Debug.Log($"{gameObject.name} {hp}Hp remain");
                 if (hp <= 0)
                 {
                     hp = 0;
@@ -52,7 +53,6 @@ public class EnemyBase : PooledObject
     protected virtual IEnumerator HittedCoroutine()
     {
         anim.SetTrigger("IsHitted");
-        yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.SetTrigger("IsIdle");
         StopAllCoroutines();

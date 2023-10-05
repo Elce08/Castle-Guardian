@@ -118,11 +118,6 @@ public class TurnEnemyBase : EnemyBase,ITurn
         Debug.Log($"{gameObject.name}turn");
     }
 
-    public void GetDamaged(float damage)
-    {
-
-    }
-
     protected override void Die()
     {
         isAlive = false;
@@ -165,6 +160,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
     {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        target.Hitted(attackDamage);
         CharacterState = State.Back;
         StopAllCoroutines();
     }

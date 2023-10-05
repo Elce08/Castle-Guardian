@@ -25,6 +25,7 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
+                Debug.Log($"{gameObject.name} {hp}Hp remain");
                 if(UI != null)
                 {
                     UI.hpSlider.value = hp / startHp;
@@ -138,7 +139,6 @@ public class PlayerBase : PooledObject
     protected virtual IEnumerator HittedCoroutine()
     {
         anim.SetTrigger("IsHitted");
-        yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.SetTrigger("IsIdle");
         StopAllCoroutines();

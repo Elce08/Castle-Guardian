@@ -1203,11 +1203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad712b671385ddd4ab9603dbb3656695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  attackDamage: 0
+  speed: 0
+  attackDamage: 5
   def: 1
-  startHp: 0
+  startHp: 50
   hp: 0
+  ReMaxHp: 0
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 0}
   moveSpeed: 5

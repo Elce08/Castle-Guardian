@@ -138,7 +138,7 @@ public class GameManager : Singleton<GameManager>
             currentScene = Scene.Defence;
             foreach (GameObject s in playerTypePrefabs)
             {
-                s.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                s.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             }
             spawnPlayer = FindObjectOfType<SpawnPlayer>();
         }

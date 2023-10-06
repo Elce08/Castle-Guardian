@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 public class ItemData_Armor : ItemData
 {
     [Header("갑옷 데이터")]
-    ItemData data;
+    ItemData item = null;
 
 
     public override WeaponType equipPart => WeaponType.Armor;

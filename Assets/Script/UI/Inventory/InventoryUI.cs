@@ -73,9 +73,13 @@ public class InventoryUI : MonoBehaviour
 
     Button closeButton;
 
+    ItemDataManager itemDataManager;
 
+    static public uint indexNum;
     private void Awake()
     {
+        itemDataManager = FindObjectOfType<ItemDataManager>();
+
         Transform child = transform.GetChild(0);
         invenSlotUI = child.GetComponentsInChildren<InvenSlotUI>();
 
@@ -213,6 +217,7 @@ public class InventoryUI : MonoBehaviour
     /// <param name="index">올라간 슬롯의 인덱스</param>
     private void OnItemDetailClickOn(uint index)
     {
+        indexNum = index;
         if (mousePoint == true)
         {
             detail.Open(slotsUI[index].InvenSlot.ItemData); // 상세정보창 열기

@@ -38,4 +38,5 @@ public class ItemData_Gunner1 : ItemData
 
         cost = (upgrade + 1) * 500;                          // 아이템의 강화 시 소모 비용
     }
+
 }

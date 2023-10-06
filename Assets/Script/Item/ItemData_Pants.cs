@@ -37,4 +37,6 @@ public class ItemData_Pants : ItemData
 
         cost = (upgrade + 1) * 500;                          // 아이템의 강화 시 소모 비용
     }
+
+
 }

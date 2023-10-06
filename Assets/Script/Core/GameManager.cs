@@ -398,6 +398,19 @@ public class GameManager : Singleton<GameManager>
                 playerWeapon = PlayerWeapon.Warrior_Hammer2;
                 break;
         }
-        inven.AddItem(playerWeapon);
+        inven.AddItem(PlayerWeapon.Armor);
+        inven.AddItem(PlayerWeapon.Pants);
+        inven.AddItem(PlayerWeapon.Archor1);
+        inven.AddItem(PlayerWeapon.Archor2);
+        inven.AddItem(PlayerWeapon.Archor_LongBow1);
+        inven.AddItem(PlayerWeapon.Archor_LongBow2);
+        inven.AddItem(PlayerWeapon.Gunner1);
+        inven.AddItem(PlayerWeapon.Gunner2);
+        inven.AddItem(PlayerWeapon.Soldier_LongSword1);
+        inven.AddItem(PlayerWeapon.Soldier_LongSword2);
+        inven.AddItem(PlayerWeapon.Soldier_ShortSword1);
+        inven.AddItem(PlayerWeapon.Soldier_ShortSword2);
+        inven.AddItem(PlayerWeapon.Warrior_Hammer1);
+        inven.AddItem(PlayerWeapon.Warrior_Hammer2);
     }
 }

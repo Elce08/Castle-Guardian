@@ -70,6 +70,10 @@ public class DetailInfoUI : MonoBehaviour
 
     ItemData nowItem;
 
+    Stat_1 stat1;
+    Stat_2 stat2;
+    Stat_3 stat3;
+
     GameManager owner;
     /// <summary>
     /// 일시정지 여부를 확인 및 설정하는 프로퍼티
@@ -103,11 +107,9 @@ public class DetailInfoUI : MonoBehaviour
         child = transform.GetChild(1);
         itemName = child.GetComponent<TextMeshProUGUI>();
 
-
         beforeStat = new TextMeshProUGUI[6];
         afterStat = new TextMeshProUGUI[6];
         risingStat = new TextMeshProUGUI[5];
-
 
         child = transform.GetChild(3);;
         before = child.gameObject;
@@ -131,6 +133,10 @@ public class DetailInfoUI : MonoBehaviour
         beforeStat[5] = before.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
 
         afterStat[5] = after.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
+
+        stat1 = FindObjectOfType<Stat_1>();
+        stat2 = FindObjectOfType<Stat_2>();
+        stat3 = FindObjectOfType<Stat_3>();
     }
 
     /// <summary>
@@ -139,7 +145,7 @@ public class DetailInfoUI : MonoBehaviour
     /// <param name="data">상세정보창에서 표시할 아이템의 데이터</param>
     public void Open(ItemData data)
     {
-        if (!IsPause && data != null)    // 일시정지 상태가 아니고, 아이템 데이터가 있고, 디테일 창이 다혀있을때만 열기
+        if (!IsPause && data != null)    // 일시정지 상태가 아니고, 아이템 데이터가 있을때만 열기
         {
             data.ItemStatus();
             if (data.upgrade != 5)
@@ -283,12 +289,20 @@ public class DetailInfoUI : MonoBehaviour
         {
             Debug.Log("강화가 최대치 입니다.");
         }
-
+        stat1.Status();
+        stat2.Status();
+        stat3.Status();
     }
 
     public void Sell()
     {
-        
+        InvenSlot invenSlot = Inventory.slots[InventoryUI.indexNum];
+        invenSlot.ClearSlotItem();
+        owner.Money += nowItem.price;
+        stat1.Status();
+        stat2.Status();
+        stat3.Status();
+        Close();
     }
 
     /// <summary>

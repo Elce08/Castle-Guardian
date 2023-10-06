@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +48,7 @@ public class ItemData : ScriptableObject
     {
     }
 
-    public virtual void ItemUpgrade()
+    public virtual void ItemSell()
     {
     }
 }

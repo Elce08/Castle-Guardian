@@ -23,7 +23,7 @@ public class Inventory
     /// <summary>
     /// 이 인벤토리에 들어있는 슬롯의 배열
     /// </summary>
-    InvenSlot[] slots;
+    static public InvenSlot[] slots;
 
     /// <summary>
     /// 인벤토리 슬롯에 접근하기 위한 인덱서
@@ -48,7 +48,7 @@ public class Inventory
     /// <summary>
     /// 아이템 데이터 메니저(아이템 종류별 데이터를 확인할 수 있다.)
     /// </summary>
-    ItemDataManager itemDataManager;
+    static public ItemDataManager itemDataManager;
 
     /// <summary>
     /// 인벤토리 소유자
@@ -86,6 +86,7 @@ public class Inventory
     public bool AddItem(PlayerWeapon code)
     {
         bool result = false;
+
         ItemData data = itemDataManager[code];
 
         // 같은 종류의 아이템이 없다.
@@ -101,27 +102,6 @@ public class Inventory
             Debug.Log("아이템 추가 실패 : 인벤토리가 가득 차있습니다.");
         }
 
-        return result;
-    }
-
-    /// <summary>
-    /// 인벤토리의 특정 슬롯에 아이템을 하나 추가하는 함수
-    /// </summary>
-    /// <param name="code">추가할 아이템의 종류</param>
-    /// <param name="slotIndex">아이템을 추가할 인덱스</param>
-    /// <returns></returns>
-    public bool AddItem(PlayerWeapon code, uint slotIndex)
-    {
-        bool result = false;
-        ItemData data = itemDataManager[code];  // 아이템 데이터 가져오기
-        InvenSlot slot = slots[slotIndex];      // 아이템을 추가할 슬롯 가져오기
-        if (IsValidIndex(slotIndex))   // 인덱스가 적절한지 확인
-        {
-            if (slot.IsEmpty)
-            {
-                slot.AssignSlotItem(data);          // 슬롯이 비었으면 아이템 할당
-            }
-        }
         return result;
     }
 

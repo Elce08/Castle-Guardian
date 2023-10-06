@@ -22,7 +22,6 @@ public class EnemyBase : PooledObject
             if (hp != value)
             {
                 hp = value;
-                Debug.Log($"{gameObject.name} {hp}Hp remain");
                 if (hp <= 0)
                 {
                     hp = 0;

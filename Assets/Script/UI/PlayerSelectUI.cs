@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -65,6 +66,11 @@ public class PlayerSelectUI : MonoBehaviour
     string playerName;
     public static int type;
 
+    float speed = 0.0f;
+    float str = 0.0f;
+    float def = 0.0f;
+    float hp = 0.0f;
+
     private void Awake()
     {
         Transform child = transform.GetChild(1);
@@ -75,6 +81,7 @@ public class PlayerSelectUI : MonoBehaviour
         playerNumber = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(2);
         changeName = grandChild.GetComponentInChildren<TMP_InputField>();
+        grandChild = child.GetChild(3);
         explanation = grandChild.GetComponent<TextMeshProUGUI>();
         grandChild = child.GetChild(4);
         lastCheck = grandChild.GetComponent<Button>();
@@ -90,6 +97,9 @@ public class PlayerSelectUI : MonoBehaviour
     private void Start()
     {
         Player1Setting();
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
+        explanation.color = Color.black;
+        explanation.fontStyle = FontStyles.Bold;
     }
 
     void Player1Setting()
@@ -153,6 +163,11 @@ public class PlayerSelectUI : MonoBehaviour
         State = CurrentState.None;
         Player2Setting();
         changeName.text = "Add Name";
+        speed = 0.0f;
+        str = 0.0f;
+        def = 0.0f;
+        hp = 0.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         image.sprite = sprites[6];
     }
 
@@ -189,6 +204,11 @@ public class PlayerSelectUI : MonoBehaviour
         State = CurrentState.None;
         Player3Setting();
         changeName.text = "Add Name";
+        speed = 0.0f;
+        str = 0.0f;
+        def = 0.0f;
+        hp = 0.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         image.sprite = sprites[6];
     }
 
@@ -238,36 +258,66 @@ public class PlayerSelectUI : MonoBehaviour
     void SelectArchor()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 13.0f;
+        str = 4.0f;
+        def = 1.0f;
+        hp = 85.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 1;
         image.sprite = sprites[0];
     }
     void SelectArchor_LongBow()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 15.0f;
+        str = 5.0f;
+        def = 1.0f;
+        hp = 80.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 2;
         image.sprite = sprites[1];
     }
     void SelectGunner()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 11.0f;
+        str = 5.0f;
+        def = 1.0f;
+        hp = 90.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 3;
         image.sprite = sprites[2];
     }
     void SelectSoldier_LongSword()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 5.0f;
+        str = 7.0f;
+        def = 2.0f;
+        hp = 150.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 4;
         image.sprite = sprites[3];
     }
     void SelectSolder_ShorSword()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 9.0f;
+        str = 6.0f;
+        def = 1.5f;
+        hp = 120.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 5;
         image.sprite = sprites[4];
     }
     void SelectWarrior()
     {
         lastCheck.gameObject.SetActive(true);
+        speed = 7.0f;
+        str = 7.0f;
+        def = 1.5f;
+        hp = 120.0f;
+        explanation.text = $"speed : {speed}\nstr : {str}\ndef : {def}\nhp : {hp}";
         type = 6;
         image.sprite = sprites[5];
     }
@@ -288,6 +338,7 @@ public class PlayerSelectUI : MonoBehaviour
             soldier_LongSword.onClick.RemoveAllListeners();
             solder_ShorSword.onClick.RemoveAllListeners();
             Warrior.onClick.RemoveAllListeners();
+            changeName.interactable = false;
         }
         else if (!stop)
         {
@@ -312,6 +363,7 @@ public class PlayerSelectUI : MonoBehaviour
             soldier_LongSword.onClick.AddListener(SelectSoldier_LongSword);
             solder_ShorSword.onClick.AddListener(SelectSolder_ShorSword);
             Warrior.onClick.AddListener(SelectWarrior);
+            changeName.interactable = true;
         }
     }
 }

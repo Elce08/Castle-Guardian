@@ -25,7 +25,6 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
-                Debug.Log($"{gameObject.name} {hp}Hp remain");
                 if(UI != null)
                 {
                     UI.hpSlider.value = hp / startHp;
@@ -127,7 +126,7 @@ public class PlayerBase : PooledObject
 
     public virtual void Hitted(float damage)
     {
-        Hp -= damage / def;
+        Hp -= (damage / def);
         StartCoroutine(HittedCoroutine());
     }
 

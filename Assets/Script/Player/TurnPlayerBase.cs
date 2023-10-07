@@ -44,6 +44,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         Back,
         Attack,
         Hitted,
+        Die,
     }
 
     protected State state = State.Idle;
@@ -75,6 +76,9 @@ public class TurnPlayerBase : PlayerBase, ITurn
                         onMoveUpdate = Update_Attack;
                         break;
                     case State.Hitted:
+                        onMoveUpdate = null;
+                        break;
+                    case State.Die:
                         onMoveUpdate = null;
                         break;
                 }
@@ -158,8 +162,11 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         enemys = turnManager.enemys;
         inputActions.NumberPad._1.performed += _1_performed;
+        if(!enemys[0].IsAlive)inputActions.NumberPad._1.performed -= _1_performed;
         inputActions.NumberPad._2.performed += _2_performed;
+        if(!enemys[1].IsAlive)inputActions.NumberPad._2.performed -= _2_performed;
         inputActions.NumberPad._3.performed += _3_performed;
+        if(!enemys[2].IsAlive)inputActions.NumberPad._3.performed -= _3_performed;
         inputActions.NumberPad.Mouse.performed += Mouse_performed;
     }
 
@@ -211,6 +218,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     protected override void Die()
     {
         isAlive = false;
+        CharacterState = State.Die;
         base.Die();
     }
 
@@ -324,6 +332,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         CharacterState = State.Hitted;
         base.Hitted(damage);
+        StartCoroutine(HittedCoroutine());
     }
 
     protected override IEnumerator HittedCoroutine()

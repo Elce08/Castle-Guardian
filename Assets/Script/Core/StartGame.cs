@@ -25,7 +25,6 @@ public class StartGame : MonoBehaviour
 
     private void LoadPlayerSelect(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        if (DataManager.Instance.data.firstGame) AsyncLoad.OnSceneLoad("PlayerSelect");
-        else AsyncLoad.OnSceneLoad("Village");
+        AsyncLoad.OnSceneLoad("PlayerSelect");
     }
 }

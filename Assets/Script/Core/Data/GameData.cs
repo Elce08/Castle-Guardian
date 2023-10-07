@@ -20,6 +20,25 @@ public class GameData : MonoBehaviour
     public Sprite player2Sprite;
     public Sprite player3Sprite;
 
+    public void Player1Data(PlayerType selectedType, string selectedName, Sprite selectedImage)
+    {
+        player1Name = selectedName;
+        player1Type = selectedType;
+        player1Sprite = selectedImage;
+    }
+    public void Player2Data(PlayerType selectedType, string selectedName, Sprite selectedImage)
+    {
+        player2Name = selectedName;
+        player2Type = selectedType;
+        player2Sprite = selectedImage;
+    }
+    public void Player3Data(PlayerType selectedType, string selectedName, Sprite selectedImage)
+    {
+        player3Name = selectedName;
+        player3Type = selectedType;
+        player3Sprite = selectedImage;
+    }
+
     public int money;
 
     InvenSlot[] inven;

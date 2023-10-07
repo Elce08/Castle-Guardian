@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class DefencePlayerBase : PlayerBase
 {
-    DefenceEnemyBase Enemy;
+    private Queue<DefenceEnemyBase> enemy = new();
+
+    DefenceEnemyBase Enemy = null;
 
     public override float Mp
     {
@@ -37,37 +40,46 @@ public class DefencePlayerBase : PlayerBase
 
     protected override void Die()
     {
+        StopAllCoroutines();
         base.Die();
     }
 
-    IEnumerator AttackCoroutine(DefenceEnemyBase target)
+    IEnumerator AttackCoroutine()
     {
-        if(target != null)
+        while(true)
         {
-            while(true)
+            if (enemy == null)
             {
-                if (target == null)
-                {
-                    anim.SetTrigger("IsIdle");
-                }
-                else
-                {
-                    anim.SetTrigger("IsAttack");
-                    Mp += 5.0f;
-                    yield return new WaitForSeconds(0.1f);
-                    yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                }
+                anim.SetTrigger("IsIdle");
+                break;
+            }
+            else if (enemy != null)
+            {
+                Debug.Log("StartAttack");
+                if(Enemy == null) Enemy = enemy.Dequeue();
+                anim.SetTrigger("IsAttack");
+                Enemy.Hitted(str);
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             }
         }
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Enemy = other.GetComponent<DefenceEnemyBase>();
         if (other.CompareTag("Enemy"))
         {
-            StartCoroutine(AttackCoroutine(Enemy));
+            if(Enemy == null)
+            {
+                Enemy = other.gameObject.GetComponent<DefenceEnemyBase>();
+            }
+            else enemy.Enqueue(other.gameObject.GetComponent<DefenceEnemyBase>());
         }
+    }
+
+    public override void Hitted(float damage)
+    {
+        base.Hitted(damage);
     }
 
     public void Skill()

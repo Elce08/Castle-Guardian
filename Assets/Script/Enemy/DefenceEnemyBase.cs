@@ -12,6 +12,36 @@ public class DefenceEnemyBase : EnemyBase
 
     public float moveSpeed = 1f;
 
+    enum EnemyState
+    {
+        Move,
+        Attack,
+    }
+
+    EnemyState state = EnemyState.Move;
+
+    private EnemyState State
+    {
+        get => state;
+        set
+        {
+            if(state != value)
+            {
+                state = value;
+                switch(state)
+                {
+                    case EnemyState.Move:
+                        anim.SetTrigger("IsWalk");
+                        isMove = true;
+                        break;
+                    case EnemyState.Attack:
+                        isMove = false;
+                        break;
+                }
+            }
+        }
+    }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -20,50 +50,63 @@ public class DefenceEnemyBase : EnemyBase
     protected override void Start()
     {
         base.Start();
-        gameObject.transform.localScale = new(0.4f, 0.4f, 0.4f);
+        gameObject.transform.localScale = new(0.3f, 0.3f, 0.3f);
+        State = EnemyState.Move;
     }
 
     void Update()
     {
-        if (isMove == true)
+        if(isMove)
         {
             transform.Translate(Time.deltaTime * moveSpeed * -transform.right);
         }
     }
 
-    IEnumerator AttackCoroutine(DefencePlayerBase target)
+    IEnumerator AttackCoroutine()
     {
-        if (target != null)
+        while (true)
         {
-            while (true)
+            if (player != null)
             {
                 anim.SetTrigger("IsAttack");
-                yield return new WaitForSeconds(0.1f);
+                player.Hitted(attackDamage);
                 yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             }
+            else if (player == null)
+            {
+                isMove = true;
+                State = EnemyState.Move;
+                break;
+            }
         }
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("in");
-            isMove = false;
+            State = EnemyState.Attack;
             player = other.gameObject.GetComponent<DefencePlayerBase>();
-            StartCoroutine(AttackCoroutine(player));
+            StartCoroutine(AttackCoroutine());
         }
         if (other.CompareTag("LosingPoint"))
         {
             StopAllCoroutines();
-            // defenceManager.LosingPoint.Invoke();
+            defenceManager.LosingPoint.Invoke();
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        player = null;
     }
 
     protected override void Die()
     {
         defenceManager.WinPoint.Invoke();
+        StopAllCoroutines();
         base.Die();
     }
 }

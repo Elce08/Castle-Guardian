@@ -145,6 +145,7 @@ public class TurnManager : MonoBehaviour
                     act = turnQueue.Dequeue().GetComponent<ITurn>();
                     act.EndTurn = false;
                     if (act.IsAlive) act.OnAttack();
+                    else act.EndTurn = true;
                 }
                 yield return null;
             }

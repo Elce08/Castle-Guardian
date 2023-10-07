@@ -25,10 +25,11 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
+                Debug.Log($"{gameObject.name}\n{Hp:N1}");
                 if(UI != null)
                 {
                     UI.hpSlider.value = hp / startHp;
-                    UI.hpText.text = $"{hp} / {startHp}";
+                    UI.hpText.text = $"{hp :N1} / {startHp}";
                 }
                 if(hp <= 0)
                 {
@@ -127,12 +128,12 @@ public class PlayerBase : PooledObject
     public virtual void Hitted(float damage)
     {
         Hp -= (damage / def);
-        StartCoroutine(HittedCoroutine());
     }
 
     protected virtual void Die()
     {
         anim.SetTrigger("IsDie");
+        anim.enabled = false;
     }
 
     protected virtual IEnumerator HittedCoroutine()

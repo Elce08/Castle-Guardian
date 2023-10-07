@@ -12,9 +12,9 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     public float moveSpeed = 5.0f;
 
-    PlayerBase[] players;
+    TurnPlayerBase[] players;
 
-    PlayerBase target;
+    TurnPlayerBase target;
 
     bool endTurn = false;
     public bool EndTurn
@@ -54,6 +54,7 @@ public class TurnEnemyBase : EnemyBase,ITurn
         Back,
         Attack,
         Hitted,
+        Die,
     }
 
     protected State state = State.Idle;
@@ -87,6 +88,9 @@ public class TurnEnemyBase : EnemyBase,ITurn
                     case State.Hitted:
                         onMoveUpdate = null;
                         break;
+                    case State.Die:
+                        onMoveUpdate = null;
+                        break;
                 }
             }
         }
@@ -112,15 +116,19 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     public void OnAttack()
     {
-        int setTarget = UnityEngine.Random.Range(0, players.Length);
-        target = players[setTarget];
+        while (true)
+        {
+            int setTarget = UnityEngine.Random.Range(0, players.Length);
+            target = players[setTarget];
+            if (target.IsAlive) break;
+        }
         CharacterState = State.ToTraget;
-        Debug.Log($"{gameObject.name}turn");
     }
 
     protected override void Die()
     {
         isAlive = false;
+        CharacterState = State.Die;
         base.Die();
     }
 

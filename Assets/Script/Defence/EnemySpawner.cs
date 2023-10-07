@@ -45,8 +45,8 @@ public class EnemySpawner : MonoBehaviour
         {
             int i = UnityEngine.Random.Range(0, spawnDatas.Length);
             data = spawnDatas[i];
-            yield return new WaitForSeconds(data.interval);
             Spawn(data.spawnType);
+            yield return new WaitForSeconds(data.interval);
         }
     }
 

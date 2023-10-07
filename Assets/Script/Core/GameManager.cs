@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -116,6 +117,28 @@ public class GameManager : Singleton<GameManager>
         player2Sprite = PlayerImage(player2Type);
         player3Sprite = PlayerImage(player3Type);
         settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        DataManager.Instance.LoadGameData();
+        if (!DataManager.Instance.data.firstGame)
+        {
+            player1Name = DataManager.Instance.data.player1Name;
+            player2Name = DataManager.Instance.data.player2Name;
+            player3Name = DataManager.Instance.data.player3Name;
+
+            player1Type = DataManager.Instance.data.player1Type;
+            player2Type = DataManager.Instance.data.player2Type;
+            player3Type = DataManager.Instance.data.player3Type;
+
+            player1Sprite = DataManager.Instance.data.player1Sprite;
+            player2Sprite = DataManager.Instance.data.player2Sprite;
+            player3Sprite = DataManager.Instance.data.player3Sprite;
+
+            Money = DataManager.Instance.data.money;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        
     }
 
     private void OnEnable()
@@ -158,6 +181,15 @@ public class GameManager : Singleton<GameManager>
             inputActions.GameManager.Esc.performed += GameSetting;
             playerSelectUI = FindObjectOfType<PlayerSelectUI>();
         }
+        else if( scene.name == "Village")
+        {
+            GameObject turn2Button = GameObject.Find("Turn2");
+            GameObject defence2Button = GameObject.Find("Defence2");
+            if (DataManager.Instance.data.turn1Clear) turn2Button.SetActive(true);
+            else if (!DataManager.Instance.data.turn1Clear) turn2Button.SetActive(false);
+            if (DataManager.Instance.data.defence1Clear) defence2Button.SetActive(true);
+            else if (!DataManager.Instance.data.defence1Clear) defence2Button.SetActive(false);
+        }
     }
 
     private void OnSceneChange(UnityEngine.SceneManagement.Scene current, UnityEngine.SceneManagement.Scene next)
@@ -165,10 +197,12 @@ public class GameManager : Singleton<GameManager>
         if (current.name == "Defence1" || current.name == "Defence2")
         {
             spawnPlayer = null;
+            if(current.name =="Defence1") DataManager.Instance.data.defence1Clear = true;
         }
         else if (current.name == "Turn1" || current.name == "Turn2")
         {
             turnPlayerBase = null;
+            if (current.name == "Turn1") DataManager.Instance.data.turn1Clear = true;
         }
         else if (current.name == "PlayerSelect")
         {
@@ -250,18 +284,27 @@ public class GameManager : Singleton<GameManager>
         player1Name = selectedName;
         player1Type = selectedType;
         player1Sprite = PlayerImage(player1Type);
+        DataManager.Instance.data.player1Name = player1Name;
+        DataManager.Instance.data.player1Type = player1Type;
+        DataManager.Instance.data.player1Sprite = player1Sprite;
     }
     public void Player2Data(PlayerType selectedType, string selectedName)
     {
         player2Name = selectedName;
         player2Type = selectedType;
         player2Sprite = PlayerImage(player2Type);
+        DataManager.Instance.data.player2Name = player2Name;
+        DataManager.Instance.data.player2Type = player2Type;
+        DataManager.Instance.data.player2Sprite = player2Sprite;
     }
     public void Player3Data(PlayerType selectedType, string selectedName)
     {
         player3Name = selectedName;
         player3Type = selectedType;
         player3Sprite = PlayerImage(player3Type);
+        DataManager.Instance.data.player3Name = player3Name;
+        DataManager.Instance.data.player3Type = player3Type;
+        DataManager.Instance.data.player3Sprite = player3Sprite;
     }
 
     Sprite PlayerImage(PlayerType type)

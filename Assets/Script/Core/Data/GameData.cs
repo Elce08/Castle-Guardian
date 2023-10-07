@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameData : MonoBehaviour
 {
     public bool firstGame = true;
+    public bool turn1Clear = false;
+    public bool defence1Clear = false;
 
     public string player1Name;
     public string player2Name;
@@ -27,5 +29,5 @@ public class GameData : MonoBehaviour
         inven = Inventory.slots;
     }
 
-    // 플레이어 타입, 이름, 돈, 몇번째 실행인지
+    // 인벤 저장
 }

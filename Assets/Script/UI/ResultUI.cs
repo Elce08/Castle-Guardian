@@ -50,7 +50,7 @@ public class ResultUI : MonoBehaviour
         {
             AsyncLoad.OnSceneLoad("Village");
         }
-        else if (!hit.collider.CompareTag("Item")) AsyncLoad.OnSceneLoad("Village");
+        // else if (!hit.collider.CompareTag("Item")) AsyncLoad.OnSceneLoad("Village");
     }
 
     private void Space_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)

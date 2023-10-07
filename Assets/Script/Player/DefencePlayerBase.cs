@@ -6,9 +6,11 @@ using UnityEngine.UIElements;
 
 public class DefencePlayerBase : PlayerBase
 {
-    private Queue<DefenceEnemyBase> enemy = new();
+    List<DefenceEnemyBase> enemyList = new();
 
-    DefenceEnemyBase Enemy = null;
+    bool onAttack = false;
+
+    float attackSpeed;
 
     public override float Mp
     {
@@ -36,30 +38,33 @@ public class DefencePlayerBase : PlayerBase
     {
         base.Start();
         anim = GetComponentInChildren<Animator>();
+        attackSpeed = 30.0f / speed;
     }
 
     protected override void Die()
     {
         StopAllCoroutines();
+        gameObject.SetActive(false);
         base.Die();
     }
 
     IEnumerator AttackCoroutine()
     {
+        onAttack = true;
         while(true)
         {
-            if (enemy == null)
+            if(enemyList.Count > 0)
             {
-                anim.SetTrigger("IsIdle");
-                break;
+                foreach (DefenceEnemyBase enemy in enemyList)
+                {
+                    enemy.Hitted(str);
+                }
+                new WaitForSeconds(attackSpeed);
             }
-            else if (enemy != null)
+            else
             {
-                Debug.Log("StartAttack");
-                if(Enemy == null) Enemy = enemy.Dequeue();
-                anim.SetTrigger("IsAttack");
-                Enemy.Hitted(str);
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+                onAttack = false;
+                break;
             }
         }
         yield return null;
@@ -69,17 +74,19 @@ public class DefencePlayerBase : PlayerBase
     {
         if (other.CompareTag("Enemy"))
         {
-            if(Enemy == null)
-            {
-                Enemy = other.gameObject.GetComponent<DefenceEnemyBase>();
-            }
-            else enemy.Enqueue(other.gameObject.GetComponent<DefenceEnemyBase>());
+            enemyList.Add(other.GetComponent<DefenceEnemyBase>());
+            if(!onAttack) StartCoroutine(AttackCoroutine());
+            Debug.Log(enemyList.Count);
         }
     }
 
-    public override void Hitted(float damage)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        base.Hitted(damage);
+        if (other.CompareTag("Enemy"))
+        {
+            enemyList.Remove(other.GetComponent<DefenceEnemyBase>());
+            Debug.Log(enemyList.Count);
+        }
     }
 
     public void Skill()

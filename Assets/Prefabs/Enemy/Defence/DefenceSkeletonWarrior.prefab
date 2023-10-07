@@ -932,11 +932,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  attackDamage: 0
+  attackDamage: 5
   def: 1
-  startHp: 0
+  startHp: 5
   hp: 0
+  ReMaxHp: 0
   moveSpeed: 1
+  attackSpeed: 2
 --- !u!50 &-5610065604144244250
 Rigidbody2D:
   serializedVersion: 4

@@ -25,7 +25,6 @@ public class PlayerBase : PooledObject
             if (hp != value)
             {
                 hp = value;
-                Debug.Log($"{gameObject.name}\n{Hp:N1}");
                 if(UI != null)
                 {
                     UI.hpSlider.value = hp / startHp;

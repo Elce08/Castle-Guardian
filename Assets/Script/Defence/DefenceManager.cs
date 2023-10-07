@@ -8,7 +8,7 @@ public class DefenceManager : MonoBehaviour
     public System.Action LosingPoint;
     public System.Action WinPoint;
 
-    public int winPoint = 50;
+    public int winPoint = 3;
     public int losingPoint = 3;
 
     public ResultUI result;

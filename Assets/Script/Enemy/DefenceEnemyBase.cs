@@ -12,6 +12,8 @@ public class DefenceEnemyBase : EnemyBase
 
     public float moveSpeed = 1f;
 
+    public float attackSpeed = 3.0f;
+
     enum EnemyState
     {
         Move,
@@ -52,6 +54,7 @@ public class DefenceEnemyBase : EnemyBase
         base.Start();
         gameObject.transform.localScale = new(0.3f, 0.3f, 0.3f);
         State = EnemyState.Move;
+        defenceManager = FindObjectOfType<DefenceManager>();
     }
 
     void Update()
@@ -70,7 +73,7 @@ public class DefenceEnemyBase : EnemyBase
             {
                 anim.SetTrigger("IsAttack");
                 player.Hitted(attackDamage);
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+                yield return new WaitForSeconds(attackSpeed);
             }
             else if (player == null)
             {
@@ -93,7 +96,6 @@ public class DefenceEnemyBase : EnemyBase
         if (other.CompareTag("LosingPoint"))
         {
             StopAllCoroutines();
-            defenceManager.LosingPoint.Invoke();
             gameObject.SetActive(false);
         }
     }
@@ -108,5 +110,6 @@ public class DefenceEnemyBase : EnemyBase
         defenceManager.WinPoint.Invoke();
         StopAllCoroutines();
         base.Die();
+        gameObject.SetActive(false);
     }
 }

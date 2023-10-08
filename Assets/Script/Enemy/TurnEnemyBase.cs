@@ -22,8 +22,6 @@ public class TurnEnemyBase : EnemyBase,ITurn
         get => endTurn;
         set => endTurn = value;
     }
-
-    bool isAlive = true;
     public bool IsAlive => isAlive;
 
     public System.Action<float> OnHpChange;
@@ -127,7 +125,6 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     protected override void Die()
     {
-        isAlive = false;
         CharacterState = State.Die;
         base.Die();
     }

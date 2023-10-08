@@ -14,6 +14,8 @@ public class EnemyBase : PooledObject
 
     public float hp;
 
+    public bool isAlive = true;
+
     public virtual float Hp
     {
         get => hp;
@@ -40,12 +42,13 @@ public class EnemyBase : PooledObject
 
     public virtual void Hitted(float damage)
     {
-        Hp -= damage / def;
         StartCoroutine(HittedCoroutine());
+        Hp -= damage / def;
     }
 
     protected virtual void Die()
     {
+        isAlive = false;
         anim.SetTrigger("IsDie");
     }
 

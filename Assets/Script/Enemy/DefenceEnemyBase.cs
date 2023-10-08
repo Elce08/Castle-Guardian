@@ -71,6 +71,7 @@ public class DefenceEnemyBase : EnemyBase
         {
             if (player != null)
             {
+                yield return new WaitForSeconds(0.01f);
                 anim.SetTrigger("IsAttack");
                 player.Hitted(attackDamage);
                 yield return new WaitForSeconds(attackSpeed);

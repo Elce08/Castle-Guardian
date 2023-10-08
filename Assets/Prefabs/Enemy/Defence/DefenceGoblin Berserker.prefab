@@ -277,11 +277,12 @@ MonoBehaviour:
   speed: 0
   attackDamage: 5
   def: 1
-  startHp: 5
+  startHp: 50
   hp: 0
+  isAlive: 1
   ReMaxHp: 0
   moveSpeed: 1
-  attackSpeed: 2
+  attackSpeed: 3
 --- !u!50 &4268213266136290234
 Rigidbody2D:
   serializedVersion: 4

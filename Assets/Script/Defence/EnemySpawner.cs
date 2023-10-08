@@ -24,6 +24,8 @@ public class EnemySpawner : MonoBehaviour
 
     DefenceManager defenceManager;
 
+    public float waitTime = 0.0f;
+
     private void Start()
     {
         StartCoroutine(SpawnCoroutine());
@@ -40,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnCoroutine()
     {
+        yield return new WaitForSeconds(waitTime);
         SpawnData data;
         while (true)
         {

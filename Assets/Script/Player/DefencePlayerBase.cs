@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class DefencePlayerBase : PlayerBase
 {
-    List<DefenceEnemyBase> enemyList = new();
+    private readonly List<DefenceEnemyBase> enemyList = new();
 
     public bool onAttack = false;
 
@@ -99,7 +99,7 @@ public class DefencePlayerBase : PlayerBase
     /// <summary>
     /// 코루틴 중 적을 지울 수 없어서 임시로 지울 적 리스트 작성
     /// </summary>
-    List<DefenceEnemyBase> delEnemyList = new();
+    private readonly List<DefenceEnemyBase> delEnemyList = new();
 
     void DeleteEnemy(List<DefenceEnemyBase> delList)
     {

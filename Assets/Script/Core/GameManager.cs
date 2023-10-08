@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -56,11 +57,6 @@ public class GameManager : Singleton<GameManager>
     public GameObject[] playerTypePrefabs;
     bool gameStop = false;
     PlayerInputActions inputActions;
-    Canvas settingCanvas;
-    Button resume;
-    Button controll;
-    Button sound;
-    Button quit;
 
     public float selectType1Str = 0;
     public float selectType1Def = 0;
@@ -94,6 +90,9 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        PlayerSelectUI.sprites = playerImages;
+
+        // 세팅 -----------
         settingCanvas = GetComponentInChildren<Canvas>();
         Transform getChild = gameObject.transform.GetChild(0).GetChild(0);
         Transform child = getChild.gameObject.transform.GetChild(1);
@@ -101,17 +100,31 @@ public class GameManager : Singleton<GameManager>
         child = getChild.gameObject.transform.GetChild(2);
         controll = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(3);
-        sound = child.GetComponent<Button>();
+        soundbutton = child.GetComponent<Button>();
         child = getChild.gameObject.transform.GetChild(4);
         quit = child.GetComponent<Button>();
         resume.onClick.AddListener(Setting);
         controll.onClick.AddListener(Controll);
-        sound.onClick.AddListener(SoundButton);
+        soundbutton.onClick.AddListener(SoundButton);
         quit.onClick.AddListener(QuitButton);
-
-        PlayerSelectUI.sprites = playerImages;
+        setting = settingCanvas.transform.GetChild(0).gameObject;
+        // 사운드 세팅-------
+        soundSetting = settingCanvas.transform.GetChild(1).gameObject;
+        sound = GetComponentInChildren<AudioSource>();
+        mainSound = soundSetting.transform.GetChild(2).gameObject;
+        mainSoundSlider = mainSound.GetComponentInChildren<Slider>();
+        mainSoundSlider.onValueChanged.AddListener(MainSoundValueChange);
+        mainSoundInput = mainSound.GetComponentInChildren<TMP_InputField>();
+        mainSoundInput.contentType = TMP_InputField.ContentType.IntegerNumber;
+        mainSoundToggle = mainSound.GetComponentInChildren<Toggle>();
+        mainSoundToggle.onValueChanged.AddListener(MainSoundToggle);
+        mainSoundToggle.isOn = false;
+        soundQuitButton= soundSetting.GetComponentInChildren<Button>();
+        soundQuitButton.onClick.AddListener(OnSoundQuitButton);
+        mainSoundInput.onEndEdit.AddListener((Value) => MainSoundValueChange(Mathf.Clamp(int.Parse(Value), 0.0f, 100.0f) * 0.01f));
+        setting.SetActive(false);
+        soundSetting.SetActive(false);
     }
-
 
     private void Start()
     {
@@ -122,7 +135,6 @@ public class GameManager : Singleton<GameManager>
         player1Sprite = PlayerImage(player1Type);
         player2Sprite = PlayerImage(player2Type);
         player3Sprite = PlayerImage(player3Type);
-        settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -358,6 +370,12 @@ public class GameManager : Singleton<GameManager>
     SpawnPlayer spawnPlayer;
     TurnPlayerBase turnPlayerBase;
     PlayerSelectUI playerSelectUI;
+    GameObject setting;
+    Canvas settingCanvas;
+    Button resume;
+    Button controll;
+    Button soundbutton;
+    Button quit;
 
     private void GameSetting(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
@@ -369,7 +387,7 @@ public class GameManager : Singleton<GameManager>
         if (!gameStop)
         {
             gameStop = true;
-            settingCanvas.transform.GetChild(0).gameObject.SetActive(true);
+            setting.SetActive(true);
             Time.timeScale = 0.0f;
             if (currentScene == Scene.Turn) turnPlayerBase.Stop(true);
             else if (currentScene == Scene.Defence) spawnPlayer.Stop(true);
@@ -378,7 +396,8 @@ public class GameManager : Singleton<GameManager>
         else if (gameStop)
         {
             gameStop = false;
-            settingCanvas.transform.GetChild(0).gameObject.SetActive(false);
+            setting.SetActive(false);
+            soundSetting.SetActive(false);
             Time.timeScale = 1.0f;
             if (currentScene == Scene.Turn) turnPlayerBase.Stop(false);
             else if (currentScene == Scene.Defence) spawnPlayer.Stop(false);
@@ -386,9 +405,78 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    GameObject soundSetting;
+    AudioSource sound;
+    GameObject mainSound;
+    Slider mainSoundSlider;
+    TMP_InputField mainSoundInput;
+    Toggle mainSoundToggle;
+    Button soundQuitButton;
+
+    public float mainSoundValue = 1.0f;
+
+    public float MainSoundValue
+    {
+        get => mainSoundValue;
+        set
+        {
+            if(mainSoundValue != value)
+            {
+                mainSoundValue = value;
+                sound.volume = mainSoundValue;
+            }
+        }
+    }
+
     private void SoundButton()
     {
-        // 사운드 창 열리게(미구현 예정)
+        setting.SetActive(false);
+        soundSetting.SetActive(true);
+    }
+
+    private void MainSoundValueChange(float value)
+    {
+        mainSoundSlider.value = value;
+        mainSoundInput.text = Mathf.FloorToInt(value * 100).ToString();
+        if(value < 0.01f)
+        {
+            if (!mainSoundToggle.isOn)
+            {
+                mainSoundToggle.isOn = true;
+            }
+        }
+        else
+        {
+            if(mainSoundToggle.isOn)
+            {
+                mainSoundToggle.isOn = false;
+            }
+        }
+        MainSoundValue = value;
+    }
+
+    /// <summary>
+    /// 사운드 임시 저장
+    /// </summary>
+    float mainSoundValueRemind = 1.0f;
+
+    private void MainSoundToggle(bool value)
+    {
+        if (value)
+        {
+            mainSoundValueRemind = MainSoundValue;
+            MainSoundValueChange(0.0f);
+        }
+        else
+        {
+            MainSoundValueChange(mainSoundValueRemind);
+        }
+    }
+
+    private void OnSoundQuitButton()
+    {
+        soundSetting.SetActive(false);
+        setting.SetActive(true);
     }
 
     private void Controll()

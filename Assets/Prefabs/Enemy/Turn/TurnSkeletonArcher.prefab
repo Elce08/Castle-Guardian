@@ -480,9 +480,9 @@ MonoBehaviour:
   speed: 0
   attackDamage: 5
   def: 1
-  startHp: 50
+  startHp: 1
   hp: 0
-  ReMaxHp: 0
+  isAlive: 1
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 0}
   moveSpeed: 5

@@ -27,6 +27,7 @@ public class EnemyBase : PooledObject
                 if (hp <= 0)
                 {
                     hp = 0;
+                    isAlive = false;
                     Die();
                 }
             }
@@ -40,21 +41,29 @@ public class EnemyBase : PooledObject
 
     public virtual void Hitted(float damage)
     {
-        StartCoroutine(HittedCoroutine());
         Hp -= damage / def;
+        StartCoroutine(HittedCoroutine());
     }
 
     protected virtual void Die()
     {
         isAlive = false;
-        anim.SetTrigger("IsDie");
     }
 
     protected virtual IEnumerator HittedCoroutine()
     {
-        anim.SetTrigger("IsHitted");
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        anim.SetTrigger("IsIdle");
-        StopAllCoroutines();
+        if (!isAlive)
+        {
+            anim.SetTrigger("IsDie");
+            yield return new WaitForSeconds(0.9f);
+            anim.enabled = false;
+        }
+        else if(isAlive) 
+        {
+            anim.SetTrigger("IsHitted");
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            anim.SetTrigger("IsIdle");
+            StopAllCoroutines();
+        }
     }
 }

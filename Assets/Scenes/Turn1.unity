@@ -999,7 +999,7 @@ GameObject:
   - component: {fileID: 341316032}
   - component: {fileID: 341316034}
   - component: {fileID: 341316033}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1615,7 +1615,7 @@ GameObject:
   - component: {fileID: 552396083}
   - component: {fileID: 552396085}
   - component: {fileID: 552396084}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3142,7 +3142,7 @@ GameObject:
   - component: {fileID: 1140635186}
   - component: {fileID: 1140635188}
   - component: {fileID: 1140635187}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}

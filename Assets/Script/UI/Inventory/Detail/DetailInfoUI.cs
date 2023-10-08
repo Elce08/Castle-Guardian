@@ -124,15 +124,15 @@ public class DetailInfoUI : MonoBehaviour
         child = transform.GetChild(7);
         itemPrice = child.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 4; i++)
         {
             beforeStat[i] = before.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
             afterStat[i] = after.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
             risingStat[i] = rising.transform.GetChild(i).GetComponent<TextMeshProUGUI>();
         }
-        beforeStat[5] = before.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
+        beforeStat[4] = before.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
 
-        afterStat[5] = after.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
+        afterStat[4] = after.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
 
         stat1 = FindObjectOfType<Stat_1>();
         stat2 = FindObjectOfType<Stat_2>();
@@ -155,24 +155,21 @@ public class DetailInfoUI : MonoBehaviour
                 itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
 
                 beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
-                beforeStat[1].text = data.beforeWis.ToString();        // 강화 전 스텟(Agi)
-                beforeStat[2].text = data.beforeDef.ToString();        // 강화 전 스텟(Int)
-                beforeStat[3].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
-                beforeStat[4].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
-                beforeStat[5].text = data.beforeValue.ToString();      // 강화 전 강화수치
+                beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Int)
+                beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
+                beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
+                beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
 
                 afterStat[0].text = data.afterStr.ToString();          // 강화 후 스텟(Str)
-                afterStat[1].text = data.afterWis.ToString();          // 강화 후 스텟(Agi)
-                afterStat[2].text = data.afterDef.ToString();          // 강화 후 스텟(Int)
-                afterStat[3].text = data.afterHP.ToString();           // 강화 후 스텟(HP)
-                afterStat[4].text = data.afterMP.ToString();           // 강화 후 스텟(MP)
-                afterStat[5].text = data.afterValue.ToString();        // 강화 후 강화수치
+                afterStat[1].text = data.afterDef.ToString();          // 강화 후 스텟(Int)
+                afterStat[2].text = data.afterHP.ToString();           // 강화 후 스텟(HP)
+                afterStat[3].text = data.afterMP.ToString();           // 강화 후 스텟(MP)
+                afterStat[4].text = data.afterValue.ToString();        // 강화 후 강화수치
 
                 risingStat[0].text = $"+ {data.risingStr.ToString()}";        // 강화 시 상승 스텟(Str)
-                risingStat[1].text = $"+ {data.risingWis.ToString()}";        // 강화 시 상승 스텟(Agi)
-                risingStat[2].text = $"+ {data.risingDef.ToString()}";        // 강화 시 상승 스텟(Int)
-                risingStat[3].text = $"+ {data.risingHP.ToString()}";         // 강화 시 상승 스텟(HP)
-                risingStat[4].text = $"+ {data.risingMP.ToString()}";         // 강화 시 상승 스텟(MP)
+                risingStat[1].text = $"+ {data.risingDef.ToString()}";        // 강화 시 상승 스텟(Int)
+                risingStat[2].text = $"+ {data.risingHP.ToString()}";         // 강화 시 상승 스텟(HP)
+                risingStat[3].text = $"+ {data.risingMP.ToString()}";         // 강화 시 상승 스텟(MP)
 
                 costText.text = $"{data.cost.ToString("N0")} Gold";                  // 강화 시 소모비용
 
@@ -189,24 +186,21 @@ public class DetailInfoUI : MonoBehaviour
                 itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
 
                 beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
-                beforeStat[1].text = data.beforeWis.ToString();        // 강화 전 스텟(Agi)
-                beforeStat[2].text = data.beforeDef.ToString();        // 강화 전 스텟(Int)
-                beforeStat[3].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
-                beforeStat[4].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
-                beforeStat[5].text = data.beforeValue.ToString();      // 강화 전 강화수치
+                beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Def)
+                beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
+                beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
+                beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
 
                 afterStat[0].text = "Max";          // 강화 후 스텟(Str)
-                afterStat[1].text = "Max";          // 강화 후 스텟(Agi)
-                afterStat[2].text = "Max";          // 강화 후 스텟(Int)
-                afterStat[3].text = "Max";           // 강화 후 스텟(HP)
-                afterStat[4].text = "Max";           // 강화 후 스텟(MP)
-                afterStat[5].text = "Max";        // 강화 후 강화수치
+                afterStat[1].text = "Max";          // 강화 후 스텟(Def)
+                afterStat[2].text = "Max";           // 강화 후 스텟(HP)
+                afterStat[3].text = "Max";           // 강화 후 스텟(MP)
+                afterStat[4].text = "Max";        // 강화 후 강화수치
 
                 risingStat[0].text = $"+ 0";        // 강화 시 상승 스텟(Str)
-                risingStat[1].text = $"+ 0";        // 강화 시 상승 스텟(Agi)
-                risingStat[2].text = $"+ 0";        // 강화 시 상승 스텟(Int)
-                risingStat[3].text = $"+ 0";         // 강화 시 상승 스텟(HP)
-                risingStat[4].text = $"+ 0";         // 강화 시 상승 스텟(MP)
+                risingStat[1].text = $"+ 0";        // 강화 시 상승 스텟(Def)
+                risingStat[2].text = $"+ 0";         // 강화 시 상승 스텟(HP)
+                risingStat[3].text = $"+ 0";         // 강화 시 상승 스텟(MP)
 
                 costText.text = "강화 불가";                  // 강화 시 소모비용
 

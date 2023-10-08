@@ -7,7 +7,7 @@ public class Player1UI : PlayerUIBase
 {
     protected override void Awake()
     {
-        portrait = transform.GetChild(1).GetComponent<Image>();
+        base.Awake();
         gameManager = FindObjectOfType<GameManager>();
         portrait.sprite = gameManager.player1Sprite;
     }

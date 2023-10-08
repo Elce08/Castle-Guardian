@@ -19,8 +19,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
         get => endTurn;
         set => endTurn = value;
     }
-
-    bool isAlive = true;
     public bool IsAlive =>isAlive;
 
     public float moveSpeed = 5.0f;

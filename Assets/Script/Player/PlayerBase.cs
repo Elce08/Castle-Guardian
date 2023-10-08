@@ -8,6 +8,8 @@ public class PlayerBase : PooledObject
 {
     protected Animator anim;
 
+    public bool isAlive = true;
+
     public float speed = 0.0f;
 
     public float str = 0.0f;
@@ -131,16 +133,24 @@ public class PlayerBase : PooledObject
 
     protected virtual void Die()
     {
-        anim.SetTrigger("IsDie");
-        anim.enabled = false;
+        isAlive = false;
     }
 
     protected virtual IEnumerator HittedCoroutine()
     {
-        anim.SetTrigger("IsHitted");
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        anim.SetTrigger("IsIdle");
-        StopAllCoroutines();
+        if (!isAlive)
+        {
+            anim.SetTrigger("IsDie");
+            yield return new WaitForSeconds(0.9f);
+            anim.enabled = false;
+        }
+        else if (isAlive)
+        {
+            anim.SetTrigger("IsHitted");
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            anim.SetTrigger("IsIdle");
+            StopAllCoroutines();
+        }
     }
 
     // --------------피통마나통 UI

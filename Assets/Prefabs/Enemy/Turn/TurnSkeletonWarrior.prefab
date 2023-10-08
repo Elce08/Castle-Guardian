@@ -1206,7 +1206,7 @@ MonoBehaviour:
   speed: 0
   attackDamage: 5
   def: 1
-  startHp: 1
+  startHp: 50
   hp: 0
   isAlive: 1
   startPos: {x: 0, y: 0, z: 0}

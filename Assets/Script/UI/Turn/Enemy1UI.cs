@@ -13,7 +13,7 @@ public class Enemy1UI : EnemyUIBase
 
     void SetHp(float hp)
     {
-        hpSlider.value = hp * enemy.ReMaxHp;
+        hpSlider.value = hp * 0.02f;
         hpText.text = $"{hp} / {enemy.startHp}";
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TurnPlayer2 : TurnPlayerBase
 {
-    bool isturn = false;
-
     protected override void Awake()
     {
         base.Awake();

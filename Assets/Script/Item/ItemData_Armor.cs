@@ -7,10 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item Data - Armor", menuName = "Scriptable Object/Item Data - Armor", order = 1)]
 public class ItemData_Armor : ItemData
 {
-    [Header("갑옷 데이터")]
-    ItemData item = null;
-
-
     public override WeaponType equipPart => WeaponType.Armor;
 
     public override void ItemStatus()

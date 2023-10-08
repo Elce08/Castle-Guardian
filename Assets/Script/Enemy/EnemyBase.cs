@@ -33,8 +33,6 @@ public class EnemyBase : PooledObject
         }
     }
 
-    public float ReMaxHp;
-
     protected virtual void Start()
     {
         Hp = startHp;

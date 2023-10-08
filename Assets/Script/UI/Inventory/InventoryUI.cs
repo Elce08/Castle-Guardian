@@ -23,9 +23,9 @@ public class InventoryUI : MonoBehaviour
 
     InvenSlotUI[] invenSlotUI;
     InvenSlotUI[] equipSlotsUI; 
-    InvenSlotUI[] equipSlotsUI1; 
-    InvenSlotUI[] equipSlotsUI2; 
-    InvenSlotUI[] equipSlotsUI3; 
+    public InvenSlotUI[] equipSlotsUI1; 
+    public InvenSlotUI[] equipSlotsUI2; 
+    public InvenSlotUI[] equipSlotsUI3; 
 
     /// <summary>
     /// 아이템 이동이나 분리할 때 사용할 임시 슬롯 UI
@@ -91,13 +91,10 @@ public class InventoryUI : MonoBehaviour
         grandChild = child.transform.GetChild(2);
         equipSlotsUI3 = grandChild.GetComponentsInChildren<InvenSlotUI>();
 
-        equipSlotsUI1[0].equipType = WeaponType.None;      // 장비 슬롯별로 타입 하나씩 지정
-        equipSlotsUI1[1].equipType = WeaponType.Armor;
+        equipSlotsUI1[1].equipType = WeaponType.Armor;     // 장비 슬롯별로 타입 하나씩 지정
         equipSlotsUI1[2].equipType = WeaponType.Pants;
-        equipSlotsUI2[0].equipType = WeaponType.None;
         equipSlotsUI2[1].equipType = WeaponType.Armor;
         equipSlotsUI2[2].equipType = WeaponType.Pants;
-        equipSlotsUI3[0].equipType = WeaponType.None;
         equipSlotsUI3[1].equipType = WeaponType.Armor;
         equipSlotsUI3[2].equipType = WeaponType.Pants;
 

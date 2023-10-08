@@ -157,6 +157,7 @@ public class GameManager : Singleton<GameManager>
                 s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             }
             turnPlayerBase = FindObjectOfType<TurnPlayerBase>();
+            //turnPlayerBase.TurnCheck();
         }
         else if(scene.name == "PlayerSelect")
         {

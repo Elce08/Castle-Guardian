@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,6 +28,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     public Vector3 startPos;
 
     GameObject buttons;
+    Transform turnCheck;
 
     Button attack;
     Button skill;
@@ -121,11 +123,19 @@ public class TurnPlayerBase : PlayerBase, ITurn
         buttons.SetActive(false);
         target = null;
         CharacterState = State.Idle;
+
+        Transform child = transform.GetChild(0);
+        turnCheck = child.transform.GetChild(2);
+        turnCheck.gameObject.SetActive(false);
     }
 
     private void Update()
     {
         onMoveUpdate?.Invoke();
+    }
+
+    public void TurnCheck()
+    {
     }
 
     protected override void OnEnable()
@@ -156,6 +166,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         Debug.Log($"{gameObject.name}turn");
         SetTarget();
+        turnCheck.gameObject.SetActive(true);
     }
 
     void SetTarget()
@@ -194,6 +205,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             buttons.SetActive(false);
             CharacterState = State.ToTraget;
         }
+        turnCheck.gameObject.SetActive(false);
     }
 
     void Skill()
@@ -208,6 +220,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             buttons.SetActive(false);
             CharacterState = State.ToTraget;
         }
+        turnCheck.gameObject.SetActive(false);
     }
 
     public void GetDamaged(float damage)

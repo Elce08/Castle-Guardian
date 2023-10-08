@@ -8,7 +8,6 @@ public class Player1UI : PlayerUIBase
     protected override void Awake()
     {
         base.Awake();
-        gameManager = FindObjectOfType<GameManager>();
         portrait.sprite = gameManager.player1Sprite;
     }
 }

@@ -345,6 +345,26 @@ PrefabInstance:
       propertyPath: m_text
       value: Controll
       objectReference: {fileID: 0}
+    - target: {fileID: 4038459487128134343, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038459487128134343, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140089611208507531, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140089611208507531, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140089611208507531, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6999107101759040436, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
       propertyPath: m_SortingOrder
       value: 1

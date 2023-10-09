@@ -14,7 +14,9 @@ public class DefenceManager : MonoBehaviour
     public System.Action LosingPoint;
     public System.Action WinPoint;
 
-    public int winPoint = 3;
+    CountUI countUI;
+
+    public int winPoint = 50;
     public int losingPoint = 3;
 
     public ResultUI result;
@@ -58,6 +60,13 @@ public class DefenceManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        countUI = FindObjectOfType<CountUI>();
+        countUI.LifeCountChange(losingPoint);
+        countUI.KillCountChange(winPoint);
+    }
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -83,7 +92,9 @@ public class DefenceManager : MonoBehaviour
         if (winPoint <= 0)
         {
             EndGame(true);
+            winPoint = 0;
         }
+        countUI.KillCountChange(winPoint);
     }
 
     void Lose()
@@ -92,7 +103,9 @@ public class DefenceManager : MonoBehaviour
         if( losingPoint <= 0)
         {
             EndGame(false);
+            losingPoint = 0;
         }
+        countUI.LifeCountChange(losingPoint);
     }
 
     void EndGame(bool win)

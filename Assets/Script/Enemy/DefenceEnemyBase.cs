@@ -105,6 +105,12 @@ public class DefenceEnemyBase : EnemyBase
         player = null;
     }
 
+    public override void Hitted(float damage)
+    {
+        Hp -= damage / def;
+        if (isAlive) StartCoroutine(base.HittedCoroutine());
+    }
+
     protected override void Die()
     {
         defenceManager.WinPoint.Invoke();

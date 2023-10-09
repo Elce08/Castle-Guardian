@@ -120,7 +120,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
         attack = child.GetComponent<Button>();
         child = buttons.transform.GetChild(1);
         skill = child.GetComponent<Button>();
-        onMoveUpdate += Update_Idle;
+        onMoveUpdate = Update_Idle;
     }
 
     protected override void Start()
@@ -320,10 +320,11 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_ToTarget()
     {
-        onMoveUpdate -= Update_Idle;
+        Vector3 detination = new Vector3(target.transform.position.x - 2.0f, target.transform.position.y, target.transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
-        if (transform.position.x > (target.transform.position.x -3.0f))
+        if (transform.position.x > (target.transform.position.x -2.001f))
         {
+            transform.position = detination;
             CharacterState = State.Attack;
         }
     }

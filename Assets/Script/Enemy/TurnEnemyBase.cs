@@ -136,9 +136,11 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     void Update_ToTarget()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime * 2.0f);
-        if (transform.position.x < (target.transform.position.x + 3.0f))
+        Vector3 detination = new Vector3(target.transform.position.x + 2.0f, target.transform.position.y, target.transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, detination, moveSpeed * Time.deltaTime * 2.0f);
+        if (transform.position.x < (target.transform.position.x + 2.001f))
         {
+            transform.position = detination;
             CharacterState = State.Attack;
         }
     }
@@ -178,8 +180,8 @@ public class TurnEnemyBase : EnemyBase,ITurn
 
     protected override IEnumerator HittedCoroutine()
     {
-        StartCoroutine(base.HittedCoroutine());
         CharacterState = State.Idle;
+        StartCoroutine(base.HittedCoroutine());
         yield return null;
     }
 }

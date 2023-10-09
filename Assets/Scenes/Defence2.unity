@@ -172,17 +172,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDatas:
   - spawnType: 3
-    interval: 6
+    interval: 4
   - spawnType: 4
-    interval: 6
+    interval: 4
   - spawnType: 5
-    interval: 6
+    interval: 4
   - spawnType: 6
-    interval: 6
+    interval: 4
   - spawnType: 7
-    interval: 6
+    interval: 4
   - spawnType: 8
-    interval: 6
+    interval: 4
   waitTime: 1
 --- !u!4 &25890722
 Transform:
@@ -248,17 +248,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDatas:
   - spawnType: 3
-    interval: 6
+    interval: 4
   - spawnType: 4
-    interval: 6
+    interval: 4
   - spawnType: 5
-    interval: 6
+    interval: 4
   - spawnType: 6
-    interval: 6
+    interval: 4
   - spawnType: 7
-    interval: 6
+    interval: 4
   - spawnType: 8
-    interval: 6
+    interval: 4
   waitTime: 2
 --- !u!4 &69854972
 Transform:
@@ -490,17 +490,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDatas:
   - spawnType: 3
-    interval: 6
+    interval: 4
   - spawnType: 4
-    interval: 6
+    interval: 4
   - spawnType: 5
-    interval: 6
+    interval: 4
   - spawnType: 6
-    interval: 6
+    interval: 4
   - spawnType: 7
-    interval: 6
+    interval: 4
   - spawnType: 8
-    interval: 6
+    interval: 4
   waitTime: 3
 --- !u!4 &142273699
 Transform:
@@ -1892,17 +1892,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDatas:
   - spawnType: 3
-    interval: 6
+    interval: 4
   - spawnType: 4
-    interval: 6
+    interval: 4
   - spawnType: 5
-    interval: 6
+    interval: 4
   - spawnType: 6
-    interval: 6
+    interval: 4
   - spawnType: 7
-    interval: 6
+    interval: 4
   - spawnType: 8
-    interval: 6
+    interval: 4
   waitTime: 0
 --- !u!1 &646570190 stripped
 GameObject:
@@ -2779,8 +2779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e003d7251c755ab408eb681429129656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 708680667129632382, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
-  winPoint: 3
+  winPoint: 50
   losingPoint: 3
   result: {fileID: 888890702}
   spawn: {fileID: 713198504}
@@ -4608,17 +4607,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnDatas:
   - spawnType: 3
-    interval: 6
+    interval: 4
   - spawnType: 4
-    interval: 6
+    interval: 4
   - spawnType: 5
-    interval: 6
+    interval: 4
   - spawnType: 6
-    interval: 6
+    interval: 4
   - spawnType: 7
-    interval: 6
+    interval: 4
   - spawnType: 8
-    interval: 6
+    interval: 4
   waitTime: 2
 --- !u!4 &1636008674
 Transform:

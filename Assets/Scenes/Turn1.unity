@@ -181,6 +181,8 @@ MonoBehaviour:
   moveSpeed: 10
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 60202690}
+  skillCost: 30
+  onSkill: 0
   isturn: 0
 --- !u!1 &49253026
 GameObject:
@@ -314,13 +316,13 @@ MonoBehaviour:
   moveSpeed: 10
   attackTerm: 0
   enemysPosition:
-  - {x: 4, y: -0.5, z: 0}
-  - {x: 3, y: -2, z: 0}
-  - {x: 2, y: -3.5, z: 0}
+  - {x: 4.5, y: -0.5, z: 0}
+  - {x: 4, y: -2, z: 0}
+  - {x: 3.5, y: -3.5, z: 0}
   playersPosition:
-  - {x: -4, y: -0.5, z: 0}
-  - {x: -3, y: -2, z: 0}
-  - {x: -2, y: -3.5, z: 0}
+  - {x: -4.5, y: -0.5, z: 0}
+  - {x: -4, y: -2, z: 0}
+  - {x: -3.5, y: -3.5, z: 0}
   enemys: []
   players: []
   result: {fileID: 5743645903676193257}
@@ -5261,6 +5263,8 @@ MonoBehaviour:
   moveSpeed: 10
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 60202690}
+  skillCost: 30
+  onSkill: 0
 --- !u!1 &1618830628
 GameObject:
   m_ObjectHideFlags: 0
@@ -5530,6 +5534,8 @@ MonoBehaviour:
   moveSpeed: 10
   startPos: {x: 0, y: 0, z: 0}
   turnManager: {fileID: 60202690}
+  skillCost: 30
+  onSkill: 0
 --- !u!1 &1677956552
 GameObject:
   m_ObjectHideFlags: 0

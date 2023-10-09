@@ -42,7 +42,7 @@ public class EnemyBase : PooledObject
     public virtual void Hitted(float damage)
     {
         Hp -= damage / def;
-        if(isAlive)StartCoroutine(HittedCoroutine());
+        StartCoroutine(HittedCoroutine());
     }
 
     protected virtual void Die()

@@ -180,6 +180,7 @@ public class GameManager : Singleton<GameManager>
         }
         else if( scene.name == "Village")
         {
+            currentScene = Scene.Village;
             GameObject turn2Button = GameObject.Find("Turn2");
             GameObject defence2Button = GameObject.Find("Defence2");
 

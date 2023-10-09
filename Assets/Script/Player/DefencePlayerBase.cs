@@ -13,6 +13,10 @@ public class DefencePlayerBase : PlayerBase
 
     float attackSpeed;
 
+    public bool fullMp = false;
+
+    public float addMp = 10.0f;
+
     public override float Mp
     {
         get => mp;
@@ -21,10 +25,10 @@ public class DefencePlayerBase : PlayerBase
             if(mp  != value)
             {
                 mp = value;
-                if(mp > MaxMp)
+                if(mp >= MaxMp)
                 {
-                    mp = 0.0f;
-                    Skill();
+                    mp = MaxMp;
+                    fullMp = true;
                 }
             }
         }
@@ -56,16 +60,31 @@ public class DefencePlayerBase : PlayerBase
         {
             if(enemyList.Count > 0)
             {
-                yield return new WaitForSeconds(0.01f);
-                foreach (DefenceEnemyBase enemy in enemyList)
+                anim.SetTrigger("IsAttack");
+                if(!fullMp)
                 {
-                    if (enemy.isAlive)
+                    foreach (DefenceEnemyBase enemy in enemyList)
                     {
-                        enemy.Hitted(str);
+                        if (enemy.isAlive)
+                        {
+                            enemy.Hitted(str);
+                        }
                     }
+                    Mp += addMp;
+                }
+                else if(fullMp)
+                {
+                    foreach (DefenceEnemyBase enemy in enemyList)
+                    {
+                        if (enemy.isAlive)
+                        {
+                            enemy.Hitted(str * 2);
+                        }
+                    }
+                    Mp = 0.0f;
+                    fullMp = false;
                 }
                 DeleteEnemy(delEnemyList);
-                anim.SetTrigger("IsIdle");
                 yield return new WaitForSeconds(attackSpeed);
             }
         }
@@ -76,7 +95,6 @@ public class DefencePlayerBase : PlayerBase
         if (other.CompareTag("Enemy"))
         {
             enemyList.Add(other.GetComponent<DefenceEnemyBase>());
-            anim.SetTrigger("IsAttack");
             if(!onAttack) StartCoroutine(AttackCoroutine());
         }
     }
@@ -91,7 +109,6 @@ public class DefencePlayerBase : PlayerBase
                 StopAllCoroutines();
                 anim.SetTrigger("IsIdle");
                 onAttack = false;
-                Debug.Log("코루틴 종료");
             }
         }
     }
@@ -108,10 +125,5 @@ public class DefencePlayerBase : PlayerBase
             enemyList.Remove(enemy);
         }
         delEnemyList.Clear();
-    }
-
-    public void Skill()
-    {
-        // 스킬
     }
 }

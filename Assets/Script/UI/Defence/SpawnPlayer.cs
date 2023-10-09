@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SpawnPlayer : MonoBehaviour
 {
-    Button[] buttons;
+    public Button[] buttons;
+
+    public TextMeshProUGUI player1Cost;
+    public TextMeshProUGUI player2Cost;
+    public TextMeshProUGUI player3Cost;
 
     /// <summary>
     /// ¹öÆ° °¹¼ö
@@ -51,6 +56,9 @@ public class SpawnPlayer : MonoBehaviour
         buttons[1].onClick.AddListener(Player2Selected);
         buttons[2].onClick.AddListener(Player3Selected);
         defenceManager.gameEnd += GameEnd;
+        player1Cost.text = $"{defenceManager.SetCost(gameManager.player1Type)} G";
+        player2Cost.text = $"{defenceManager.SetCost(gameManager.player2Type)} G";
+        player3Cost.text = $"{defenceManager.SetCost(gameManager.player3Type)} G";  
     }
 
     private void OnEnable()
@@ -113,6 +121,18 @@ public class SpawnPlayer : MonoBehaviour
                 Factory.Inst.GetObject(player, hit.collider.gameObject.transform.position - new Vector3());
                 Tile tile = hit.collider.gameObject.GetComponent<Tile>();
                 tile.State = Tile.TIleState.PlayerOn;
+                switch (player)
+                {
+                    case PoolObjectType.DefencePlayer1:
+                        defenceManager.Money -= defenceManager.player1Cost;
+                        break;
+                    case PoolObjectType.DefencePlayer2:
+                        defenceManager.Money -= defenceManager.player2Cost;
+                        break;
+                    case PoolObjectType.DefencePlayer3:
+                        defenceManager.Money -= defenceManager.player3Cost;
+                        break;
+                }
             }
         }
         inputActions.Player.Mouse.performed -= Mouse;

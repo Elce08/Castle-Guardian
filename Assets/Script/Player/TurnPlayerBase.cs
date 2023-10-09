@@ -73,6 +73,8 @@ public class TurnPlayerBase : PlayerBase, ITurn
                         break;
                     case State.Attack:
                         anim.SetTrigger("IsAttack");
+                        if (!onSkill) Mp += 5.0f;
+                        else if (onSkill) Mp -= skillCost;
                         onMoveUpdate = Update_Attack;
                         break;
                     case State.Hitted:
@@ -97,9 +99,15 @@ public class TurnPlayerBase : PlayerBase, ITurn
             {
                 if (value > MaxMp) mp = MaxMp;
                 else mp = value;
+                UI.mpSlider.value = mp / MaxMp;
+                UI.mpText.text = $"{mp} / {MaxMp}";
             }
         }
     }
+
+    public float skillCost = 30.0f;
+
+    public bool onSkill = false;
 
     protected override void Awake()
     {
@@ -183,17 +191,25 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         if(target != null)
         {
+            onSkill = false;
             buttons.SetActive(true);
             attack.onClick.AddListener(Attack);
-            skill.onClick.AddListener(Skill);
             inputActions.NumberPad._1.performed += _1_Attack;
-            inputActions.NumberPad._2.performed += _2_Skill;
+            if(Mp>= skillCost)
+            {
+                skill.onClick.AddListener(Skill);
+                inputActions.NumberPad._2.performed += _2_Skill;
+            }
+            else
+            {
+                skill.gameObject.SetActive(false);
+            }
         }
     }
 
     void Attack()
     {
-        Debug.Log("Attack");
+        onSkill = false;
         if (target != null)
         {
             attack.onClick.RemoveAllListeners();
@@ -208,6 +224,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Skill()
     {
+        onSkill = true;
         Debug.Log("Skill");
         if (target != null)
         {
@@ -326,7 +343,6 @@ public class TurnPlayerBase : PlayerBase, ITurn
 
     void Update_Attack()
     {
-        Mp += 5.0f;
         StartCoroutine(AttackActionCoroutine());
     }
 
@@ -334,7 +350,8 @@ public class TurnPlayerBase : PlayerBase, ITurn
     {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        target.Hitted(str);
+        if(!onSkill)target.Hitted(str);
+        else if(onSkill)target.Hitted(str * 2);
         CharacterState = State.Back;
         StopAllCoroutines();
     }

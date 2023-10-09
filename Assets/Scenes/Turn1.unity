@@ -314,13 +314,13 @@ MonoBehaviour:
   moveSpeed: 10
   attackTerm: 0
   enemysPosition:
-  - {x: 7, y: -0.5, z: 0}
-  - {x: 6, y: -2, z: 0}
-  - {x: 5, y: -3.5, z: 0}
+  - {x: 4, y: -0.5, z: 0}
+  - {x: 3, y: -2, z: 0}
+  - {x: 2, y: -3.5, z: 0}
   playersPosition:
-  - {x: -7, y: -0.5, z: 0}
-  - {x: -6, y: -2, z: 0}
-  - {x: -5, y: -3.5, z: 0}
+  - {x: -4, y: -0.5, z: 0}
+  - {x: -3, y: -2, z: 0}
+  - {x: -2, y: -3.5, z: 0}
   enemys: []
   players: []
   result: {fileID: 5743645903676193257}

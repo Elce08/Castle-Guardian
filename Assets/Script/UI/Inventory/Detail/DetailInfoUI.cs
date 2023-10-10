@@ -99,7 +99,7 @@ public class DetailInfoUI : MonoBehaviour
     private void Awake()
     {
         owner = FindObjectOfType<GameManager>();
-        nowItem = new ItemData();
+        nowItem = new();
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0.0f;
         Transform child = transform.GetChild(0);

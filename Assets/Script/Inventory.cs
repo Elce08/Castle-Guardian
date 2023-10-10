@@ -72,7 +72,7 @@ public class Inventory
         }
 
         tempSlot = new InvenSlot(TempSlotIndex);
-        itemDataManager = new ItemDataManager();
+        itemDataManager = new();
         itemDataManager = GameManager.Inst.ItemData;    // 아이템 데이터 메니저 캐싱
         this.owner = owner;                             // 소유자 기록
     }

@@ -8,9 +8,8 @@ public class ItemData : ScriptableObject
 {
     [Header("Item Base Data")]
     public PlayerWeapon code;
-    public string itemName = "Item";
+    public string itemName;
     public Sprite itemIcon;
-    public uint maxStackCount = 1;
 
     public virtual WeaponType equipPart => WeaponType.None;
 

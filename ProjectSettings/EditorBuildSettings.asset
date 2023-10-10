@@ -16,7 +16,7 @@ EditorBuildSettings:
     guid: 9ba7c1c06a6b25d4cb12bd3ecddfb2bb
   - enabled: 1
     path: Assets/Scenes/Defence1.unity
-    guid: 67bb04670bf12cb4faba73c6e87629b8
+    guid: 924acef69c2fdcc468366bdf79f6c149
   - enabled: 1
     path: Assets/Scenes/Defence2.unity
     guid: de63e5fef48fe944c8457af409823285
@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Turn2.unity
     guid: 84937aa4b2ad5df43950ccc9a24714ea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameEnd.unity
     guid: 3c443f63a873d774b9ea2f0674a41c74
   - enabled: 1

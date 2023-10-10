@@ -6,6 +6,7 @@ public class TurnPlayer1 : TurnPlayerBase
 {
     public bool isturn = false;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -15,5 +16,11 @@ public class TurnPlayer1 : TurnPlayerBase
     {
         base.Start();
         startPos = turnManager.playersPosition[0];
+        str = gameManager.player1Str;
+        def = gameManager.player1Def;
+        startHp = gameManager.player1HP;
+        MaxMp = gameManager.player1MP;
+        Hp = startHp;
+        Mp = MaxMp;
     }
 }

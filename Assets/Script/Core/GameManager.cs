@@ -612,6 +612,21 @@ public class GameManager : Singleton<GameManager>
 
     public int sceneLoad = 0;
 
+    public float player1Str;
+    public float player1Def;
+    public float player1HP;
+    public float player1MP;
+
+    public float player2Str;
+    public float player2Def;
+    public float player2HP;
+    public float player2MP;
+
+    public float player3Str;
+    public float player3Def;
+    public float player3HP;
+    public float player3MP;
+
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
@@ -638,5 +653,12 @@ public class GameManager : Singleton<GameManager>
             inven.AddItem(addItem2);
             resultItem2 = false;
         }
+    }
+
+    public void AddItem()
+    {
+        inven.AddItem(PlayerWeapon.Gunner1);
+        inven.AddItem(PlayerWeapon.Armor);
+        inven.AddItem(PlayerWeapon.Pants);
     }
 }

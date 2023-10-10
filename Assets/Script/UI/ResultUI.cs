@@ -35,6 +35,7 @@ public class ResultUI : MonoBehaviour
         inputActions = new();
         itemDataManager = new ItemDataManager();
         itemDataManager = GameManager.Inst.ItemData;
+        item2Image.gameObject.SetActive(true);
     }
 
     private void OnEnable()
@@ -153,7 +154,7 @@ public class ResultUI : MonoBehaviour
         }
         else
         {
-            item2Image.sprite = null;
+            item2Image.gameObject.SetActive(false);
         }
     }
 

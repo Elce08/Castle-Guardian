@@ -277,6 +277,9 @@ public class InventoryUI : MonoBehaviour
     public void Open()
     {
         this.gameObject.SetActive(true);
+        stat1.Status();
+        stat2.Status();
+        stat3.Status();
         tempSlotUI.Close();
     }
 

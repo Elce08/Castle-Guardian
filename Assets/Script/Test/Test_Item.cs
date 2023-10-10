@@ -23,7 +23,7 @@ public class Test_Item : TestBase
 
     protected override void Test1(InputAction.CallbackContext context)
     {
-        gameManager.ResultGetItem();
+        gameManager.AddItem();
     }
 
     protected override void Test2(InputAction.CallbackContext context)

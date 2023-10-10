@@ -53,15 +53,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae51c807d7847d428b756de49812814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   speed: 0
   str: 0
   def: 1
   startHp: 0
   hp: 0
-  MaxMp: 100
+  MaxMp: 0
   mp: 0
   gameManager: {fileID: 0}
   playerType: 0
+  UI: {fileID: 0}
+  onAttack: 0
+  fullMp: 0
+  addMp: 10
 --- !u!50 &1143671545525755091
 Rigidbody2D:
   serializedVersion: 4

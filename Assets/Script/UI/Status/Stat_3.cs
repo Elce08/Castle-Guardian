@@ -85,9 +85,9 @@ public class Stat_3 : MonoBehaviour
                 MP[i] = 0;
             }
         }
-        gameManager.player3Str = gameManager.selectType3Str + Str[0] + Str[1] + Str[2];
-        gameManager.player3Def = gameManager.selectType3Def + Def[0] + Def[1] + Def[2];
-        gameManager.player3HP = gameManager.selectType3HP + HP[0] + HP[1] + HP[2];
-        gameManager.player3MP = gameManager.selectType3MP + MP[0] + MP[1] + MP[2];
+        gameManager.player3ItemStr = Str[0] + Str[1] + Str[2];
+        gameManager.player3ItemDef = Def[0] + Def[1] + Def[2];
+        gameManager.player3ItemHP = HP[0] + HP[1] + HP[2];
+        gameManager.player3ItemMP = MP[0] + MP[1] + MP[2];
     }
 }

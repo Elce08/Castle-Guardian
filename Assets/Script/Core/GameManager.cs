@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -612,20 +607,20 @@ public class GameManager : Singleton<GameManager>
 
     public int sceneLoad = 0;
 
-    public float player1Str;
-    public float player1Def;
-    public float player1HP;
-    public float player1MP;
+    public float player1ItemStr;
+    public float player1ItemDef;
+    public float player1ItemHP;
+    public float player1ItemMP;
 
-    public float player2Str;
-    public float player2Def;
-    public float player2HP;
-    public float player2MP;
+    public float player2ItemStr;
+    public float player2ItemDef;
+    public float player2ItemHP;
+    public float player2ItemMP;
 
-    public float player3Str;
-    public float player3Def;
-    public float player3HP;
-    public float player3MP;
+    public float player3ItemStr;
+    public float player3ItemDef;
+    public float player3ItemHP;
+    public float player3ItemMP;
 
     protected override void OnPreInitialize()
     {

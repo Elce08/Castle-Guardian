@@ -63,8 +63,6 @@ public class DefenceManager : MonoBehaviour
     private void Awake()
     {
         countUI = FindObjectOfType<CountUI>();
-        countUI.LifeCountChange(losingPoint);
-        countUI.KillCountChange(winPoint);
     }
 
     private void Start()
@@ -78,11 +76,13 @@ public class DefenceManager : MonoBehaviour
             spawnButton.interactable = false;
             spawnButton.image.color = new(1, 1, 1, 0.5f);
         }
-        Money = startMoney;
-        StartCoroutine(AddMoney());
         player1Cost = SetCost(gameManager.player1Type);
         player2Cost = SetCost(gameManager.player2Type);
         player3Cost = SetCost(gameManager.player3Type);
+        countUI.LifeCountChange(losingPoint);
+        countUI.KillCountChange(winPoint);
+        Money = startMoney;
+        StartCoroutine(AddMoney());
     }
 
     void Win()

@@ -13,10 +13,10 @@ public class TurnPlayer2 : TurnPlayerBase
     {
         base.Start();
         startPos = turnManager.playersPosition[1];
-        str = gameManager.player2Str;
-        def = gameManager.player2Def;
-        startHp = gameManager.player2HP;
-        MaxMp = gameManager.player2MP;
+        str = gameManager.player2ItemStr;
+        def = gameManager.player2ItemDef;
+        startHp = gameManager.player2ItemHP;
+        MaxMp = gameManager.player2ItemMP;
         Hp = startHp;
         Mp = MaxMp;
     }

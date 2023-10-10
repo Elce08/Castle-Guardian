@@ -53,12 +53,14 @@ MonoBehaviour:
   def: 1
   startHp: 0
   hp: 0
-  MaxMp: 100
+  MaxMp: 0
   mp: 0
   gameManager: {fileID: 0}
   playerType: 0
   UI: {fileID: 0}
   onAttack: 0
+  fullMp: 0
+  addMp: 10
 --- !u!50 &-3585206601896949346
 Rigidbody2D:
   serializedVersion: 4

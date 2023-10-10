@@ -14,10 +14,10 @@ public class DefencePlayer3 : DefencePlayerBase
     {
         playerType = gamemanager.player3Type;
         base.Start();
-        str = gameManager.player3Str;
-        def = gameManager.player3Def;
-        startHp = gameManager.player3HP;
-        MaxMp = gameManager.player3MP;
+        str += gameManager.player3ItemStr;
+        def += gameManager.player3ItemDef;
+        startHp += gameManager.player3ItemHP;
+        MaxMp += gameManager.player3ItemMP;
         Hp = startHp;
         Mp = MaxMp;
     }

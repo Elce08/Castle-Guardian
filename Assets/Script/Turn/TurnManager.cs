@@ -158,7 +158,12 @@ public class TurnManager : MonoBehaviour
                     enemys[i].gameObject.SetActive(false);
                 }
                 if (!players[0].IsAlive && !players[1].IsAlive && !players[2].IsAlive) result.Lose();
-                else if (!enemys[0].IsAlive && !enemys[1].IsAlive && !enemys[2].IsAlive) result.Win();
+                else if (!enemys[0].IsAlive && !enemys[1].IsAlive && !enemys[2].IsAlive)
+                {
+                    GameManager gameManager = FindObjectOfType<GameManager>();
+                    gameManager.turn1Clear = true;
+                    result.Win();
+                }
                 break;
             }
         }

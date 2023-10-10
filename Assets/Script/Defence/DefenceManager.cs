@@ -92,6 +92,7 @@ public class DefenceManager : MonoBehaviour
         if (winPoint <= 0)
         {
             EndGame(true);
+            gameManager.defence1Clear = true;
             winPoint = 0;
         }
         countUI.KillCountChange(winPoint);

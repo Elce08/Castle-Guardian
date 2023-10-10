@@ -64,6 +64,9 @@ public class GameManager : Singleton<GameManager>
     public float selectType3HP = 0;
     public float selectType3MP = 0;
     public float selectType3Speed = 0;
+
+    public bool turn1Clear = false;
+    public bool defence1Clear = false;
     
     public enum Scene
     {
@@ -170,8 +173,12 @@ public class GameManager : Singleton<GameManager>
         else if( scene.name == "Village")
         {
             currentScene = Scene.Village;
-            GameObject turn2Button = GameObject.Find("Turn2");
-            GameObject defence2Button = GameObject.Find("Defence2");
+            Button turn2Button = GameObject.Find("Turn2").GetComponent<Button>();
+            Button defence2Button = GameObject.Find("Defence2").GetComponent<Button>();
+            turn2Button.interactable = false;
+            defence2Button.interactable = false;
+            if (turn1Clear) turn2Button.interactable = true;
+            if(defence1Clear) defence2Button.interactable = true;
 
             // 인벤토리 관련
             inventoryUI = FindObjectOfType<InventoryUI>();

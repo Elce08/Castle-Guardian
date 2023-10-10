@@ -87,7 +87,7 @@ public class PlayerBase : PooledObject
             case PlayerType.Archor_LongBow:
                 GameObject.Instantiate(gameManager.playerTypePrefabs[2], transform.position, Quaternion.identity).transform.parent = this.transform;
                 speed = 15.0f;
-                str = 5.0f;
+                str = 50.0f;
                 def = 1.0f;
                 startHp = 80.0f;
                 break;

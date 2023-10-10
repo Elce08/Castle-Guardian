@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data - Armor", menuName = "Scriptable Object/Item Data - Armor", order = 1)]
+[CreateAssetMenu(fileName = "New Item Data - Armor", menuName = "Scriptable Object/Item Data - Armor", order = 2)]
 public class ItemData_Armor : ItemData
 {
     public override WeaponType equipPart => WeaponType.Armor;

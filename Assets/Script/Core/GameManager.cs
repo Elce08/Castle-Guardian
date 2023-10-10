@@ -39,17 +39,11 @@ public enum PlayerWeapon
     Armor,
     Pants,
     Archor1,
-    Archor2,
     Archor_LongBow1,
-    Archor_LongBow2,
     Gunner1,
-    Gunner2,
     Soldier_LongSword1,
-    Soldier_LongSword2,
     Soldier_ShortSword1,
-    Soldier_ShortSword2,
     Warrior_Hammer1,
-    Warrior_Hammer2,
 }
 
 public class GameManager : Singleton<GameManager>
@@ -188,12 +182,24 @@ public class GameManager : Singleton<GameManager>
             inventoryUI = FindObjectOfType<InventoryUI>();
             partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
             itemDataManager = GetComponent<ItemDataManager>();
-            //인벤토리 관련
-            inven = new Inventory(this);
+
+            if(sceneLoad == 0)
+            {
+                inven = new Inventory(this);
+
+                sceneLoad = 1;
+            }
             if (GameManager.Inst.InvenUI != null)
             {
                 GameManager.Inst.InvenUI.InitializeInventory(inven);
             }
+            //인벤토리 관련
+
+            if (resultGold || resultItem || resultItem2)
+            {
+                ResultGetItem();
+            }
+
             switch (player1Type)
             {
                 case PlayerType.Archor:
@@ -596,6 +602,16 @@ public class GameManager : Singleton<GameManager>
     
     public InventoryUI InvenUI => inventoryUI;
 
+    public bool resultItem = false;     // 결과 아이템 생성
+    public bool resultItem2 = false;
+    public bool resultGold = false;
+
+    public PlayerWeapon addItem;
+    public PlayerWeapon addItem2;
+    public int addGold;
+
+    public int sceneLoad = 0;
+
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
@@ -608,23 +624,19 @@ public class GameManager : Singleton<GameManager>
 
     public void ResultGetItem()
     {
-        inven.AddItem(PlayerWeapon.Armor);
-        inven.AddItem(PlayerWeapon.Pants);
-        inven.AddItem(PlayerWeapon.Armor);
-        inven.AddItem(PlayerWeapon.Pants);
-        inven.AddItem(PlayerWeapon.Armor);
-        inven.AddItem(PlayerWeapon.Pants);
-        inven.AddItem(PlayerWeapon.Archor1);
-        inven.AddItem(PlayerWeapon.Archor2);
-        inven.AddItem(PlayerWeapon.Archor_LongBow1);
-        inven.AddItem(PlayerWeapon.Archor_LongBow2);
-        inven.AddItem(PlayerWeapon.Gunner1);
-        inven.AddItem(PlayerWeapon.Gunner2);
-        inven.AddItem(PlayerWeapon.Soldier_LongSword1);
-        inven.AddItem(PlayerWeapon.Soldier_LongSword2);
-        inven.AddItem(PlayerWeapon.Soldier_ShortSword1);
-        inven.AddItem(PlayerWeapon.Soldier_ShortSword2);
-        inven.AddItem(PlayerWeapon.Warrior_Hammer1);
-        inven.AddItem(PlayerWeapon.Warrior_Hammer2);
+        Money += addGold;
+        resultGold = false;
+
+        if(resultItem)
+        {
+            inven.AddItem(addItem);
+            resultItem = false;
+        }
+
+        if (resultItem2)
+        {
+            inven.AddItem(addItem2);
+            resultItem2 = false;
+        }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Test_Item : TestBase
 {
     public uint size = 30;
-    public PlayerWeapon code = PlayerWeapon.Gunner2;
+    public PlayerWeapon code = PlayerWeapon.Gunner1;
     public uint index = 0;
 
     DetailInfoUI detail;

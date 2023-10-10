@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data - Archor1", menuName = "Scriptable Object/Item Data - Archor1", order = 3)]
+[CreateAssetMenu(fileName = "New Item Data - Archor1", menuName = "Scriptable Object/Item Data - Archor1", order = 4)]
 public class ItemData_Archor1 : ItemData
 {
     [Header("Archor1 데이터")]

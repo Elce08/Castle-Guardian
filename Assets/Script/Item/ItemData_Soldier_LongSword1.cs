@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item Data - Soldier_LongSword1", menuName = "Scriptable Object/Item Data - Soldier_LongSword1", order = 9)]
+[CreateAssetMenu(fileName = "New Item Data - Soldier_LongSword1", menuName = "Scriptable Object/Item Data - Soldier_LongSword1", order = 7)]
 public class ItemData_Soldier_LongSword1 : ItemData
 {
     [Header("장검2 데이터")]

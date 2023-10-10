@@ -17,13 +17,24 @@ public class ResultUI : MonoBehaviour
 
     PlayerInputActions inputActions;
 
+    ItemData itemData;
+
+    ItemDataManager itemDataManager;
+
+    public PlayerWeapon resultItem;
+    public PlayerWeapon resultItem2;
+    public int resultGold;
+
     private void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
         goldAmount = transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
         item1Image = transform.GetChild(3).GetComponent<Image>();
         item2Image = transform.GetChild(4).GetComponent<Image>();
         resultText = transform.GetChild(5).GetComponent<TextMeshProUGUI>();
         inputActions = new();
+        itemDataManager = new ItemDataManager();
+        itemDataManager = GameManager.Inst.ItemData;
     }
 
     private void OnEnable()
@@ -62,8 +73,88 @@ public class ResultUI : MonoBehaviour
     public void Win()
     {
         resultText.text = "Victory!!!";
-        // 골드 드랍
-        // 템 드랍
+        resultGold = Random.Range(500, 1000);
+        goldAmount.text = $"X{resultGold}";
+
+        gameManager.addGold = resultGold;
+        gameManager.resultGold = true;
+
+        int getItem = Random.Range(1, 9);
+        switch (getItem)
+        {
+            case 1:
+                resultItem = PlayerWeapon.Armor;
+                break;
+            case 2:
+                resultItem = PlayerWeapon.Pants;
+                break;
+            case 3:
+                resultItem = PlayerWeapon.Archor1;
+                break;
+            case 4:
+                resultItem = PlayerWeapon.Archor_LongBow1;
+                break;
+            case 5:
+                resultItem = PlayerWeapon.Gunner1;
+                break;
+            case 6:
+                resultItem = PlayerWeapon.Soldier_LongSword1;
+                break;
+            case 7:
+                resultItem = PlayerWeapon.Soldier_ShortSword1;
+                break;
+            case 8:
+                resultItem = PlayerWeapon.Warrior_Hammer1;
+                break;
+        }
+        itemData = itemDataManager[resultItem];
+        item1Image.sprite = itemData.itemIcon;
+
+        gameManager.addItem = resultItem;
+        gameManager.resultItem = true;
+
+        float Itemcount = Random.value;
+        if (Itemcount <= 0.2)
+        {
+            item2Image.color = Color.white;
+            getItem = Random.Range(1, 9);
+            switch (getItem)
+            {
+                case 1:
+                    resultItem2 = PlayerWeapon.Armor;
+                    break;
+                case 2:
+                    resultItem2 = PlayerWeapon.Pants;
+                    break;
+                case 3:
+                    resultItem2 = PlayerWeapon.Archor1;
+                    break;
+                case 4:
+                    resultItem2 = PlayerWeapon.Archor_LongBow1;
+                    break;
+                case 5:
+                    resultItem2 = PlayerWeapon.Gunner1;
+                    break;
+                case 6:
+                    resultItem2 = PlayerWeapon.Soldier_LongSword1;
+                    break;
+                case 7:
+                    resultItem2 = PlayerWeapon.Soldier_ShortSword1;
+                    break;
+                case 8:
+                    resultItem2 = PlayerWeapon.Warrior_Hammer1;
+                    break;
+            }
+            itemData = itemDataManager[resultItem2];
+            item2Image.sprite = itemData.itemIcon;
+
+            gameManager.addItem2 = resultItem2;
+            gameManager.resultItem2 = true;
+        }
+        else
+        {
+            item2Image.sprite = null;
+        }
     }
 
     public void Lose()

@@ -3051,6 +3051,8 @@ MonoBehaviour:
   player1Sprite: {fileID: 0}
   player2Sprite: {fileID: 0}
   player3Sprite: {fileID: 0}
+  resultItem: 0
+  resultItem2: 0
 --- !u!114 &3902789933943055978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3068,17 +3070,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0552ab2a81e49a5419e6942a086dc50c, type: 2}
   - {fileID: 11400000, guid: aff3f82d7d816a54998c447de8ee34f1, type: 2}
   - {fileID: 11400000, guid: bc4240f69a83be842bfadb406aa206ef, type: 2}
-  - {fileID: 11400000, guid: ba9240e92dda13a449e0a07f5543891b, type: 2}
   - {fileID: 11400000, guid: cab9cb59be77bf042bb760e3b49403d0, type: 2}
-  - {fileID: 11400000, guid: 0438f9aa56f17f24fbc6a415cef0c0bb, type: 2}
   - {fileID: 11400000, guid: 2520b14fdccf7d8429defe2ca680b4db, type: 2}
-  - {fileID: 11400000, guid: 269f6ef708fc9aa4d858a022bf723d38, type: 2}
   - {fileID: 11400000, guid: ab168983858e03249a380cfd7b92e155, type: 2}
-  - {fileID: 11400000, guid: fc0d5d296f705ed40b9f85f13d486070, type: 2}
   - {fileID: 11400000, guid: 0e2d53ee268c40441a24ebc15678ec2e, type: 2}
-  - {fileID: 11400000, guid: b14bce6e9396f8445a483f7bef36ef9f, type: 2}
   - {fileID: 11400000, guid: 9566dec6e5362214fb8cbaadd5198fe9, type: 2}
-  - {fileID: 11400000, guid: 940ff0415327bb446bbead781c6d1b4a, type: 2}
 --- !u!1 &8331842612852187426
 GameObject:
   m_ObjectHideFlags: 0

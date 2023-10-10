@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DefenceEnemyBase : EnemyBase
 {
@@ -13,6 +14,14 @@ public class DefenceEnemyBase : EnemyBase
     public float moveSpeed = 1f;
 
     public float attackSpeed = 3.0f;
+
+    Transform child;
+    RectTransform sliderParentTransform;
+    Slider slider;
+
+    Vector3 screenPos;
+
+    bool sliderActive = false;
 
     enum EnemyState
     {
@@ -44,9 +53,36 @@ public class DefenceEnemyBase : EnemyBase
         }
     }
 
+    public override float Hp
+    {
+        get => hp;
+        set
+        {
+            if (hp != value)
+            {
+                hp = value;
+                if (slider != null)
+                {
+                    slider.value = hp / startHp;
+                }
+                if (hp <= 0)
+                {
+                    hp = 0;
+                    isAlive = false;
+                    Die();
+                }
+            }
+        }
+    }
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        child = transform.GetChild(2);
+        Transform grandChild = child.transform.GetChild(0);
+        slider = grandChild.GetComponent<Slider>();
+        slider.gameObject.SetActive(false);
+
     }
 
     protected override void Start()
@@ -59,11 +95,26 @@ public class DefenceEnemyBase : EnemyBase
 
     void Update()
     {
-        if(isMove)
+        if (isMove)
         {
             transform.Translate(Time.deltaTime * moveSpeed * -transform.right);
+
+
+            screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            // 스크린 좌표를 캔버스 좌표로 변환
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(child.GetComponent<RectTransform>(), screenPos, null, out Vector2 localPos);
+
+            // Slider의 위치를 업데이트
+            localPos.y += -50;
+            localPos.x += 5;
+            if (!sliderActive)
+            {
+                slider.gameObject.SetActive(true);
+            }
+            slider.transform.localPosition = localPos;
         }
     }
+
 
     IEnumerator AttackCoroutine()
     {

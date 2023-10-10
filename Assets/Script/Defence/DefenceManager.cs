@@ -17,7 +17,7 @@ public class DefenceManager : MonoBehaviour
     CountUI countUI;
 
     public int winPoint = 50;
-    public int losingPoint = 3;
+    public int losingPoint = 30;
 
     public ResultUI result;
 

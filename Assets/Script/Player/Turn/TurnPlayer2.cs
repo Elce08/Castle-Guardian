@@ -12,12 +12,12 @@ public class TurnPlayer2 : TurnPlayerBase
     protected override void Start()
     {
         base.Start();
-        startPos = turnManager.playersPosition[1];
-        str = gameManager.player2ItemStr;
-        def = gameManager.player2ItemDef;
-        startHp = gameManager.player2ItemHP;
-        MaxMp = gameManager.player2ItemMP;
-        Hp = startHp;
-        Mp = MaxMp;
+        startPos += turnManager.playersPosition[1];
+        str += gameManager.player2ItemStr;
+        def += gameManager.player2ItemDef;
+        startHp += gameManager.player2ItemHP;
+        MaxMp += gameManager.player2ItemMP;
+        Hp += startHp;
+        Mp += MaxMp;
     }
 }

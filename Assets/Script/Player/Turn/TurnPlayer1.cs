@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class TurnPlayer1 : TurnPlayerBase
 {
-    public bool isturn = false;
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -15,12 +12,12 @@ public class TurnPlayer1 : TurnPlayerBase
     protected override void Start()
     {
         base.Start();
-        startPos = turnManager.playersPosition[0];
-        str = gameManager.player1ItemStr;
-        def = gameManager.player1ItemDef;
-        startHp = gameManager.player1ItemHP;
-        MaxMp = gameManager.player1ItemMP;
-        Hp = startHp;
-        Mp = MaxMp;
+        startPos += turnManager.playersPosition[0];
+        str += gameManager.player1ItemStr;
+        def += gameManager.player1ItemDef;
+        startHp += gameManager.player1ItemHP;
+        MaxMp += gameManager.player1ItemMP;
+        Hp += startHp;
+        Mp += MaxMp;
     }
 }

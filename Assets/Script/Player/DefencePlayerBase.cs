@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.Rendering.UI;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class DefencePlayerBase : PlayerBase
@@ -16,6 +19,11 @@ public class DefencePlayerBase : PlayerBase
     public bool fullMp = false;
 
     public float addMp = 10.0f;
+
+    Vector3 screenPos;
+    Transform child;
+    UnityEngine.UI.Slider slider;
+    bool sliderActive = false;
 
     public override float Mp
     {
@@ -37,6 +45,10 @@ public class DefencePlayerBase : PlayerBase
     protected override void Awake()
     {
         base.Awake();
+        child = transform.GetChild(0);
+        Transform grandChild = child.transform.GetChild(0);
+        slider = grandChild.GetComponent<UnityEngine.UI.Slider>();
+        slider.gameObject.SetActive(false);
     }
 
     protected override void Start()
@@ -44,6 +56,22 @@ public class DefencePlayerBase : PlayerBase
         base.Start();
         anim = GetComponentInChildren<Animator>();
         attackSpeed = 30.0f / speed;
+    }
+
+    private void Update()
+    {
+        screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        // 스크린 좌표를 캔버스 좌표로 변환
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(child.GetComponent<RectTransform>(), screenPos, null, out Vector2 localPos);
+
+        // Slider의 위치를 업데이트
+        localPos.y += -50;
+        localPos.x += 5;
+        if (!sliderActive)
+        {
+            slider.gameObject.SetActive(true);
+        }
+        slider.transform.localPosition = localPos;
     }
 
     protected override void Die()

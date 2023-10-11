@@ -54,14 +54,15 @@ public class ResultUI : MonoBehaviour
 
     private void LeftClick_performed(UnityEngine.InputSystem.InputAction.CallbackContext _)
     {
-        Vector3 mousePos = Input.mousePosition;
+        /*Vector3 mousePos = Input.mousePosition;
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePos);
         RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
         inputActions.ResultUI.Disable();
         if (hit.collider == null)
         {
             AsyncLoad.OnSceneLoad("Village");
-        }
+        }*/
+        AsyncLoad.OnSceneLoad("Village");
         // else if (!hit.collider.CompareTag("Item")) AsyncLoad.OnSceneLoad("Village");
     }
 

@@ -17,7 +17,7 @@ public class TurnPlayer2 : TurnPlayerBase
         def += gameManager.player2ItemDef;
         startHp += gameManager.player2ItemHP;
         MaxMp += gameManager.player2ItemMP;
-        Hp += startHp;
-        Mp += MaxMp;
+        Hp = startHp;
+        Mp = MaxMp;
     }
 }

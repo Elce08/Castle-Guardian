@@ -115,7 +115,7 @@ public class PlayerBase : PooledObject
             case PlayerType.Warrior_Hammer:
                 GameObject.Instantiate(gameManager.playerTypePrefabs[6], transform.position, Quaternion.identity).transform.parent = this.transform;
                 speed = 7.0f;
-                str = 45.0f;
+                str = 50.0f;
                 def = 1.5f;
                 startHp = 120.0f;
                 break;

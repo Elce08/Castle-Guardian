@@ -75,6 +75,7 @@ public class GameManager : Singleton<GameManager>
         Village,
         Turn,
         Defence,
+        loading,
     }
 
     Scene currentScene;
@@ -144,233 +145,244 @@ public class GameManager : Singleton<GameManager>
 
     void OnSceneLoad(UnityEngine.SceneManagement.Scene scene, LoadSceneMode sceneMode)
     {
-        if (scene.name == "Defence1" || scene.name == "Defence2")
+        switch (scene.name)
         {
-            currentScene = Scene.Defence;
-            foreach (GameObject s in playerTypePrefabs)
-            {
-                s.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-            }
-            spawnPlayer = FindObjectOfType<SpawnPlayer>();
-        }
-        else if (scene.name == "Turn1" || scene.name == "Turn2")
-        {
-            currentScene = Scene.Turn;
-            foreach (GameObject s in playerTypePrefabs)
-            {
-                s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-            }
-            turnPlayerBase = FindObjectOfType<TurnPlayerBase>();
-            //turnPlayerBase.TurnCheck();
-        }
-        else if(scene.name == "PlayerSelect")
-        {
-            currentScene = Scene.PlayerSelect;
-            inputActions.GameManager.Enable();
-            inputActions.GameManager.Esc.performed += GameSetting;
-            playerSelectUI = FindObjectOfType<PlayerSelectUI>();
-        }
-        else if( scene.name == "Village")
-        {
-            currentScene = Scene.Village;
-            Button turn2Button = GameObject.Find("Turn2").GetComponent<Button>();
-            Button defence2Button = GameObject.Find("Defence2").GetComponent<Button>();
-            turn2Button.interactable = false;
-            defence2Button.interactable = false;
-            if (turn1Clear) turn2Button.interactable = true;
-            if(defence1Clear) defence2Button.interactable = true;
+            case "Defence1":
+            case "Defence2":
+                currentScene = Scene.Defence;
+                foreach (GameObject s in playerTypePrefabs)
+                {
+                    s.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                }
+                spawnPlayer = FindObjectOfType<SpawnPlayer>();
+                break;
+            case "Turn1":
+            case "Turn2":
+                currentScene = Scene.Turn;
+                foreach (GameObject s in playerTypePrefabs)
+                {
+                    s.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                }
+                turnPlayerBase = FindObjectOfType<TurnPlayerBase>();
+                //turnPlayerBase.TurnCheck();
+                break;
+            case "PlayerSelect":
+                currentScene = Scene.PlayerSelect;
+                playerSelectUI = FindObjectOfType<PlayerSelectUI>();
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
+                break;
+            case "LoadScene":
+                currentScene = Scene.loading;
+                inputActions.GameManager.Disable();
+                break;
+            case "Village":
+                currentScene = Scene.Village;
+                Button turn2Button = GameObject.Find("Turn2").GetComponent<Button>();
+                Button defence2Button = GameObject.Find("Defence2").GetComponent<Button>();
+                turn2Button.interactable = false;
+                defence2Button.interactable = false;
+                if (turn1Clear) turn2Button.interactable = true;
+                if (defence1Clear) defence2Button.interactable = true;
 
-            // 인벤토리 관련
-            inventoryUI = FindObjectOfType<InventoryUI>();
-            partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
-            itemDataManager = GetComponent<ItemDataManager>();
+                // 인벤토리 관련
+                inventoryUI = FindObjectOfType<InventoryUI>();
+                partSlot = new InvenSlot[Enum.GetValues(typeof(WeaponType)).Length];
+                itemDataManager = GetComponent<ItemDataManager>();
 
-            if(sceneLoad == 0)
-            {
-                inven = new Inventory(this);
+                if (sceneLoad == 0)
+                {
+                    inven = new Inventory(this);
 
-                sceneLoad = 1;
-            }
-            if (GameManager.Inst.InvenUI != null)
-            {
-                GameManager.Inst.InvenUI.InitializeInventory(inven);
-            }
-            //인벤토리 관련
+                    sceneLoad = 1;
+                }
+                if (GameManager.Inst.InvenUI != null)
+                {
+                    GameManager.Inst.InvenUI.InitializeInventory(inven);
+                }
+                //인벤토리 관련
 
-            if (resultGold || resultItem || resultItem2)
-            {
-                ResultGetItem();
-            }
+                if (resultGold || resultItem || resultItem2)
+                {
+                    ResultGetItem();
+                }
 
-            switch (player1Type)
-            {
-                case PlayerType.Archor:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Archor;
-                    selectType1Str = 4.0f;
-                    selectType1Def = 1.0f;
-                    selectType1HP = 85.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 13.0f;
-                    break;
-                case PlayerType.Archor_LongBow:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Archor_LongBow;
-                    selectType1Str = 5.0f;
-                    selectType1Def = 1.0f;
-                    selectType1HP = 80.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 15.0f;
-                    break;
-                case PlayerType.Gunner:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Gunner;
-                    selectType1Str = 5.0f;
-                    selectType1Def = 1.0f;
-                    selectType1HP = 90.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 11.0f;
-                    break;
-                case PlayerType.Soldier_LongSword:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Soldier_LongSword;
-                    selectType1Str = 7.0f;
-                    selectType1Def = 2.0f;
-                    selectType1HP = 150.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 5.0f;
-                    break;
-                case PlayerType.Soldier_ShortSword:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Soldier_ShortSword;
-                    selectType1Str = 6.0f;
-                    selectType1Def = 1.5f;
-                    selectType1HP = 120.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 9.0f;
-                    break;
-                case PlayerType.Warrior_Hammer:
-                    InvenUI.equipSlotsUI1[0].equipType = WeaponType.Warrior_Hammer;
-                    selectType1Str = 7.0f;
-                    selectType1Def = 1.5f;
-                    selectType1HP = 120.0f;
-                    selectType1MP = 100.0f;
-                    selectType1Speed = 7.0f;
-                    break;
-            }
-            switch (player2Type)
-            {
-                case PlayerType.Archor:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Archor;
-                    selectType2Str = 4.0f;
-                    selectType2Def = 1.0f;
-                    selectType2HP = 85.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 13.0f;
-                    break;
-                case PlayerType.Archor_LongBow:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Archor_LongBow;
-                    selectType2Str = 5.0f;
-                    selectType2Def = 1.0f;
-                    selectType2HP = 80.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 15.0f;
-                    break;
-                case PlayerType.Gunner:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Gunner;
-                    selectType2Str = 5.0f;
-                    selectType2Def = 1.0f;
-                    selectType2HP = 90.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 11.0f;
-                    break;
-                case PlayerType.Soldier_LongSword:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Soldier_LongSword;
-                    selectType2Str = 7.0f;
-                    selectType2Def = 2.0f;
-                    selectType2HP = 150.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 5.0f;
-                    break;
-                case PlayerType.Soldier_ShortSword:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Soldier_ShortSword;
-                    selectType2Str = 6.0f;
-                    selectType2Def = 1.5f;
-                    selectType2HP = 120.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 9.0f;
-                    break;
-                case PlayerType.Warrior_Hammer:
-                    InvenUI.equipSlotsUI2[0].equipType = WeaponType.Warrior_Hammer;
-                    selectType2Str = 7.0f;
-                    selectType2Def = 1.5f;
-                    selectType2HP = 120.0f;
-                    selectType2MP = 100.0f;
-                    selectType2Speed = 7.0f;
-                    break;
-            }
-            switch (player3Type)
-            {
-                case PlayerType.Archor:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Archor;
-                    selectType3Str = 4.0f;
-                    selectType3Def = 1.0f;
-                    selectType3HP = 85.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 13.0f;
-                    break;
-                case PlayerType.Archor_LongBow:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Archor_LongBow;
-                    selectType3Str = 5.0f;
-                    selectType3Def = 1.0f;
-                    selectType3HP = 80.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 15.0f;
-                    break;
-                case PlayerType.Gunner:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Gunner;
-                    selectType3Str = 5.0f;
-                    selectType3Def = 1.0f;
-                    selectType3HP = 90.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 11.0f;
-                    break;
-                case PlayerType.Soldier_LongSword:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Soldier_LongSword;
-                    selectType3Str = 7.0f;
-                    selectType3Def = 2.0f;
-                    selectType3HP = 150.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 5.0f;
-                    break;
-                case PlayerType.Soldier_ShortSword:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Soldier_ShortSword;
-                    selectType3Str = 6.0f;
-                    selectType3Def = 1.5f;
-                    selectType3HP = 120.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 9.0f;
-                    break;
-                case PlayerType.Warrior_Hammer:
-                    InvenUI.equipSlotsUI3[0].equipType = WeaponType.Warrior_Hammer;
-                    selectType3Str = 7.0f;
-                    selectType3Def = 1.5f;
-                    selectType3HP = 120.0f;
-                    selectType3MP = 100.0f;
-                    selectType3Speed = 7.0f;
-                    break;
-            }
+                switch (player1Type)
+                {
+                    case PlayerType.Archor:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Archor;
+                        selectType1Str = 4.0f;
+                        selectType1Def = 1.0f;
+                        selectType1HP = 85.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 13.0f;
+                        break;
+                    case PlayerType.Archor_LongBow:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Archor_LongBow;
+                        selectType1Str = 5.0f;
+                        selectType1Def = 1.0f;
+                        selectType1HP = 80.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 15.0f;
+                        break;
+                    case PlayerType.Gunner:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Gunner;
+                        selectType1Str = 5.0f;
+                        selectType1Def = 1.0f;
+                        selectType1HP = 90.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 11.0f;
+                        break;
+                    case PlayerType.Soldier_LongSword:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Soldier_LongSword;
+                        selectType1Str = 7.0f;
+                        selectType1Def = 2.0f;
+                        selectType1HP = 150.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 5.0f;
+                        break;
+                    case PlayerType.Soldier_ShortSword:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Soldier_ShortSword;
+                        selectType1Str = 6.0f;
+                        selectType1Def = 1.5f;
+                        selectType1HP = 120.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 9.0f;
+                        break;
+                    case PlayerType.Warrior_Hammer:
+                        InvenUI.equipSlotsUI1[0].equipType = WeaponType.Warrior_Hammer;
+                        selectType1Str = 7.0f;
+                        selectType1Def = 1.5f;
+                        selectType1HP = 120.0f;
+                        selectType1MP = 100.0f;
+                        selectType1Speed = 7.0f;
+                        break;
+                }
+                switch (player2Type)
+                {
+                    case PlayerType.Archor:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Archor;
+                        selectType2Str = 4.0f;
+                        selectType2Def = 1.0f;
+                        selectType2HP = 85.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 13.0f;
+                        break;
+                    case PlayerType.Archor_LongBow:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Archor_LongBow;
+                        selectType2Str = 5.0f;
+                        selectType2Def = 1.0f;
+                        selectType2HP = 80.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 15.0f;
+                        break;
+                    case PlayerType.Gunner:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Gunner;
+                        selectType2Str = 5.0f;
+                        selectType2Def = 1.0f;
+                        selectType2HP = 90.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 11.0f;
+                        break;
+                    case PlayerType.Soldier_LongSword:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Soldier_LongSword;
+                        selectType2Str = 7.0f;
+                        selectType2Def = 2.0f;
+                        selectType2HP = 150.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 5.0f;
+                        break;
+                    case PlayerType.Soldier_ShortSword:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Soldier_ShortSword;
+                        selectType2Str = 6.0f;
+                        selectType2Def = 1.5f;
+                        selectType2HP = 120.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 9.0f;
+                        break;
+                    case PlayerType.Warrior_Hammer:
+                        InvenUI.equipSlotsUI2[0].equipType = WeaponType.Warrior_Hammer;
+                        selectType2Str = 7.0f;
+                        selectType2Def = 1.5f;
+                        selectType2HP = 120.0f;
+                        selectType2MP = 100.0f;
+                        selectType2Speed = 7.0f;
+                        break;
+                }
+                switch (player3Type)
+                {
+                    case PlayerType.Archor:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Archor;
+                        selectType3Str = 4.0f;
+                        selectType3Def = 1.0f;
+                        selectType3HP = 85.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 13.0f;
+                        break;
+                    case PlayerType.Archor_LongBow:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Archor_LongBow;
+                        selectType3Str = 5.0f;
+                        selectType3Def = 1.0f;
+                        selectType3HP = 80.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 15.0f;
+                        break;
+                    case PlayerType.Gunner:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Gunner;
+                        selectType3Str = 5.0f;
+                        selectType3Def = 1.0f;
+                        selectType3HP = 90.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 11.0f;
+                        break;
+                    case PlayerType.Soldier_LongSword:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Soldier_LongSword;
+                        selectType3Str = 7.0f;
+                        selectType3Def = 2.0f;
+                        selectType3HP = 150.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 5.0f;
+                        break;
+                    case PlayerType.Soldier_ShortSword:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Soldier_ShortSword;
+                        selectType3Str = 6.0f;
+                        selectType3Def = 1.5f;
+                        selectType3HP = 120.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 9.0f;
+                        break;
+                    case PlayerType.Warrior_Hammer:
+                        InvenUI.equipSlotsUI3[0].equipType = WeaponType.Warrior_Hammer;
+                        selectType3Str = 7.0f;
+                        selectType3Def = 1.5f;
+                        selectType3HP = 120.0f;
+                        selectType3MP = 100.0f;
+                        selectType3Speed = 7.0f;
+                        break;
+                }
+                break;
         }
     }
 
     private void OnSceneChange(UnityEngine.SceneManagement.Scene current, UnityEngine.SceneManagement.Scene next)
     {
-        if (current.name == "Defence1" || current.name == "Defence2")
+        switch (current.name)
         {
-            spawnPlayer = null;
-        }
-        else if (current.name == "Turn1" || current.name == "Turn2")
-        {
-            turnPlayerBase = null;
-        }
-        else if (current.name == "PlayerSelect")
-        {
-            playerSelectUI = null;
+            case "Defence1":
+            case "Defence2":
+                spawnPlayer = null;
+                break;
+            case "Turn1":
+            case "Turn2":
+                turnPlayerBase = null;
+                break;
+            case "PlayerSelect":
+                playerSelectUI = null;
+                break;
+            case "LoadScene":
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
+                break;
         }
     }
 

@@ -72,7 +72,7 @@ public class AsyncLoad : MonoBehaviour
     private IEnumerator LoadingTextProgress()
     {
         float waitTime = 0.2f;
-        WaitForSeconds wait = new WaitForSeconds(waitTime);
+        WaitForSeconds wait = new(waitTime);
 
         string[] texts =
         {

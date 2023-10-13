@@ -349,6 +349,10 @@ PrefabInstance:
       propertyPath: playerImages.Array.data[6]
       value: 
       objectReference: {fileID: 21300000, guid: 7066e0747291df44fa5c2bf93bee3a6e, type: 3}
+    - target: {fileID: 1995598366719387060, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
+      propertyPath: m_text
+      value: Go Home
+      objectReference: {fileID: 0}
     - target: {fileID: 2382015308977764739, guid: 8c3471e636b6b65489c5cbda4dfb7ab5, type: 3}
       propertyPath: m_text
       value: Controll

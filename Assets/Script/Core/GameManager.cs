@@ -366,6 +366,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnSceneChange(UnityEngine.SceneManagement.Scene current, UnityEngine.SceneManagement.Scene next)
     {
+        Time.timeScale = 1;
         switch (current.name)
         {
             case "Defence1":
@@ -509,6 +510,11 @@ public class GameManager : Singleton<GameManager>
     {
         // 세이브까지 해주면 베스트
         // 게임 종료
+    }
+
+    public void HomeButton()
+    {
+        AsyncLoad.OnSceneLoad("Village");
     }
 
     //플레이어 선택=============================================================

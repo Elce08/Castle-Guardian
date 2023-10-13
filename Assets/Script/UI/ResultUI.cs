@@ -164,6 +164,7 @@ public class ResultUI : MonoBehaviour
         resultText.text = "Lose...";
         resultGold = Random.Range(0, 100);
         goldAmount.text = $"X{resultGold}";
+        gameManager.addGold = resultGold;
         gameManager.resultGold = true;
         // 골드 조금 드랍
         item1Image.gameObject.SetActive(false);

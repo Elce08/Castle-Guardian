@@ -106,7 +106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit Game
+  m_text: Go Home
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3033,6 +3033,8 @@ MonoBehaviour:
   selectType3HP: 0
   selectType3MP: 0
   selectType3Speed: 0
+  turn1Clear: 0
+  defence1Clear: 0
   mainSoundValue: 0
   player1Name: 
   player2Name: 
@@ -3053,6 +3055,23 @@ MonoBehaviour:
   player3Sprite: {fileID: 0}
   resultItem: 0
   resultItem2: 0
+  resultGold: 0
+  addItem: 0
+  addItem2: 0
+  addGold: 0
+  sceneLoad: 0
+  player1ItemStr: 0
+  player1ItemDef: 0
+  player1ItemHP: 0
+  player1ItemMP: 0
+  player2ItemStr: 0
+  player2ItemDef: 0
+  player2ItemHP: 0
+  player2ItemMP: 0
+  player3ItemStr: 0
+  player3ItemDef: 0
+  player3ItemHP: 0
+  player3ItemMP: 0
 --- !u!114 &3902789933943055978
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -197,6 +198,7 @@ public class TurnPlayerBase : PlayerBase, ITurn
             inputActions.NumberPad._1.performed += _1_Attack;
             if(Mp>= skillCost)
             {
+                skill.gameObject.SetActive(true);
                 skill.onClick.AddListener(Skill);
                 inputActions.NumberPad._2.performed += _2_Skill;
             }

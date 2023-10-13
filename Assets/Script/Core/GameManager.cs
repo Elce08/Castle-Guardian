@@ -180,10 +180,10 @@ public class GameManager : Singleton<GameManager>
                 currentScene = Scene.Village;
                 Button turn2Button = GameObject.Find("Turn2").GetComponent<Button>();
                 Button defence2Button = GameObject.Find("Defence2").GetComponent<Button>();
-                turn2Button.interactable = false;
-                defence2Button.interactable = false;
                 if (turn1Clear) turn2Button.interactable = true;
+                else if(!turn1Clear) turn2Button.interactable = false;
                 if (defence1Clear) defence2Button.interactable = true;
+                else if(!defence1Clear) defence2Button.interactable = false;
 
                 // 인벤토리 관련
                 inventoryUI = FindObjectOfType<InventoryUI>();

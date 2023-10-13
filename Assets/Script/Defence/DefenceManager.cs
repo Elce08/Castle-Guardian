@@ -91,8 +91,8 @@ public class DefenceManager : MonoBehaviour
         Money += 10.0f;
         if (winPoint <= 0)
         {
-            EndGame(true);
             gameManager.defence1Clear = true;
+            EndGame(true);
             winPoint = 0;
         }
         countUI.KillCountChange(winPoint);

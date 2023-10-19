@@ -149,6 +149,8 @@ public class GameManager : Singleton<GameManager>
         {
             case "Defence1":
             case "Defence2":
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
                 currentScene = Scene.Defence;
                 foreach (GameObject s in playerTypePrefabs)
                 {
@@ -158,6 +160,8 @@ public class GameManager : Singleton<GameManager>
                 break;
             case "Turn1":
             case "Turn2":
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
                 currentScene = Scene.Turn;
                 foreach (GameObject s in playerTypePrefabs)
                 {
@@ -167,6 +171,8 @@ public class GameManager : Singleton<GameManager>
                 //turnPlayerBase.TurnCheck();
                 break;
             case "PlayerSelect":
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
                 currentScene = Scene.PlayerSelect;
                 playerSelectUI = FindObjectOfType<PlayerSelectUI>();
                 inputActions.GameManager.Enable();
@@ -177,6 +183,8 @@ public class GameManager : Singleton<GameManager>
                 inputActions.GameManager.Disable();
                 break;
             case "Village":
+                inputActions.GameManager.Enable();
+                inputActions.GameManager.Esc.performed += GameSetting;
                 currentScene = Scene.Village;
                 Button turn2Button = GameObject.Find("Turn2").GetComponent<Button>();
                 Button defence2Button = GameObject.Find("Defence2").GetComponent<Button>();
@@ -381,8 +389,6 @@ public class GameManager : Singleton<GameManager>
                 playerSelectUI = null;
                 break;
             case "LoadScene":
-                inputActions.GameManager.Enable();
-                inputActions.GameManager.Esc.performed += GameSetting;
                 break;
         }
     }
@@ -509,7 +515,7 @@ public class GameManager : Singleton<GameManager>
     private void QuitButton()
     {
         // 세이브까지 해주면 베스트
-        // 게임 종료
+        Application.Quit();
     }
 
     public void HomeButton()

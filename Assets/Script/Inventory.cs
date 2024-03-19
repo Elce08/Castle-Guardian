@@ -137,19 +137,19 @@ public class Inventory
     /// <param name="to">위치 변경이 끝나는 인덱스</param>
     public void MoveItem(uint from, uint to)
     {
-        // from지점과 to지점이 다르고 from과 to가 모두 valid해야 한다.
+        // from지점과 to지점이 다르고 from과 to가 모두 적절(인벤토리 및 장비창)해야 한다.
         if ((from != to) && IsValidIndex(from) && IsValidIndex(to))
         {
             InvenSlot fromSlot = (from == TempSlotIndex) ? TempSlot : slots[from];  // 임시 슬롯을 감안해서 삼항연산자로 처리
-            if (fromSlot != null)
+            if (fromSlot != null && !fromSlot.IsEmpty)
             {
-                if (!fromSlot.IsEmpty)//(equipSlot.IsEmpty)
+                if (!fromSlot.IsEmpty) //(equipSlot.IsEmpty)
                 {
                     InvenSlot toSlot = (to == TempSlotIndex) ? TempSlot : slots[to];
 
                     if (toSlot != null)     // toSlot이 Inven이라면          && EtoSlot == null
                     {
-                        // 다른 종류의 아이템이면 서로 스왑
+                        // 다른 아이템이면 서로 스왑
                         ItemData tempData = fromSlot.ItemData;
                         fromSlot.AssignSlotItem(toSlot.ItemData);
                         toSlot.AssignSlotItem(tempData);

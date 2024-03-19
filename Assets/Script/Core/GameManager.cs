@@ -680,5 +680,10 @@ public class GameManager : Singleton<GameManager>
         inven.AddItem(PlayerWeapon.Gunner1);
         inven.AddItem(PlayerWeapon.Armor);
         inven.AddItem(PlayerWeapon.Pants);
+        inven.AddItem(PlayerWeapon.Archor1);
+        inven.AddItem(PlayerWeapon.Warrior_Hammer1);
+        inven.AddItem(PlayerWeapon.Archor_LongBow1);
+        inven.AddItem(PlayerWeapon.Soldier_LongSword1);
+        inven.AddItem(PlayerWeapon.Soldier_ShortSword1);
     }
 }

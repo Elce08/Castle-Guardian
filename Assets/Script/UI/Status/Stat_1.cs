@@ -27,23 +27,23 @@ public class Stat_1 : MonoBehaviour
         MP = new float[3];
         Transform child = transform.GetChild(0);
         Transform grandChild = child.transform.GetChild(0);
-        status[0] = grandChild.GetComponent<TextMeshProUGUI>();    // Str Text
+        status[0] = grandChild.GetComponent<TextMeshProUGUI>();    // Str UI Text
 
         child = transform.GetChild(1);
         grandChild = child.transform.GetChild(0);
-        status[1] = grandChild.GetComponent<TextMeshProUGUI>();    // Def Text
+        status[1] = grandChild.GetComponent<TextMeshProUGUI>();    // Def UI Text
 
         child = transform.GetChild(2);
         grandChild = child.transform.GetChild(0);
-        status[2] = grandChild.GetComponent<TextMeshProUGUI>();    // HP Text
+        status[2] = grandChild.GetComponent<TextMeshProUGUI>();    // HP UI Text
 
         child = transform.GetChild(3);
         grandChild = child.transform.GetChild(0);
-        status[3] = grandChild.GetComponent<TextMeshProUGUI>();    // MP Text
+        status[3] = grandChild.GetComponent<TextMeshProUGUI>();    // MP UI Text
 
         child = transform.GetChild(4);
         grandChild = child.transform.GetChild(0);
-        status[4] = grandChild.GetComponent<TextMeshProUGUI>();    // Speed Text
+        status[4] = grandChild.GetComponent<TextMeshProUGUI>();    // Speed UI Text
 
         slots = new InvenSlotUI[3];  // 장비 슬롯 찾기
         Transform parent = transform.parent;

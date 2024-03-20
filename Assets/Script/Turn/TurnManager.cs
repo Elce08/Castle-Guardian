@@ -170,26 +170,29 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Speed에 따라 Queue에 추가
+    /// </summary>
     private void SetQueue()
     {
-        GameObject[] turnObjects = new GameObject[players.Length + enemys.Length];
-        float[] turnSpeed = new float[players.Length + enemys.Length];
-        turnAct = new ITurn[turnObjects.Length];
-        for (int i = 0; i< players.Length; i++)
+        GameObject[] turnObjects = new GameObject[players.Length + enemys.Length];  // 아군수 + 적군수만큼
+        float[] turnSpeed = new float[players.Length + enemys.Length];  // 턴 잡는 속도
+        turnAct = new ITurn[turnObjects.Length];    // 턴 실행 인터페이스
+        for (int i = 0; i< players.Length; i++) // 플레이어 수만큼 추가
         {
             turnObjects[i] = players[i].gameObject;
-            turnSpeed[i] = players[i].speed;
+            turnSpeed[i] = players[i].speed;    // 속도
         }
-        for(int i = 0; i < enemys.Length; i++)
+        for(int i = 0; i < enemys.Length; i++)  // 적 수만큼 추가
         {
             turnObjects[i + players.Length] = enemys[i].gameObject;
-            turnSpeed[i + players.Length] = enemys[i].speed;
+            turnSpeed[i + players.Length] = enemys[i].speed;    // 속도
         }
         for(int i = 0; i < turnSpeed.Length; i++)
         {
-            for(int j = 1; j < turnSpeed.Length;j++)
+            for(int j = i+1; j < turnSpeed.Length;j++)
             {
-                if (turnSpeed[i] > turnSpeed[j])
+                if (turnSpeed[i] > turnSpeed[j])    // i번째가 j번째 보다 Speed가 큰지 비교하고 정렬
                 {
                     (turnObjects[j], turnObjects[i]) = (turnObjects[i], turnObjects[j]);
                     (turnSpeed[j], turnSpeed[i]) = (turnSpeed[i], turnSpeed[j]);
@@ -199,9 +202,9 @@ public class TurnManager : MonoBehaviour
         for(int i = 0; i < turnObjects.Length; i++)
         {
             turnAct[i] = turnObjects[i].GetComponent<ITurn>();
-            if (turnAct[i].IsAlive)
+            if (turnAct[i].IsAlive) // 살아있는지 확인
             {
-                turnQueue.Enqueue(turnObjects[i]);
+                turnQueue.Enqueue(turnObjects[i]);  // 살아있다면 큐에 추가
             }
         }
     }

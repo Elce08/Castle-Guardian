@@ -72,88 +72,91 @@ public class ResultUI : MonoBehaviour
         inputActions.ResultUI.Disable();
     }
 
+    /// <summary>
+    /// Ω¬∏ÆΩ√
+    /// </summary>
     public void Win()
     {
-        resultText.text = "Victory!!!";
-        resultGold = Random.Range(500, 1000);
-        goldAmount.text = $"X{resultGold}";
+        resultText.text = "Victory!!!"; // UI√‚∑¬
+        resultGold = Random.Range(500, 1000);   // »πµÊ ¿Á»≠
+        goldAmount.text = $"X{resultGold}"; // UIø° «•Ω√
 
-        gameManager.addGold = resultGold;
+        gameManager.addGold = resultGold;   // ∞‘¿”∏≈¥œ¿˙ø° »πµÊ ¡§∫∏ ¿˙¿Â
         gameManager.resultGold = true;
 
-        int getItem = Random.Range(1, 9);
+        int getItem = Random.Range(1, 9);   // ∑£¥˝¿∏∑Œ æ∆¿Ã≈€ ¡ˆ±ﬁ
         switch (getItem)
         {
             case 1:
-                resultItem = PlayerWeapon.Armor;
+                resultItem = PlayerWeapon.Armor;    // ªÛ¿«
                 break;
             case 2:
-                resultItem = PlayerWeapon.Pants;
+                resultItem = PlayerWeapon.Pants;    // «œ¿«
                 break;
             case 3:
-                resultItem = PlayerWeapon.Archor1;
+                resultItem = PlayerWeapon.Archor1;  // ¥‹±√
                 break;
             case 4:
-                resultItem = PlayerWeapon.Archor_LongBow1;
+                resultItem = PlayerWeapon.Archor_LongBow1;  //¿Â±√
                 break;
             case 5:
-                resultItem = PlayerWeapon.Gunner1;
+                resultItem = PlayerWeapon.Gunner1;  // √—
                 break;
             case 6:
-                resultItem = PlayerWeapon.Soldier_LongSword1;
+                resultItem = PlayerWeapon.Soldier_LongSword1;   // ¥Î∞À
                 break;
             case 7:
-                resultItem = PlayerWeapon.Soldier_ShortSword1;
+                resultItem = PlayerWeapon.Soldier_ShortSword1;  // ¥‹∞À
                 break;
             case 8:
-                resultItem = PlayerWeapon.Warrior_Hammer1;
+                resultItem = PlayerWeapon.Warrior_Hammer1;  // ∏¡ƒ°
                 break;
         }
         itemData = itemDataManager[resultItem];
-        item1Image.sprite = itemData.itemIcon;
+        item1Image.sprite = itemData.itemIcon;  // UIø° «•√‚
 
-        gameManager.addItem = resultItem;
+        gameManager.addItem = resultItem;   // ∞‘¿”∏≈¥œ¿˙ø° »πµÊ ¡§∫∏ ¿˙¿Â
         gameManager.resultItem = true;
 
         float Itemcount = Random.value;
-        if (Itemcount <= 0.2)
+        if (Itemcount <= 0.2)   // µŒπ¯¬∞ æ∆¿Ã≈€ »πµÊ »Æ∑¸
         {
             item2Image.color = Color.white;
             getItem = Random.Range(1, 9);
             switch (getItem)
             {
                 case 1:
-                    resultItem2 = PlayerWeapon.Armor;
+                    resultItem2 = PlayerWeapon.Armor;   // ªÛ¿«
                     break;
                 case 2:
-                    resultItem2 = PlayerWeapon.Pants;
+                    resultItem2 = PlayerWeapon.Pants;   // «œ¿«
                     break;
                 case 3:
-                    resultItem2 = PlayerWeapon.Archor1;
+                    resultItem2 = PlayerWeapon.Archor1; // ¥‹±√
                     break;
                 case 4:
-                    resultItem2 = PlayerWeapon.Archor_LongBow1;
+                    resultItem2 = PlayerWeapon.Archor_LongBow1; // ¿Â±√
                     break;
                 case 5:
-                    resultItem2 = PlayerWeapon.Gunner1;
-                    break;
+                    resultItem2 = PlayerWeapon.Gunner1; // √—
+                    break;  
                 case 6:
-                    resultItem2 = PlayerWeapon.Soldier_LongSword1;
+                    resultItem2 = PlayerWeapon.Soldier_LongSword1;  // ¥Î∞À
                     break;
                 case 7:
-                    resultItem2 = PlayerWeapon.Soldier_ShortSword1;
+                    resultItem2 = PlayerWeapon.Soldier_ShortSword1; // ¥‹∞À
                     break;
                 case 8:
-                    resultItem2 = PlayerWeapon.Warrior_Hammer1;
+                    resultItem2 = PlayerWeapon.Warrior_Hammer1; // ∏¡ƒ°
                     break;
             }
             itemData = itemDataManager[resultItem2];
-            item2Image.sprite = itemData.itemIcon;
+            item2Image.sprite = itemData.itemIcon;  // UIø° «•√‚
 
-            gameManager.addItem2 = resultItem2;
+            gameManager.addItem2 = resultItem2; // ∞‘¿”∏≈¥œ¿˙ø° »πµÊ ¡§∫∏ ¿˙¿Â
             gameManager.resultItem2 = true;
         }
-        else
+        else    // »πµÊ æ»«‘
         {
             item2Image.gameObject.SetActive(false);
         }

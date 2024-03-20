@@ -150,64 +150,16 @@ public class DetailInfoUI : MonoBehaviour
             data.ItemStatus();
             if (data.upgrade != 5)
             {
-                itemIcon.sprite = data.itemIcon;                // 아이콘 설정
-                itemName.text = data.itemName;                  // 이름 설정
-                itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
-
-                beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
-                beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Int)
-                beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
-                beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
-                beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
-
-                afterStat[0].text = data.afterStr.ToString();          // 강화 후 스텟(Str)
-                afterStat[1].text = data.afterDef.ToString();          // 강화 후 스텟(Int)
-                afterStat[2].text = data.afterHP.ToString();           // 강화 후 스텟(HP)
-                afterStat[3].text = data.afterMP.ToString();           // 강화 후 스텟(MP)
-                afterStat[4].text = data.afterValue.ToString();        // 강화 후 강화수치
-
-                risingStat[0].text = $"+ {data.risingStr.ToString()}";        // 강화 시 상승 스텟(Str)
-                risingStat[1].text = $"+ {data.risingDef.ToString()}";        // 강화 시 상승 스텟(Int)
-                risingStat[2].text = $"+ {data.risingHP.ToString()}";         // 강화 시 상승 스텟(HP)
-                risingStat[3].text = $"+ {data.risingMP.ToString()}";         // 강화 시 상승 스텟(MP)
-
-                costText.text = $"{data.cost.ToString("N0")} Gold";                  // 강화 시 소모비용
-
+                NoMax(data);    // 업그레이드 횟수가 Max가 아닐때 텍스트
                 StopAllCoroutines();
-                StartCoroutine(FadeIn());                       // 알파를 점점 1이 되도록 설정해서 보이게 만들기
-
-                MovePosition(Mouse.current.position.ReadValue());   // 열릴 때 마우스 커서 위치에 열리기
+                StartCoroutine(FadeIn());   // 알파를 점점 1이 되도록 설정해서 보이게 만들기
                 nowItem = data;
             }
             else
             {
-                itemIcon.sprite = data.itemIcon;                // 아이콘 설정
-                itemName.text = data.itemName;                  // 이름 설정
-                itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
-
-                beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
-                beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Def)
-                beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
-                beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
-                beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
-
-                afterStat[0].text = "Max";          // 강화 후 스텟(Str)
-                afterStat[1].text = "Max";          // 강화 후 스텟(Def)
-                afterStat[2].text = "Max";           // 강화 후 스텟(HP)
-                afterStat[3].text = "Max";           // 강화 후 스텟(MP)
-                afterStat[4].text = "Max";        // 강화 후 강화수치
-
-                risingStat[0].text = $"+ 0";        // 강화 시 상승 스텟(Str)
-                risingStat[1].text = $"+ 0";        // 강화 시 상승 스텟(Def)
-                risingStat[2].text = $"+ 0";         // 강화 시 상승 스텟(HP)
-                risingStat[3].text = $"+ 0";         // 강화 시 상승 스텟(MP)
-
-                costText.text = "강화 불가";                  // 강화 시 소모비용
-
+                YesMax(data);   // 업그레이드 횟수가 Max일때 텍스트
                 StopAllCoroutines();
-                StartCoroutine(FadeIn());                       // 알파를 점점 1이 되도록 설정해서 보이게 만들기
-
-                MovePosition(Mouse.current.position.ReadValue());   // 열릴 때 마우스 커서 위치에 열리기
+                StartCoroutine(FadeIn());   // 알파를 점점 1이 되도록 설정해서 보이게 만들기
                 nowItem = data;
             }
         }
@@ -232,7 +184,7 @@ public class DetailInfoUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 강화 버튼을 눌렀을때 실행될 함수
+    /// 강화 버튼을 눌렀을때
     /// </summary>
     public void Upgrade()
     {
@@ -240,31 +192,31 @@ public class DetailInfoUI : MonoBehaviour
         {
             if (nowItem.cost < owner.Money)
             {
-                owner.Money -= nowItem.cost;
-                float Success = 0.0f;
+                owner.Money -= nowItem.cost;    // 비용 지불
+                float Success = 0.0f;   // 성공확률
                 switch (nowItem.upgrade)
                 {
-                    case 0:
+                    case 0: // 0강일때
                         Success = 7.0f;
                         break;
-                    case 1:
+                    case 1: // 1강일때
                         Success = 6.0f;
                         break;
-                    case 2:
+                    case 2: // 2강일때
                         Success = 5.0f;
                         break;
-                    case 3:
+                    case 3: // 3강일때
                         Success = 4.0f;
                         break;
-                    case 4:
+                    case 4: // 4강일때
                         Success = 3.0f;
                         break;
-                    case 5:
+                    case 5: // 5강일때
                         Success = 0.0f;
                         break;
                 }
                 float upgrade = Random.Range(0, 10);
-                if (upgrade <= Success)
+                if (upgrade <= Success) // 성공확률에 따라
                 {
                     nowItem.upgrade++;
                     Close();
@@ -291,6 +243,9 @@ public class DetailInfoUI : MonoBehaviour
         stat3.Status();
     }
 
+    /// <summary>
+    /// 판매 버튼을 눌렀을때
+    /// </summary>
     public void Sell()
     {
         InvenSlot invenSlot = Inventory.slots[InventoryUI.indexNum];
@@ -300,6 +255,66 @@ public class DetailInfoUI : MonoBehaviour
         stat2.Status();
         stat3.Status();
         Close();
+    }
+
+    /// <summary>
+    /// 강화 수치가 최대치가 아닐때 출력되는 텍스트
+    /// </summary>
+    /// <param name="data"></param>
+    void NoMax(ItemData data)
+    {
+        itemIcon.sprite = data.itemIcon;                // 아이콘 설정
+        itemName.text = data.itemName;                  // 이름 설정
+        itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
+
+        beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
+        beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Int)
+        beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
+        beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
+        beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
+
+        afterStat[0].text = data.afterStr.ToString();          // 강화 후 스텟(Str)
+        afterStat[1].text = data.afterDef.ToString();          // 강화 후 스텟(Int)
+        afterStat[2].text = data.afterHP.ToString();           // 강화 후 스텟(HP)
+        afterStat[3].text = data.afterMP.ToString();           // 강화 후 스텟(MP)
+        afterStat[4].text = data.afterValue.ToString();        // 강화 후 강화수치
+
+        risingStat[0].text = $"+ {data.risingStr.ToString()}";        // 강화 시 상승 스텟(Str)
+        risingStat[1].text = $"+ {data.risingDef.ToString()}";        // 강화 시 상승 스텟(Int)
+        risingStat[2].text = $"+ {data.risingHP.ToString()}";         // 강화 시 상승 스텟(HP)
+        risingStat[3].text = $"+ {data.risingMP.ToString()}";         // 강화 시 상승 스텟(MP)
+
+        costText.text = $"{data.cost.ToString("N0")} Gold";                  // 강화 시 소모비용
+    }
+
+    /// <summary>
+    /// 강화 수치가 최대치일때 출력되는 텍스트
+    /// </summary>
+    /// <param name="data"></param>
+    void YesMax(ItemData data)
+    {
+        itemIcon.sprite = data.itemIcon;                // 아이콘 설정
+        itemName.text = data.itemName;                  // 이름 설정
+        itemPrice.text = $"{data.price.ToString("N0")} Gold";     // 가격 설정(3자리마다 콤마 추가)
+
+        beforeStat[0].text = data.beforeStr.ToString();        // 강화 전 스텟(Str)
+        beforeStat[1].text = data.beforeDef.ToString();        // 강화 전 스텟(Def)
+        beforeStat[2].text = data.beforeHP.ToString();         // 강화 전 스텟(HP)
+        beforeStat[3].text = data.beforeMP.ToString();         // 강화 전 스텟(MP)
+        beforeStat[4].text = data.beforeValue.ToString();      // 강화 전 강화수치
+
+        afterStat[0].text = "Max";          // 강화 후 스텟(Str)
+        afterStat[1].text = "Max";          // 강화 후 스텟(Def)
+        afterStat[2].text = "Max";           // 강화 후 스텟(HP)
+        afterStat[3].text = "Max";           // 강화 후 스텟(MP)
+        afterStat[4].text = "Max";        // 강화 후 강화수치
+
+        risingStat[0].text = $"+ 0";        // 강화 시 상승 스텟(Str)
+        risingStat[1].text = $"+ 0";        // 강화 시 상승 스텟(Def)
+        risingStat[2].text = $"+ 0";         // 강화 시 상승 스텟(HP)
+        risingStat[3].text = $"+ 0";         // 강화 시 상승 스텟(MP)
+
+        costText.text = "강화 불가";                  // 강화 시 소모비용
     }
 
     /// <summary>

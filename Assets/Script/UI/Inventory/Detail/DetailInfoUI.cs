@@ -231,6 +231,9 @@ public class DetailInfoUI : MonoBehaviour
         screenPos = new Vector2(0, -280);
     }
 
+    /// <summary>
+    /// 강화 버튼을 눌렀을때 실행될 함수
+    /// </summary>
     public void Upgrade()
     {
         if (nowItem.upgrade <= 4)

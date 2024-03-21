@@ -1,12 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.Rendering.UI;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class DefencePlayerBase : PlayerBase
 {
